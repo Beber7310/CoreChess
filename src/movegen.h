@@ -12,8 +12,8 @@ typedef enum {
 	NORTH, SOUTH, EAST, WEST, NORTH_EAST, NORTH_WEST, SOUTH_EAST, SOUTH_WEST
 } Dir;
 
-U64 _eastOne(U64 board);
-U64 _westOne(U64 board);
+void moveGenInit();
+
 
 void initPawnAttacks();
 void initKnightAttacks();
@@ -29,11 +29,14 @@ void initWestRays();
 
 U64 getBishopAttacks(int square, U64 blockers);
 U64 getRookAttacks(int square, U64 blockers);
+U64 getQueenAttacks(int square, U64 blockers);
+U64 getWhitePawnAttacks(int square);
+U64 getBlackPawnAttacks(int square);
+U64 getKnightAttacks(int square);
+U64 getKingAttacks(int square);
 
+U64 getNonSlidingAttacks(uint32_t pieceType, uint32_t square, uint32_t color);
 U64 getPositiveRayAttack(Dir dir, int square, U64 blockers);
 U64 getNegativeRayAttack(Dir dir, int square, U64 blockers);
-
-int bitscanForward(U64 board);
-int bitscanReverse(U64 board);
 
 #endif /* SRC_MOVEGEN_H_ */

@@ -8,7 +8,8 @@
 #ifndef DEFS_H_
 #define DEFS_H_
 
-#include "stdint.h"
+#include <stdio.h>
+#include <stdint.h>
 
 typedef unsigned long long U64;
 

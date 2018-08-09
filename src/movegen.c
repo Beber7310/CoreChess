@@ -7,6 +7,7 @@
 
 #include "board.h"
 #include "movegen.h"
+#include "bitutils.h"
 
 U64 NON_SLIDING_ATTACKS[2][6][64] = { { { 0 } } };
 U64 RAYS[8][64] = { { 0 } };
@@ -28,40 +29,40 @@ void moveGenInit() {
 
 }
 
-U64 getBishopAttacks(int square, U64 blockers) {
-	U64 m1, m2, m3, m4, mr;
+U64 getWhitePawnAttacks(int square) {
+	return getNonSlidingAttacks(PAWN, square, WHITE);
 
-	m1 = getPositiveRayAttack(NORTH_WEST, square, blockers);
-	m2 = getPositiveRayAttack(NORTH_EAST, square, blockers);
-	m3 = getNegativeRayAttack(SOUTH_WEST, square, blockers);
-	m4 = getNegativeRayAttack(SOUTH_EAST, square, blockers);
-	mr = m1 | m2 | m3 | m4;
-	return mr;
+}
+
+U64 getBlackPawnAttacks(int square) {
+	return getNonSlidingAttacks(PAWN, square, BLACK);
+}
+
+U64 getBishopAttacks(int square, U64 blockers) {
+	return getPositiveRayAttack(NORTH_WEST, square, blockers) | getPositiveRayAttack(NORTH_EAST, square, blockers) | getNegativeRayAttack(SOUTH_WEST, square, blockers)
+			| getNegativeRayAttack(SOUTH_EAST, square, blockers);
 }
 
 U64 getRookAttacks(int square, U64 blockers) {
 	return getPositiveRayAttack(NORTH, square, blockers) | getPositiveRayAttack(EAST, square, blockers) | getNegativeRayAttack(SOUTH, square, blockers) | getNegativeRayAttack(WEST, square, blockers);
 }
 
-/**
- * @brief Returns the index of the LSB in the given bitboard.
- *
- * @param  board Bitboard to get LSB of
- * @return The index of the LSB in the given bitboard.
- */
-int _bitscanForward(U64 board) {
-	return __builtin_ffsll(board) - 1;
+U64 getQueenAttacks(int square, U64 blockers) {
+	return getPositiveRayAttack(NORTH_WEST, square, blockers) | getPositiveRayAttack(NORTH_EAST, square, blockers) | getNegativeRayAttack(SOUTH_WEST, square, blockers)
+			| getNegativeRayAttack(SOUTH_EAST, square, blockers) | getPositiveRayAttack(NORTH, square, blockers) | getPositiveRayAttack(EAST, square, blockers)
+			| getNegativeRayAttack(SOUTH, square, blockers) | getNegativeRayAttack(WEST, square, blockers);
+
 }
 
-/**
- * @brief Returns the index of the MSB in the given bitboard.
- *
- * @param  board Bitboard to get MSB of
- * @return The index of the MSB in the given bitboard.
- */
-int _bitscanReverse(U64 board) {
-	return __builtin_clzll(board) + 1;
+U64 getKnightAttacks(int square) {
+	return getNonSlidingAttacks(KNIGHT, square, WHITE); // attack are not color dependent
 }
+
+U64 getKingAttacks(int square) {
+	return getNonSlidingAttacks(KING, square, WHITE); // attack are not color dependent
+}
+
+
 
 U64 getNonSlidingAttacks(uint32_t pieceType, uint32_t square, uint32_t color) {
 	return NON_SLIDING_ATTACKS[color][pieceType][square];
@@ -75,7 +76,14 @@ U64 getSlidingAttacks(PieceType pieceType, int square, U64 blockers) {
 		return getRookAttacks(square, blockers);
 	case QUEEN:
 		return getBishopAttacks(square, blockers) | getRookAttacks(square, blockers);
+	case PAWN:
+	case KNIGHT:
+	case KING:
+		printf("Error, should never reach this code\n");
+		return 0;
 	}
+	printf("Error, should never reach this code\n");
+	return 0;
 }
 
 U64 getPositiveRayAttack(Dir dir, int square, U64 blockers) {
@@ -101,23 +109,6 @@ U64 getNegativeRayAttack(Dir dir, int square, U64 blockers) {
 	return attacks;
 }
 
-/**
- * @brief Moves all set bits in the given bitboard one square east and returns the new bitboard, discarding those that fall off the edge.
- * @param  board Board to move bits east on.
- * @return A bitboard with all set bits moved one square east, bits falling off the edge discarded
- */
-U64 _eastOne(U64 board) {
-	return ((board << ONE) & (~FILE_A));
-}
-
-/**
- * @brief Moves all set bits in the given bitboard one square west and returns the new bitboard, discarding those that fall off the edge.
- * @param  board Board to move bits west on.
- * @return A bitboard with all set bits moved one square west, bits falling off the edge discarded
- */
-U64 _westOne(U64 board) {
-	return ((board >> ONE) & (~FILE_H));
-}
 
 void initPawnAttacks() {
 	for (int i = 0; i < 64; i++) {

@@ -8,6 +8,7 @@
 #ifndef SRC_BOARD_H_
 #define SRC_BOARD_H_
 
+#include <stdio.h>
 #include "defs.h"
 
 typedef struct sboard_t
@@ -40,6 +41,9 @@ U64 _notOccupied;
 
 } sboard;
 
+void boardInit(sboard * pBoard);
 void boardPrintMove(U64 m);
+U64 getAttacksForSquare(sboard * pBoard,PieceType pieceType, Color color, int square);
+void boardGenerateMove( sboard* board, Color color);
 
 #endif /* SRC_BOARD_H_ */
