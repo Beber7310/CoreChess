@@ -17,6 +17,7 @@ void moveGenInit();
 
 void initPawnAttacks();
 void initKnightAttacks();
+void initPawnMove();
 void initKingAttacks();
 void initNorthRays();
 void initEastRays();
@@ -32,10 +33,12 @@ U64 getRookAttacks(int square, U64 blockers);
 U64 getQueenAttacks(int square, U64 blockers);
 U64 getWhitePawnAttacks(int square);
 U64 getBlackPawnAttacks(int square);
+U64 getWhitePawnMove(int square);
+U64 getBlackPawnMove(int square);
 U64 getKnightAttacks(int square);
 U64 getKingAttacks(int square);
 
-U64 getNonSlidingAttacks(uint32_t pieceType, uint32_t square, uint32_t color);
+U64 getNonSlidingAttacks(PieceType pieceType, uint32_t square, uint32_t color);
 U64 getPositiveRayAttack(Dir dir, int square, U64 blockers);
 U64 getNegativeRayAttack(Dir dir, int square, U64 blockers);
 

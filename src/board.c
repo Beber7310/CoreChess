@@ -35,29 +35,60 @@ void boardInit(sboard * pBoard) {
 
 	pBoard->_occupied = pBoard->_allPieces[WHITE] | pBoard->_allPieces[BLACK];
 	pBoard->_notOccupied = ~pBoard->_occupied;
+
+	pBoard->_ActivePlayer=WHITE;
 }
 
-void boardGenerateMove(sboard* board, Color color) {
+void boardGenerateMove(sboard* board) {
 	PieceType ptype = 0;
 
 	while (ptype < 6) {
-		U64 ptm = board->_pieces[color][ptype];
+		U64 ptm = board->_pieces[board->_ActivePlayer][ptype];
 		while (ptm) {
 			int from = _popLsb(&ptm);
-			U64 m=getAttacksForSquare(board,ptype,color,from);
+			U64 m = getAttacksForSquare(board, ptype, board->_ActivePlayer, from);
+			if (m) {
+				boardPrintMove(m);
+				boardAddMoves(board, from, ptype, m, !board->_ActivePlayer);
+			}
 //		_moves.push_back(Move(to-16, to, PAWN, Move::DOUBLE_PAWN_PUSH));
 		}
+		ptype++;
 	}
 }
+
+void boardAddMoves(sboard* board, int from, PieceType pieceType, U64 moves, U64 attackable) {
+  // Ignore all moves/attacks to kings
+	moves &= ~(board->_pieces[!board->_ActivePlayer][KING]);
+
+  // Generate non attacks
+  U64 nonAttacks = moves & ~attackable;
+  while (nonAttacks) {
+    int to = _popLsb(&nonAttacks);
+    _moves.push_back(Move(from, to, pieceType));
+  }
+
+  // Generate attacks
+  U64 attacks = moves & attackable;
+  while (attacks) {
+    int to = _popLsb(&attacks);
+
+    Move move(from, to, pieceType, Move::CAPTURE);
+    move.setCapturedPieceType(board.getPieceAtSquare(board.getInactivePlayer(), to));
+
+    _moves.push_back(move);
+  }
+}
+
 
 U64 getAttacksForSquare(sboard * pBoard, PieceType pieceType, Color color, int square) {
 // Special case for pawns
 	if (pieceType == PAWN) {
 		switch (color) {
 		case WHITE:
-			return getWhitePawnAttacks(square) & pBoard->_allPieces[BLACK];
+			return (getWhitePawnAttacks(square) & pBoard->_allPieces[BLACK]) | (getWhitePawnMove(square) & pBoard->_notOccupied);
 		case BLACK:
-			return getBlackPawnAttacks(square) & pBoard->_allPieces[WHITE];
+			return (getBlackPawnAttacks(square) & pBoard->_allPieces[WHITE]) | (getBlackPawnMove(square) & pBoard->_notOccupied);
 		}
 	}
 
@@ -82,7 +113,7 @@ U64 getAttacksForSquare(sboard * pBoard, PieceType pieceType, Color color, int s
 		break;
 
 	case PAWN:
-		printf("Error, should be never reach");
+		printf("Error, should never be reach");
 		break;
 	}
 

@@ -10,10 +10,12 @@
 #include "bitutils.h"
 
 U64 NON_SLIDING_ATTACKS[2][6][64] = { { { 0 } } };
+U64 PAWN_MOVE[2][64] = { { 0 } };
 U64 RAYS[8][64] = { { 0 } };
 
 void moveGenInit() {
 	initPawnAttacks();
+	initPawnMove();
 	initKnightAttacks();
 	initKingAttacks();
 
@@ -36,6 +38,15 @@ U64 getWhitePawnAttacks(int square) {
 
 U64 getBlackPawnAttacks(int square) {
 	return getNonSlidingAttacks(PAWN, square, BLACK);
+}
+
+U64 getWhitePawnMove(int square) {
+	return PAWN_MOVE[WHITE][square];
+
+}
+
+U64 getBlackPawnMove(int square) {
+	return PAWN_MOVE[BLACK][square];
 }
 
 U64 getBishopAttacks(int square, U64 blockers) {
@@ -62,9 +73,7 @@ U64 getKingAttacks(int square) {
 	return getNonSlidingAttacks(KING, square, WHITE); // attack are not color dependent
 }
 
-
-
-U64 getNonSlidingAttacks(uint32_t pieceType, uint32_t square, uint32_t color) {
+U64 getNonSlidingAttacks(PieceType pieceType, uint32_t square, uint32_t color) {
 	return NON_SLIDING_ATTACKS[color][pieceType][square];
 }
 
@@ -109,7 +118,6 @@ U64 getNegativeRayAttack(Dir dir, int square, U64 blockers) {
 	return attacks;
 }
 
-
 void initPawnAttacks() {
 	for (int i = 0; i < 64; i++) {
 		U64 start = ONE << i;
@@ -119,6 +127,18 @@ void initPawnAttacks() {
 
 		NON_SLIDING_ATTACKS[WHITE][PAWN][i] = whiteAttackBb;
 		NON_SLIDING_ATTACKS[BLACK][PAWN][i] = blackAttackBb;
+	}
+}
+
+void initPawnMove() {
+	for (int i = 0; i < 64; i++) {
+		U64 start = ONE << i;
+
+		U64 whiteMoveBb = (start << 8) | ((start & RANK_2) << 16);
+		U64 blackMoveBb = (start >> 8) | ((start & RANK_7) >> 16);
+
+		PAWN_MOVE[WHITE][i] = whiteMoveBb;
+		PAWN_MOVE[BLACK][i] = blackMoveBb;
 	}
 }
 

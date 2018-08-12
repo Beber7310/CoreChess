@@ -9,14 +9,13 @@
 #include "movegen.h"
 
 int main() {
-	U64 m;
 
 	sboard board;
 
 	moveGenInit();
 
 	boardInit(&board);
-
+/*
 	printf("Beshop\n");
 	m = getBishopAttacks(30, board._occupied);
 	boardPrintMove(m);
@@ -28,5 +27,7 @@ int main() {
 	printf("Queen\n");
 	m = getQueenAttacks(30, board._occupied);
 	boardPrintMove(m);
+*/
 
+	boardGenerateMove(&board);
 }

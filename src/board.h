@@ -38,12 +38,16 @@ U64 _occupied;
  */
 U64 _notOccupied;
 
+/**
+ * @brief
+ */
+Color _ActivePlayer;
 
 } sboard;
 
 void boardInit(sboard * pBoard);
 void boardPrintMove(U64 m);
 U64 getAttacksForSquare(sboard * pBoard,PieceType pieceType, Color color, int square);
-void boardGenerateMove( sboard* board, Color color);
+void boardGenerateMove( sboard* board);
 
 #endif /* SRC_BOARD_H_ */
