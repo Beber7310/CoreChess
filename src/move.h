@@ -13,7 +13,7 @@
    * @brief Flags that indicate special moves.
    */
   enum Flag {
-    NULL_MOVE = 1<<0, /**< The move is a null move */
+    NULL_MOVE = 1<<0 , /**< The move is a null move */
     CAPTURE = 1<<1, /**< The move is a capture (Captured piece type must be set with setCapturedPieceType()) */
     DOUBLE_PAWN_PUSH = 1<<2, /**< The move is a double pawn push */
     KSIDE_CASTLE = 1<<3, /**< The move is a kingisde castle */
