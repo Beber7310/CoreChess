@@ -1,7 +1,7 @@
 /*
  * board.h
  *
- *  Created on: 7 août 2018
+ *  Created on: 7 aoï¿½t 2018
  *      Author: Bertrand
  */
 
@@ -49,5 +49,6 @@ void boardInit(sboard * pBoard);
 void boardPrintMove(U64 m);
 U64 getAttacksForSquare(sboard * pBoard,PieceType pieceType, Color color, int square);
 void boardGenerateMove( sboard* board);
+void boardAddMoves(sboard* board, int from, PieceType pieceType, U64 moves,U64 attackable);
 
 #endif /* SRC_BOARD_H_ */

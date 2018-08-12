@@ -1,7 +1,7 @@
 /*
  * move.h
  *
- *  Created on: 12 août 2018
+ *  Created on: 12 aoï¿½t 2018
  *      Author: Bertrand
  */
 
@@ -23,39 +23,35 @@
   };
 
 
-  /**
-   * @brief A packed integer containing all of the move data.
-   *
-   * 28 bits are used in total to store move information. The format is as
-   * follows:
-   *
-   * @code
-   * MSB  |----6----|---5---|---4---|-3--|-2--|-1--|  LSB
-   *      28        21      15      9    6    3    0
-   * @endcode
-   *
-   * - 6 - Flags (7 bits)
-   * - 5 - To square (6 bits)
-   * - 4 - From square (6 bits)
-   * - 3 - Captured PieceType (if applicable) (3 bits)
-   * - 2 - Promotion PieceType (if applicable) (3 bits)
-   * - 1 - PieceType of moving piece (3 bits)
-   *
-   * Moves are stored as a packed integer consisting of 28 bits total.
-   */
-  unsigned int _move;
 
-  /** @brief Value of this move */
-  int _value;
 
-  /**
-   * @name Rank and file characters in algebraic notation
-   *
-   * @{
-   */
-  const static char RANKS[];
-  const static char FILES[];
-  /**@}*/
+  typedef struct smove_t
+  {
+	  /**
+	   * @brief A packed integer containing all of the move data.
+	   *
+	   * 28 bits are used in total to store move information. The format is as
+	   * follows:
+	   *
+	   * @code
+	   * MSB  |----6----|---5---|---4---|-3--|-2--|-1--|  LSB
+	   *      28        21      15      9    6    3    0
+	   * @endcode
+	   *
+	   * - 6 - Flags (7 bits)
+	   * - 5 - To square (6 bits)
+	   * - 4 - From square (6 bits)
+	   * - 3 - Captured PieceType (if applicable) (3 bits)
+	   * - 2 - Promotion PieceType (if applicable) (3 bits)
+	   * - 1 - PieceType of moving piece (3 bits)
+	   *
+	   * Moves are stored as a packed integer consisting of 28 bits total.
+	   */
+	  unsigned int _move;
+
+	  /** @brief Value of this move */
+	  int _value;
+  } smove;
 
 
 
