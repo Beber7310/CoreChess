@@ -10,12 +10,10 @@
 #include "bitutils.h"
 
 U64 NON_SLIDING_ATTACKS[2][6][64] = { { { 0 } } };
-U64 PAWN_MOVE[2][64] = { { 0 } };
 U64 RAYS[8][64] = { { 0 } };
 
 void moveGenInit() {
 	initPawnAttacks();
-	initPawnMove();
 	initKnightAttacks();
 	initKingAttacks();
 
@@ -28,25 +26,72 @@ void moveGenInit() {
 	initNorthWestRays();
 	initSouthEastRays();
 	initSouthWestRays();
+}
+
+void getWhitePawnAttacks(sboard* board, int square, smoveList* moveList) {
+	U64 m = getNonSlidingAttacks(PAWN, square, WHITE) & board->_allPieces[BLACK];
+	U64 regular = m & ~RANK_8;
+	U64 prom = m & RANK_8;
+
+	boardAddMoves(board, moveList, square, PAWN, m, board->_allPieces[BLACK]);
+
+	boardAddMovesPromotion(board, moveList, square, PAWN, prom, board->_allPieces[BLACK]);
+}
+
+void getBlackPawnAttacks(sboard* board, int square, smoveList* moveList) {
+	U64 m = getNonSlidingAttacks(PAWN, square, BLACK) & board->_allPieces[WHITE];
+	U64 regular = m & ~RANK_1;
+	U64 prom = m & RANK_1;
+
+	boardAddMoves(board, moveList, square, PAWN, m, board->_allPieces[WHITE]);
+
+	boardAddMovesPromotion(board, moveList, square, PAWN, prom, board->_allPieces[BLACK]);
+}
+
+void getWhitePawnMove(sboard* board, int square, smoveList* moveList) {
+	U64 pos = ONE << square;
+
+	if (pos & ~(RANK_8|RANK_7)) {
+		if ((board->_occupied & (pos << 8)) == ZERO) {
+			moveBuild(&moveList->_sMoveList[moveList->_nbrMove++], square, square + 8, PAWN);
+			if (pos & RANK_2) {
+				if ((board->_occupied & (pos << 16)) == ZERO) {
+					moveBuild(&moveList->_sMoveList[moveList->_nbrMove++], square, square + 16, PAWN);
+				}
+			}
+		}
+	} else if ((board->_occupied & (pos << 8)) == ZERO) {
+
+		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], square, square + 8, PAWN, 0, QUEEN);
+		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], square, square + 8, PAWN, 0, ROOK);
+		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], square, square + 8, PAWN, 0, BISHOP);
+		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], square, square + 8, PAWN, 0, KNIGHT);
+
+	}
 
 }
 
-U64 getWhitePawnAttacks(int square) {
-	return getNonSlidingAttacks(PAWN, square, WHITE);
+void getBlackPawnMove(sboard* board, int square, smoveList* moveList) {
+	U64 pos = ONE << square;
 
-}
+	if (pos & ~(RANK_1|RANK_2)) {
+		if ((board->_occupied & (pos >> 8)) == ZERO) {
+			moveBuild(&moveList->_sMoveList[moveList->_nbrMove++], square, square - 8, PAWN);
+			if (pos & RANK_7) {
+				if ((board->_occupied & (pos >> 16)) == ZERO) {
+					moveBuild(&moveList->_sMoveList[moveList->_nbrMove++], square, square - 16, PAWN);
+				}
+			}
+		}
+	} else if ((board->_occupied & (pos << 8)) == ZERO) {
 
-U64 getBlackPawnAttacks(int square) {
-	return getNonSlidingAttacks(PAWN, square, BLACK);
-}
+		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], square, square - 8, PAWN, 0, QUEEN);
+		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], square, square - 8, PAWN, 0, ROOK);
+		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], square, square - 8, PAWN, 0, BISHOP);
+		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], square, square - 8, PAWN, 0, KNIGHT);
 
-U64 getWhitePawnMove(int square) {
-	return PAWN_MOVE[WHITE][square];
+	}
 
-}
-
-U64 getBlackPawnMove(int square) {
-	return PAWN_MOVE[BLACK][square];
 }
 
 U64 getBishopAttacks(int square, U64 blockers) {
@@ -127,18 +172,6 @@ void initPawnAttacks() {
 
 		NON_SLIDING_ATTACKS[WHITE][PAWN][i] = whiteAttackBb;
 		NON_SLIDING_ATTACKS[BLACK][PAWN][i] = blackAttackBb;
-	}
-}
-
-void initPawnMove() {
-	for (int i = 0; i < 64; i++) {
-		U64 start = ONE << i;
-
-		U64 whiteMoveBb = (start << 8) | ((start & RANK_2) << 16);
-		U64 blackMoveBb = (start >> 8) | ((start & RANK_7) >> 16);
-
-		PAWN_MOVE[WHITE][i] = whiteMoveBb;
-		PAWN_MOVE[BLACK][i] = blackMoveBb;
 	}
 }
 

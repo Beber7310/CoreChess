@@ -7,27 +7,15 @@
 
 #include "board.h"
 #include "movegen.h"
+#include "perft.h"
 
 int main() {
-
-	sboard board;
-
 	moveGenInit();
 
-	boardInit(&board);
-/*
-	printf("Beshop\n");
-	m = getBishopAttacks(30, board._occupied);
-	boardPrintMove(m);
+	perftRun("n1n5/PPPk4/8/8/8/8/4Kppp/5N1N b - - 0 1", 1,48);
 
-	printf("Rook\n");
-	m = getRookAttacks(30, board._occupied);
-	boardPrintMove(m);
 
-	printf("Queen\n");
-	m = getQueenAttacks(30, board._occupied);
-	boardPrintMove(m);
-*/
+	//perftCheck();
 
-	boardGenerateMove(&board);
 }
+

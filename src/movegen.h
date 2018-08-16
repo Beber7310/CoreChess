@@ -31,10 +31,10 @@ void initWestRays();
 U64 getBishopAttacks(int square, U64 blockers);
 U64 getRookAttacks(int square, U64 blockers);
 U64 getQueenAttacks(int square, U64 blockers);
-U64 getWhitePawnAttacks(int square);
-U64 getBlackPawnAttacks(int square);
-U64 getWhitePawnMove(int square);
-U64 getBlackPawnMove(int square);
+void getWhitePawnAttacks(sboard* board,int square,smoveList* moveList);
+void getBlackPawnAttacks(sboard* board,int square,smoveList* moveList);
+void getWhitePawnMove(sboard* board,int square,smoveList* moveList);
+void getBlackPawnMove(sboard* board,int square,smoveList* moveList);
 U64 getKnightAttacks(int square);
 U64 getKingAttacks(int square);
 

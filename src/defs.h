@@ -101,4 +101,10 @@ enum SquareIndex {
  */
 #define ONE  ((U64)1)
 
+
+#define CASTLING_WHITE_QUEEN	0x01
+#define CASTLING_WHITE_KING		0x02
+#define CASTLING_BLACK_QUEEN	0x04
+#define CASTLING_BLACK_KING		0x08
+
 #endif /* DEFS_H_ */
