@@ -64,5 +64,12 @@ void movePrint(smove* move) {
 	to=MOVE_TO(move->_move);
 
 	printf("%c%i%c%i flag %x prom %x\n",'a'+(from&0x7),(from>>3)+1,'a'+(to&0x07),(to>>3)+1,MOVE_FLAG(move->_move),MOVE_PIECE_PROMOTION(move->_move));
-	//printf("%c%i%c%i",'a'+(from&0x7),(from>>3)+1,'a'+(to&0x07),(to>>3)+1);
+}
+
+void movePrintShort(smove* move) {
+	int from,to;
+	from=MOVE_FROM(move->_move);
+	to=MOVE_TO(move->_move);
+
+	printf("%c%i%c%i ",'a'+(from&0x7),(from>>3)+1,'a'+(to&0x07),(to>>3)+1);
 }

@@ -69,5 +69,6 @@ void moveBuildDoublePawn(smove* pMove, unsigned int from, unsigned int to, Piece
 void moveBuildEnPassant(smove* pMove, unsigned int from, unsigned int to, PieceType piece);
 void moveListInit(smoveList* pList);
 void movePrint(smove* move);
+void movePrintShort(smove* move);
 
 #endif /* SRC_MOVE_H_ */

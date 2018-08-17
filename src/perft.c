@@ -10,39 +10,47 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define PRINT_PERFT_MOVE	1
+#define PRINT_PERFT_MOVE	0
 
-int perft(sboard* pBoard, int* pCnt, int depth) {
+#if PRINT_PERFT_MOVE > 0
+#endif
+
+int perft(sboard* pBoard, int* pNodeCnt, int depth, int iteration) {
 	smoveList mList;
 	sboard nextBoard;
 
 	if (depth == 0) {
-		(*pCnt)++;
-		return 0;
+		(*pNodeCnt)++;
+		return 1;
 	}
 
 	moveListInit(&mList);
 	boardGenerateAllMoves(pBoard, &mList);
-	int legalMoves=0;
+	int legalMoves = 0;
 	for (int ii = 0; ii < mList._nbrMove; ii++) {
+		if (iteration == 0) {
+			legalMoves = 0;
+		}
 		boardCpy(&nextBoard, pBoard);
 		doMove(&nextBoard, &mList._sMoveList[ii]);
 
 		if (!colorIsInCheck(&nextBoard, !nextBoard._ActivePlayer)) {
 #if PRINT_PERFT_MOVE > 0
-			if (depth == 1) {
-				movePrint(&mList._sMoveList[ii]);
+			if (iteration == 0) {
+				movePrintShort(&mList._sMoveList[ii]);
 			}
 #endif
-			legalMoves++;
-			legalMoves+=perft(&nextBoard, pCnt, depth - 1);
+			legalMoves += perft(&nextBoard, pNodeCnt, depth - 1, iteration + 1);
+#if PRINT_PERFT_MOVE > 0
+			if (iteration == 0) {
+
+				printf(" %i\n", legalMoves);
+			}
+#endif
 		}
 	}
-#if PRINT_PERFT_MOVE > 0
-	//if (depth == 2)
-		printf(" %i\n",legalMoves);
-#endif
-		return legalMoves;
+
+	return legalMoves;
 }
 
 int perftRun(char* posStart, int depth, int expected) {
@@ -52,7 +60,7 @@ int perftRun(char* posStart, int depth, int expected) {
 #if PRINT_PERFT_MOVE > 0
 	boardPrint(&board);
 #endif
-	perft(&board, &cnt, depth);
+	perft(&board, &cnt, depth, 0);
 
 	if (cnt != expected) {
 		printf("perf %i KO get %i expecting %i\n", depth, cnt, expected);
@@ -64,8 +72,7 @@ int perftRun(char* posStart, int depth, int expected) {
 
 }
 
-int perftMasterRun(char* posStart, int e1, int e2, int e3, int e4, int e5,
-		int e6) {
+int perftMasterRun(char* posStart, int e1, int e2, int e3, int e4, int e5, int e6) {
 	int err = 0;
 	printf("perf check %s\n", posStart);
 
@@ -90,17 +97,11 @@ int perftMasterRun(char* posStart, int e1, int e2, int e3, int e4, int e5,
 void perftCheck(void) {
 
 	printf("   --- Start perft check ---  \n\n");
-	perftMasterRun("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
-			20, 400, 8902, 197281, 4865609, 0);
-	perftMasterRun(
-			"r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1",
-			48, 2039, 97862, 4085603, 0, 0);
-	perftMasterRun("n1n5/PPPk4/8/8/8/8/4Kppp/5N1N b - - 0 1", 24, 496, 9483,
-			182838, 0, 0);
-	perftMasterRun("4k3/8/8/8/8/8/8/4K2R w K - 0 1", 15, 66, 1197, 7059, 133987,
-			764643);
-	perftMasterRun("4k3/8/8/8/8/8/8/R3K3 w Q - 0 1", 16, 71, 1287, 7626, 145232,
-			846648);
+	perftMasterRun("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 20, 400, 8902, 197281, 4865609, 0);
+	perftMasterRun("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1", 48, 2039, 97862, 4085603, 0, 0);
+	perftMasterRun("n1n5/PPPk4/8/8/8/8/4Kppp/5N1N b - - 0 1", 24, 496, 9483, 182838, 0, 0);
+	perftMasterRun("4k3/8/8/8/8/8/8/4K2R w K - 0 1", 15, 66, 1197, 7059, 133987, 764643);
+	perftMasterRun("4k3/8/8/8/8/8/8/R3K3 w Q - 0 1", 16, 71, 1287, 7626, 145232, 846648);
 
 }
 
