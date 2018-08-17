@@ -59,6 +59,7 @@ U64 getMovesForSquare(sboard * pBoard, smoveList* moveList, PieceType pieceType,
 void boardGenerateAllMoves(sboard* board, smoveList* moveList);
 void boardAddMoves(sboard* board, smoveList* moveList, int from, PieceType pieceType, U64 moves, U64 attackable);
 void boardAddMovesPromotion(sboard* board, smoveList* moveList, int from, PieceType pieceType, U64 moves, U64 attackable);
+void boardAddMovesEnPassant(sboard* board, smoveList* moveList, int from, PieceType pieceType, U64 moves);
 PieceType getPieceAtSquare(sboard * pBoard, Color color, int squareIndex);
 
 void _removePiece(sboard * pBoard, Color color, PieceType pieceType, int squareIndex);

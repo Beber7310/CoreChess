@@ -28,6 +28,12 @@ void moveBuildCapture(smove* pMove, unsigned int from, unsigned int to, PieceTyp
 	pMove->_move |= ((flags & 0x7f) << 21) | ((pieceKilled & 0x7) << 6);
 }
 
+void moveBuildEnPassant(smove* pMove, unsigned int from, unsigned int to, PieceType piece) {
+	moveBuild(pMove, from, to, piece);
+	unsigned int flags = EN_PASSANT;
+	pMove->_move |= ((flags & 0x7f) << 21);
+}
+
 void moveBuildPromotion(smove* pMove, unsigned int from, unsigned int to, PieceType piece, PieceType pieceKilled, PieceType pieceProm) {
 	moveBuild(pMove, from, to, piece);
 	unsigned int flags = PROMOTION;
@@ -57,6 +63,6 @@ void movePrint(smove* move) {
 	from=MOVE_FROM(move->_move);
 	to=MOVE_TO(move->_move);
 
-	//printf("%c%i%c%i flag %x prom %x\n",'a'+(from&0x7),(from>>3)+1,'a'+(to&0x07),(to>>3)+1,MOVE_FLAG(move->_move),MOVE_PIECE_PROMOTION(move->_move));
-	printf("%c%i%c%i",'a'+(from&0x7),(from>>3)+1,'a'+(to&0x07),(to>>3)+1);
+	printf("%c%i%c%i flag %x prom %x\n",'a'+(from&0x7),(from>>3)+1,'a'+(to&0x07),(to>>3)+1,MOVE_FLAG(move->_move),MOVE_PIECE_PROMOTION(move->_move));
+	//printf("%c%i%c%i",'a'+(from&0x7),(from>>3)+1,'a'+(to&0x07),(to>>3)+1);
 }

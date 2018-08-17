@@ -12,9 +12,10 @@
 int main() {
 	moveGenInit();
 
-	perftRun("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1 ", 2,49);
+	//perftRun("r4k2/8/8/8/8/8/8/4K3 b q - 0 1 ", 3,92);
+	perftRun("5k2/8/8/8/8/8/8/r3K3 b q - 0 1 ", 1,92);
 
 
-	//perftCheckFile("perftcheck.epd",2);
+	//perftCheckFile("perftcheck.epd",3);
 }
 

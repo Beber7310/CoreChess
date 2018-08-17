@@ -12,13 +12,13 @@
 
 #define PRINT_PERFT_MOVE	1
 
-void perft(sboard* pBoard, int* pCnt, int depth) {
+int perft(sboard* pBoard, int* pCnt, int depth) {
 	smoveList mList;
 	sboard nextBoard;
 
 	if (depth == 0) {
 		(*pCnt)++;
-		return;
+		return 0;
 	}
 
 	moveListInit(&mList);
@@ -30,18 +30,19 @@ void perft(sboard* pBoard, int* pCnt, int depth) {
 
 		if (!colorIsInCheck(&nextBoard, !nextBoard._ActivePlayer)) {
 #if PRINT_PERFT_MOVE > 0
-			if (depth == 2) {
+			if (depth == 1) {
 				movePrint(&mList._sMoveList[ii]);
 			}
 #endif
 			legalMoves++;
-			perft(&nextBoard, pCnt, depth - 1);
+			legalMoves+=perft(&nextBoard, pCnt, depth - 1);
 		}
 	}
 #if PRINT_PERFT_MOVE > 0
+	//if (depth == 2)
 		printf(" %i\n",legalMoves);
-
 #endif
+		return legalMoves;
 }
 
 int perftRun(char* posStart, int depth, int expected) {

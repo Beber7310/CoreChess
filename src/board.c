@@ -374,7 +374,6 @@ void boardAddMovesPromotion(sboard* board, smoveList* moveList, int from, PieceT
 		 moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], from, to, PAWN, 0, ROOK);
 		 moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], from, to, PAWN, 0, BISHOP);
 		 moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], from, to, PAWN, 0, KNIGHT);
-
 	}
 
 // Generate attacks
@@ -389,6 +388,21 @@ void boardAddMovesPromotion(sboard* board, smoveList* moveList, int from, PieceT
 
 	}
 }
+
+void boardAddMovesEnPassant(sboard* board, smoveList* moveList, int from, PieceType pieceType, U64 moves) {
+// Ignore all moves/attacks to kings
+	moves &= ~(board->_pieces[!board->_ActivePlayer][KING]);
+
+// Generate non attacks
+	U64 nonAttacks = moves;
+	while (nonAttacks) {
+		int to = _popLsb(&nonAttacks);
+
+		moveBuildEnPassant(&moveList->_sMoveList[moveList->_nbrMove++], from, to, pieceType);
+	}
+
+}
+
 
 void boardAddMoves(sboard* board, smoveList* moveList, int from, PieceType pieceType, U64 moves, U64 attackable) {
 // Ignore all moves/attacks to kings
