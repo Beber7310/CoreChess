@@ -48,6 +48,7 @@ typedef struct sboard_t {
 	 */
 	U64 _castlingRights;
 
+	U64 _enPassant;
 } sboard;
 
 void boardInit(sboard * pBoard);
@@ -68,6 +69,7 @@ void boardClear(sboard * pBoard);
 void boardPrint(sboard * pBoard);
 
 void doMove(sboard * pBoard, smove* move);
+void _updateCastlingRightsForMove(sboard * pBoard,smove* move);
 
 int colorIsInCheck(sboard * pBoard,Color color);
 int _squareUnderAttack(sboard * pBoard, Color color, int squareIndex);

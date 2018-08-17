@@ -33,7 +33,7 @@ void getWhitePawnAttacks(sboard* board, int square, smoveList* moveList) {
 	U64 regular = m & ~RANK_8;
 	U64 prom = m & RANK_8;
 
-	boardAddMoves(board, moveList, square, PAWN, m, board->_allPieces[BLACK]);
+	boardAddMoves(board, moveList, square, PAWN, regular, board->_allPieces[BLACK]);
 
 	boardAddMovesPromotion(board, moveList, square, PAWN, prom, board->_allPieces[BLACK]);
 }
@@ -43,9 +43,9 @@ void getBlackPawnAttacks(sboard* board, int square, smoveList* moveList) {
 	U64 regular = m & ~RANK_1;
 	U64 prom = m & RANK_1;
 
-	boardAddMoves(board, moveList, square, PAWN, m, board->_allPieces[WHITE]);
+	boardAddMoves(board, moveList, square, PAWN, regular, board->_allPieces[WHITE]);
 
-	boardAddMovesPromotion(board, moveList, square, PAWN, prom, board->_allPieces[BLACK]);
+	boardAddMovesPromotion(board, moveList, square, PAWN, prom, board->_allPieces[WHITE]);
 }
 
 void getWhitePawnMove(sboard* board, int square, smoveList* moveList) {
@@ -56,7 +56,8 @@ void getWhitePawnMove(sboard* board, int square, smoveList* moveList) {
 			moveBuild(&moveList->_sMoveList[moveList->_nbrMove++], square, square + 8, PAWN);
 			if (pos & RANK_2) {
 				if ((board->_occupied & (pos << 16)) == ZERO) {
-					moveBuild(&moveList->_sMoveList[moveList->_nbrMove++], square, square + 16, PAWN);
+					//moveBuild(&moveList->_sMoveList[moveList->_nbrMove++], square, square + 16, PAWN);
+					moveBuildDoublePawn(&moveList->_sMoveList[moveList->_nbrMove++], square, square + 16, PAWN);
 				}
 			}
 		}
@@ -79,11 +80,12 @@ void getBlackPawnMove(sboard* board, int square, smoveList* moveList) {
 			moveBuild(&moveList->_sMoveList[moveList->_nbrMove++], square, square - 8, PAWN);
 			if (pos & RANK_7) {
 				if ((board->_occupied & (pos >> 16)) == ZERO) {
-					moveBuild(&moveList->_sMoveList[moveList->_nbrMove++], square, square - 16, PAWN);
+					//moveBuild(&moveList->_sMoveList[moveList->_nbrMove++], square, square - 16, PAWN);
+					moveBuildDoublePawn(&moveList->_sMoveList[moveList->_nbrMove++], square, square - 16, PAWN);
 				}
 			}
 		}
-	} else if ((board->_occupied & (pos << 8)) == ZERO) {
+	} else if ((board->_occupied & (pos >> 8)) == ZERO) {
 
 		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], square, square - 8, PAWN, 0, QUEEN);
 		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], square, square - 8, PAWN, 0, ROOK);

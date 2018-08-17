@@ -27,7 +27,8 @@ void boardClear(sboard * pBoard) {
 
 	pBoard->_occupied = ZERO;
 	pBoard->_notOccupied = ZERO;
-
+	pBoard->_enPassant = ZERO;
+	pBoard->_castlingRights = ZERO;
 	return;
 }
 
@@ -61,7 +62,7 @@ void boardInit(sboard * pBoard) {
 	pBoard->_ActivePlayer = WHITE;
 
 	pBoard->_castlingRights = CASTLING_WHITE_QUEEN | CASTLING_WHITE_KING | CASTLING_BLACK_QUEEN | CASTLING_BLACK_KING;
-
+	pBoard->_enPassant = ZERO;
 }
 
 void boardInitFen(sboard * pBoard, char* pFEN) {
@@ -267,14 +268,12 @@ void doMove(sboard * pBoard, smove* move) {
 		_addPiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE_PROMOTION(move->_move), MOVE_TO(move->_move));
 
 	} else if (flags & DOUBLE_PAWN_PUSH) {
-		/* FIXME TO BE IMPLEMENTED
-		 _movePiece(_activePlayer, move.getPieceType(), move.getFrom(), move.getTo());
 
+		 _movePiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE(move->_move), MOVE_FROM(move->_move), MOVE_TO(move->_move));
 		 // Set square behind pawn as _enPassant
-		 unsigned int enPasIndex = _activePlayer == WHITE ? move.getTo() - 8 : move.getTo() + 8;
-		 _enPassant = ONE << enPasIndex;
-		 _zKey.setEnPassantFile(enPasIndex % 8);
-		 */
+		 unsigned int enPasIndex = pBoard->_ActivePlayer == WHITE ? MOVE_TO(move->_move) - 8 : MOVE_TO(move->_move) + 8;
+		 pBoard->_enPassant = ONE << enPasIndex;
+
 	}
 	/* FIXME TO BE IMPLEMENTED
 	 // Halfmove clock reset on pawn moves or captures, incremented otherwise
@@ -284,8 +283,46 @@ void doMove(sboard * pBoard, smove* move) {
 	 _halfmoveClock++;
 	 }*/
 
-//	_updateCastlingRightsForMove(move);
+	_updateCastlingRightsForMove(pBoard,move);
 	pBoard->_ActivePlayer = !pBoard->_ActivePlayer;
+}
+
+
+
+void _updateCastlingRightsForMove(sboard * pBoard,smove* move) {
+  unsigned int flags = MOVE_FLAG(move->_move);
+
+  // Update castling flags if rooks have been captured
+  if (flags & CAPTURE) {
+    // Update castling rights if a rook was captured
+    switch( MOVE_TO(move->_move)) {
+      case a1: pBoard->_castlingRights &= ~CASTLING_WHITE_QUEEN;
+        break;
+      case h1: pBoard->_castlingRights &= ~CASTLING_WHITE_KING;
+        break;
+      case a8: pBoard->_castlingRights &= ~CASTLING_BLACK_QUEEN;
+        break;
+      case h8: pBoard->_castlingRights &= ~CASTLING_BLACK_KING;
+        break;
+    }
+  }
+
+  // Update castling flags if rooks or kings have moved
+  switch(MOVE_FROM(move->_move)) {
+    case e1:  pBoard->_castlingRights &= ~CASTLING_WHITE_KING;
+      break;
+    case e8: pBoard->_castlingRights &= ~CASTLING_BLACK_KING;
+      break;
+    case a1: pBoard->_castlingRights &= ~CASTLING_WHITE_QUEEN;
+      break;
+    case h1: pBoard->_castlingRights &= ~CASTLING_WHITE_KING;
+      break;
+    case a8: pBoard->_castlingRights &= ~CASTLING_BLACK_QUEEN;
+      break;
+    case h8: pBoard->_castlingRights &= ~CASTLING_BLACK_KING;
+      break;
+  }
+
 }
 
 void boardGenerateAllMoves(sboard* board, smoveList* moveList) {
@@ -529,7 +566,7 @@ int whiteCanCastleQs(sboard * pBoard) {
 }
 
 int blackCanCastleKs(sboard * pBoard) {
-	if (!(pBoard->_castlingRights & CASTLING_BLACK_QUEEN)) {
+	if (!(pBoard->_castlingRights & CASTLING_BLACK_KING)) {
 		return 0;
 	}
 
@@ -541,7 +578,7 @@ int blackCanCastleKs(sboard * pBoard) {
 }
 
 int blackCanCastleQs(sboard * pBoard) {
-	if (!(pBoard->_castlingRights & CASTLING_BLACK_KING)) {
+	if (!(pBoard->_castlingRights & CASTLING_BLACK_QUEEN)) {
 		return 0;
 	}
 

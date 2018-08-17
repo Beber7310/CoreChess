@@ -65,7 +65,7 @@ void moveBuild(smove* pMove, unsigned int from, unsigned int to, PieceType piece
 void moveBuildCapture(smove* pMove, unsigned int from, unsigned int to, PieceType piece, PieceType pieceKilled);
 void moveBuildPromotion(smove* pMove, unsigned int from, unsigned int to, PieceType piece, PieceType pieceKilled, PieceType pieceProm);
 void moveBuildCastle(smove* pMove, unsigned int from, unsigned int to,  int flags);
-
+void moveBuildDoublePawn(smove* pMove, unsigned int from, unsigned int to, PieceType piece);
 void moveListInit(smoveList* pList);
 void movePrint(smove* move);
 
