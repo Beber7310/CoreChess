@@ -4,6 +4,7 @@
  *  Created on: 12 ao�t 2018
  *      Author: Bertrand
  */
+#include <string.h>
 
 #include "board.h"
 #include "move.h"
@@ -71,5 +72,25 @@ void movePrintShort(smove* move) {
 	from=MOVE_FROM(move->_move);
 	to=MOVE_TO(move->_move);
 
-	printf("%c%i%c%i ",'a'+(from&0x7),(from>>3)+1,'a'+(to&0x07),(to>>3)+1);
+	printf("%c%i%c%i",'a'+(from&0x7),(from>>3)+1,'a'+(to&0x07),(to>>3)+1);
+	  if (MOVE_FLAG(move->_move) & PROMOTION) {
+	    switch (MOVE_PIECE_PROMOTION(move->_move)) {
+	      case QUEEN:printf("q");
+	        break;
+	      case ROOK: printf("r");
+	        break;
+	      case KNIGHT: printf("n");
+	        break;
+	      case BISHOP: printf("b");
+	        break;
+	      default:
+	        break;
+	    }
+	  }
+	  printf(" ");
 }
+
+void moveCpy(smove * dst, smove * src) {
+	memcpy((char*)dst, (char*)src, sizeof(smove));
+}
+

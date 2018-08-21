@@ -249,15 +249,15 @@ void doMove(sboard * pBoard, smove* move) {
 		}
 	} else if (flags & EN_PASSANT) {
 
-		 // Remove the correct pawn
-		 if (pBoard->_ActivePlayer == WHITE) {
-		 _removePiece(pBoard,BLACK, PAWN, MOVE_TO(move->_move) - 8);
-		 } else {
-		 _removePiece(pBoard,WHITE, PAWN, MOVE_TO(move->_move) + 8);
-		 }
+		// Remove the correct pawn
+		if (pBoard->_ActivePlayer == WHITE) {
+			_removePiece(pBoard, BLACK, PAWN, MOVE_TO(move->_move) - 8);
+		} else {
+			_removePiece(pBoard, WHITE, PAWN, MOVE_TO(move->_move) + 8);
+		}
 
-		 // Move the capturing pawn
-		 _movePiece(pBoard,pBoard->_ActivePlayer,MOVE_PIECE(move->_move), MOVE_FROM(move->_move), MOVE_TO(move->_move));
+		// Move the capturing pawn
+		_movePiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE(move->_move), MOVE_FROM(move->_move), MOVE_TO(move->_move));
 
 	} else if (flags & PROMOTION) {
 // Remove promoted pawn
@@ -311,10 +311,10 @@ void _updateCastlingRightsForMove(sboard * pBoard, smove* move) {
 	// Update castling flags if rooks or kings have moved
 	switch (MOVE_FROM(move->_move)) {
 	case e1:
-		pBoard->_castlingRights &= ~(CASTLING_WHITE_QUEEN|CASTLING_WHITE_KING);
+		pBoard->_castlingRights &= ~(CASTLING_WHITE_QUEEN | CASTLING_WHITE_KING);
 		break;
 	case e8:
-		pBoard->_castlingRights &= ~(CASTLING_BLACK_QUEEN|CASTLING_BLACK_KING);
+		pBoard->_castlingRights &= ~(CASTLING_BLACK_QUEEN | CASTLING_BLACK_KING);
 		break;
 	case a1:
 		pBoard->_castlingRights &= ~CASTLING_WHITE_QUEEN;
@@ -346,26 +346,42 @@ void boardGenerateAllMoves(sboard* board, smoveList* moveList) {
 
 	if (board->_ActivePlayer == WHITE) {
 		if (whiteCanCastleKs(board)) {
-			//_moves.push_back(Move(e1, g1, KING, Move::KSIDE_CASTLE));
 			moveBuildCastle(&moveList->_sMoveList[moveList->_nbrMove++], e1, g1, KSIDE_CASTLE);
 		}
 		if (whiteCanCastleQs(board)) {
-			//_moves.push_back(Move(e1, c1, KING, Move::QSIDE_CASTLE));
 			moveBuildCastle(&moveList->_sMoveList[moveList->_nbrMove++], e1, c1, QSIDE_CASTLE);
 		}
 	}
 
 	if (board->_ActivePlayer == BLACK) {
 		if (blackCanCastleKs(board)) {
-			//_moves.push_back(Move(e8, g8, KING, Move::KSIDE_CASTLE));
 			moveBuildCastle(&moveList->_sMoveList[moveList->_nbrMove++], e8, g8, KSIDE_CASTLE);
 		}
 		if (blackCanCastleQs(board)) {
-			//_moves.push_back(Move(e8, c8, KING, Move::QSIDE_CASTLE));
 			moveBuildCastle(&moveList->_sMoveList[moveList->_nbrMove++], e8, c8, QSIDE_CASTLE);
 		}
 	}
 
+}
+
+void boardGenerateAllLegalMoves(sboard* board, smoveList* moveList) {
+	smoveList tmpList;
+	sboard tmpBoard;
+	moveListInit(&tmpList);
+	moveListInit(moveList);
+
+	boardGenerateAllMoves(board, &tmpList);
+
+	for (int ii = 0; ii < tmpList._nbrMove; ii++) {
+		boardCpy(&tmpBoard,board);
+		doMove(&tmpBoard,&tmpList._sMoveList[ii]);
+		if (!colorIsInCheck(&tmpBoard,!tmpBoard._ActivePlayer)) {
+			{
+				moveCpy(&moveList->_sMoveList[moveList->_nbrMove], &tmpList._sMoveList[ii]);
+				moveList->_nbrMove++;
+			}
+		}
+	}
 }
 
 void boardAddMovesPromotion(sboard* board, smoveList* moveList, int from, PieceType pieceType, U64 moves, U64 attackable) {
@@ -447,7 +463,7 @@ U64 getMovesForSquare(sboard * pBoard, smoveList* moveList, PieceType pieceType,
 
 	U64 own = pBoard->_allPieces[color];
 
-	U64 attacks;
+	U64 attacks=ZERO;
 	switch (pieceType) {
 	case ROOK:
 		attacks = getRookAttacks(square, pBoard->_occupied) & ~pBoard->_allPieces[color];
@@ -483,7 +499,7 @@ PieceType getPieceAtSquare(sboard * pBoard, Color color, int squareIndex) {
 
 	U64 square = ONE << squareIndex;
 
-	PieceType piece;
+	PieceType piece=0;
 
 	if (square & pBoard->_pieces[color][PAWN])
 		piece = PAWN;
@@ -610,7 +626,7 @@ int blackCanCastleQs(sboard * pBoard) {
 }
 
 int _squareUnderAttack(sboard * pBoard, Color color, int squareIndex) {
-	// Check for pawn, knight and king attacks
+// Check for pawn, knight and king attacks
 	if (getNonSlidingAttacks(PAWN, squareIndex, !color) & pBoard->_pieces[color][PAWN])
 		return 1;
 	if (getNonSlidingAttacks(KNIGHT, squareIndex, !color) & pBoard->_pieces[color][KNIGHT])
@@ -618,12 +634,12 @@ int _squareUnderAttack(sboard * pBoard, Color color, int squareIndex) {
 	if (getNonSlidingAttacks(KING, squareIndex, !color) & pBoard->_pieces[color][KING])
 		return 1;
 
-	// Check for bishop/queen attacks
+// Check for bishop/queen attacks
 	U64 bishopsQueens = pBoard->_pieces[color][BISHOP] | pBoard->_pieces[color][QUEEN];
 	if (getBishopAttacks(squareIndex, pBoard->_occupied) & bishopsQueens)
 		return 1;
 
-	// Check for rook/queen attacks
+// Check for rook/queen attacks
 	U64 rooksQueens = pBoard->_pieces[color][ROOK] | pBoard->_pieces[color][QUEEN];
 	if (getRookAttacks(squareIndex, pBoard->_occupied) & rooksQueens)
 		return 1;

@@ -70,5 +70,5 @@ void moveBuildEnPassant(smove* pMove, unsigned int from, unsigned int to, PieceT
 void moveListInit(smoveList* pList);
 void movePrint(smove* move);
 void movePrintShort(smove* move);
-
+void moveCpy(smove * dst, smove * src);
 #endif /* SRC_MOVE_H_ */
