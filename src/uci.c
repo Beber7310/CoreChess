@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include "board.h"
 #include "move.h"
+#include "search.h"
 
 sboard uciBoard;
 
@@ -20,7 +21,7 @@ void uciLog(char* s) {
 }
 
 void uciParseGo(char* str) {
-
+/*
 	// uciGo();
 	smoveList mliste;
 
@@ -31,6 +32,14 @@ void uciParseGo(char* str) {
 	printf("bestmove ");
 	movePrintShort(&mliste._sMoveList[0]);
 	printf("\n");
+	*/
+
+
+	smove mv= searchStart(&uciBoard,5);
+	printf("bestmove ");
+	movePrintShort(&mv);
+	printf("\n");
+
 }
 
 void uciParseMove(char* str) {

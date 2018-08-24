@@ -49,6 +49,8 @@ typedef struct sboard_t {
 	U64 _castlingRights;
 
 	U64 _enPassant;
+
+	smove _bestMove;
 } sboard;
 
 void boardInit(sboard * pBoard);
