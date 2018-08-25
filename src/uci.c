@@ -21,21 +21,33 @@ void uciLog(char* s) {
 }
 
 void uciParseGo(char* str) {
-/*
-	// uciGo();
-	smoveList mliste;
+	int wtime = 0;
+	int btime = 0;
+	int movestogo = 0;
 
+//
+//	go wtime 300000 btime 300000 movestogo 35
+//
+	char *token;
+	token = strtok(str, " ");
 
-	boardGenerateAllLegalMoves(&uciBoard, &mliste);
+	while (token != NULL) {
+		if (strncmp("wtime", token, sizeof("wtime") - 1) == 0) {
+			token = strtok(NULL, " ");
+			wtime = atoi(token);
+		}
+		if (strncmp("btime", token, sizeof("btime") - 1) == 0) {
+			token = strtok(NULL, " ");
+			btime = atoi(token);
+		}
+		if (strncmp("movestogo", token, sizeof("movestogo") - 1) == 0) {
+			token = strtok(NULL, " ");
+			movestogo = atoi(token);
+		}
+		token = strtok(NULL, " ");
+	}
 
-
-	printf("bestmove ");
-	movePrintShort(&mliste._sMoveList[0]);
-	printf("\n");
-	*/
-
-
-	smove mv= searchStart(&uciBoard,5);
+	smove mv = searchStart(&uciBoard, wtime, btime, movestogo);
 	printf("bestmove ");
 	movePrintShort(&mv);
 	printf("\n");
@@ -73,7 +85,7 @@ void uciParseMove(char* str) {
 			prom = KNIGHT;
 			break;
 		default:
-			prom=0;
+			prom = 0;
 		}
 		from = fromX + 8 * fromY;
 		to = toX + 8 * toY;
@@ -82,7 +94,7 @@ void uciParseMove(char* str) {
 		moveListInit(&mliste);
 		boardGenerateAllMoves(&uciBoard, &mliste);
 		for (int ii = 0; ii < mliste._nbrMove; ii++) {
-			if ((from == MOVE_FROM(mliste._sMoveList[ii]._move)) && (to == MOVE_TO(mliste._sMoveList[ii]._move)) && (prom == MOVE_PIECE_PROMOTION(mliste._sMoveList[ii]._move)) ) {
+			if ((from == MOVE_FROM(mliste._sMoveList[ii]._move)) && (to == MOVE_TO(mliste._sMoveList[ii]._move)) && (prom == MOVE_PIECE_PROMOTION(mliste._sMoveList[ii]._move))) {
 				doMove(&uciBoard, &mliste._sMoveList[ii]);
 				foundMove++;
 			}
