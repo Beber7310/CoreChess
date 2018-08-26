@@ -54,13 +54,9 @@ void boardInit(sboard * pBoard) {
 	pBoard->_pieces[WHITE][KING] = RANK_1 & (FILE_E);
 	pBoard->_pieces[BLACK][KING] = RANK_8 & (FILE_E);
 
-	pBoard->_allPieces[WHITE] = pBoard->_pieces[WHITE][PAWN]
-			| pBoard->_pieces[WHITE][ROOK] | pBoard->_pieces[WHITE][KNIGHT]
-			| pBoard->_pieces[WHITE][BISHOP] | pBoard->_pieces[WHITE][QUEEN]
+	pBoard->_allPieces[WHITE] = pBoard->_pieces[WHITE][PAWN] | pBoard->_pieces[WHITE][ROOK] | pBoard->_pieces[WHITE][KNIGHT] | pBoard->_pieces[WHITE][BISHOP] | pBoard->_pieces[WHITE][QUEEN]
 			| pBoard->_pieces[WHITE][KING];
-	pBoard->_allPieces[BLACK] = pBoard->_pieces[BLACK][PAWN]
-			| pBoard->_pieces[BLACK][ROOK] | pBoard->_pieces[BLACK][KNIGHT]
-			| pBoard->_pieces[BLACK][BISHOP] | pBoard->_pieces[BLACK][QUEEN]
+	pBoard->_allPieces[BLACK] = pBoard->_pieces[BLACK][PAWN] | pBoard->_pieces[BLACK][ROOK] | pBoard->_pieces[BLACK][KNIGHT] | pBoard->_pieces[BLACK][BISHOP] | pBoard->_pieces[BLACK][QUEEN]
 			| pBoard->_pieces[BLACK][KING];
 
 	pBoard->_occupied = pBoard->_allPieces[WHITE] | pBoard->_allPieces[BLACK];
@@ -68,8 +64,7 @@ void boardInit(sboard * pBoard) {
 
 	pBoard->_ActivePlayer = WHITE;
 
-	pBoard->_castlingRights = CASTLING_WHITE_QUEEN | CASTLING_WHITE_KING
-			| CASTLING_BLACK_QUEEN | CASTLING_BLACK_KING;
+	pBoard->_castlingRights = CASTLING_WHITE_QUEEN | CASTLING_WHITE_KING | CASTLING_BLACK_QUEEN | CASTLING_BLACK_KING;
 	pBoard->_enPassant = ZERO;
 
 	pBoard->_bestMove._move = 0;
@@ -164,13 +159,9 @@ void boardInitFen(sboard * pBoard, char* pFEN) {
 	 ::notationToIndex(token);
 	 */
 
-	pBoard->_allPieces[WHITE] = pBoard->_pieces[WHITE][PAWN]
-			| pBoard->_pieces[WHITE][ROOK] | pBoard->_pieces[WHITE][KNIGHT]
-			| pBoard->_pieces[WHITE][BISHOP] | pBoard->_pieces[WHITE][QUEEN]
+	pBoard->_allPieces[WHITE] = pBoard->_pieces[WHITE][PAWN] | pBoard->_pieces[WHITE][ROOK] | pBoard->_pieces[WHITE][KNIGHT] | pBoard->_pieces[WHITE][BISHOP] | pBoard->_pieces[WHITE][QUEEN]
 			| pBoard->_pieces[WHITE][KING];
-	pBoard->_allPieces[BLACK] = pBoard->_pieces[BLACK][PAWN]
-			| pBoard->_pieces[BLACK][ROOK] | pBoard->_pieces[BLACK][KNIGHT]
-			| pBoard->_pieces[BLACK][BISHOP] | pBoard->_pieces[BLACK][QUEEN]
+	pBoard->_allPieces[BLACK] = pBoard->_pieces[BLACK][PAWN] | pBoard->_pieces[BLACK][ROOK] | pBoard->_pieces[BLACK][KNIGHT] | pBoard->_pieces[BLACK][BISHOP] | pBoard->_pieces[BLACK][QUEEN]
 			| pBoard->_pieces[BLACK][KING];
 
 	pBoard->_occupied = pBoard->_allPieces[WHITE] | pBoard->_allPieces[BLACK];
@@ -182,8 +173,7 @@ void boardCpy(sboard * dst, sboard * src) {
 	memcpy(dst, src, sizeof(sboard));
 }
 
-void _removePiece(sboard * pBoard, Color color, PieceType pieceType,
-		int squareIndex) {
+void _removePiece(sboard * pBoard, Color color, PieceType pieceType, int squareIndex) {
 	U64 square = ONE << squareIndex;
 
 	pBoard->_pieces[color][pieceType] ^= square;
@@ -198,8 +188,7 @@ void _removePiece(sboard * pBoard, Color color, PieceType pieceType,
 
 }
 
-void _addPiece(sboard * pBoard, Color color, PieceType pieceType,
-		int squareIndex) {
+void _addPiece(sboard * pBoard, Color color, PieceType pieceType, int squareIndex) {
 	U64 square = ONE << squareIndex;
 
 	pBoard->_pieces[color][pieceType] |= square;
@@ -213,8 +202,7 @@ void _addPiece(sboard * pBoard, Color color, PieceType pieceType,
 	}
 }
 
-void _movePiece(sboard * pBoard, Color color, PieceType pieceType, int from,
-		int to) {
+void _movePiece(sboard * pBoard, Color color, PieceType pieceType, int from, int to) {
 	_removePiece(pBoard, color, pieceType, from);
 	_addPiece(pBoard, color, pieceType, to);
 }
@@ -228,32 +216,25 @@ void doMove(sboard * pBoard, smove* move) {
 // Handle move depending on what type of move it is
 	if (!flags) {
 // No flags set, not a special move
-		_movePiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE(move->_move),
-				MOVE_FROM(move->_move), MOVE_TO(move->_move));
+		_movePiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE(move->_move), MOVE_FROM(move->_move), MOVE_TO(move->_move));
 	} else if ((flags & CAPTURE) && (flags & PROMOTION)) { // Capture promotion special case
 // Remove captured Piece
-		_removePiece(pBoard, !pBoard->_ActivePlayer,
-				MOVE_PIECE_CAPTURED(move->_move), MOVE_TO(move->_move));
+		_removePiece(pBoard, !pBoard->_ActivePlayer, MOVE_PIECE_CAPTURED(move->_move), MOVE_TO(move->_move));
 
 // Remove promoting pawn
-		_removePiece(pBoard, pBoard->_ActivePlayer, PAWN,
-				MOVE_FROM(move->_move));
+		_removePiece(pBoard, pBoard->_ActivePlayer, PAWN, MOVE_FROM(move->_move));
 
 // Add promoted piece
-		_addPiece(pBoard, pBoard->_ActivePlayer,
-				MOVE_PIECE_PROMOTION(move->_move), MOVE_TO(move->_move));
+		_addPiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE_PROMOTION(move->_move), MOVE_TO(move->_move));
 	} else if (flags & CAPTURE) {
 // Remove captured Piece
-		_removePiece(pBoard, !pBoard->_ActivePlayer,
-				MOVE_PIECE_CAPTURED(move->_move), MOVE_TO(move->_move));
+		_removePiece(pBoard, !pBoard->_ActivePlayer, MOVE_PIECE_CAPTURED(move->_move), MOVE_TO(move->_move));
 
 // Move capturing piece
-		_movePiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE(move->_move),
-				MOVE_FROM(move->_move), MOVE_TO(move->_move));
+		_movePiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE(move->_move), MOVE_FROM(move->_move), MOVE_TO(move->_move));
 	} else if (flags & KSIDE_CASTLE) {
 		// Move the king
-		_movePiece(pBoard, pBoard->_ActivePlayer, KING, MOVE_FROM(move->_move),
-				MOVE_TO(move->_move));
+		_movePiece(pBoard, pBoard->_ActivePlayer, KING, MOVE_FROM(move->_move), MOVE_TO(move->_move));
 
 		// Move the correct rook
 		if (pBoard->_ActivePlayer == WHITE) {
@@ -264,8 +245,7 @@ void doMove(sboard * pBoard, smove* move) {
 
 	} else if (flags & QSIDE_CASTLE) {
 		// Move the king
-		_movePiece(pBoard, pBoard->_ActivePlayer, KING, MOVE_FROM(move->_move),
-				MOVE_TO(move->_move));
+		_movePiece(pBoard, pBoard->_ActivePlayer, KING, MOVE_FROM(move->_move), MOVE_TO(move->_move));
 
 		// Move the correct rook
 		if (pBoard->_ActivePlayer == WHITE) {
@@ -283,26 +263,22 @@ void doMove(sboard * pBoard, smove* move) {
 		}
 
 		// Move the capturing pawn
-		_movePiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE(move->_move),
-				MOVE_FROM(move->_move), MOVE_TO(move->_move));
+		_movePiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE(move->_move), MOVE_FROM(move->_move), MOVE_TO(move->_move));
 
 	} else if (flags & PROMOTION) {
 // Remove promoted pawn
-		_removePiece(pBoard, pBoard->_ActivePlayer, PAWN,
-				MOVE_FROM(move->_move));
+		_removePiece(pBoard, pBoard->_ActivePlayer, PAWN, MOVE_FROM(move->_move));
 
 // Add promoted piece
-		_addPiece(pBoard, pBoard->_ActivePlayer,
-				MOVE_PIECE_PROMOTION(move->_move), MOVE_TO(move->_move));
+		_addPiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE_PROMOTION(move->_move), MOVE_TO(move->_move));
 
 	} else if (flags & DOUBLE_PAWN_PUSH) {
 
-		_movePiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE(move->_move),
-				MOVE_FROM(move->_move), MOVE_TO(move->_move));
+		_movePiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE(move->_move), MOVE_FROM(move->_move), MOVE_TO(move->_move));
 		// Set square behind pawn as _enPassant
-		unsigned int enPasIndex =
-				pBoard->_ActivePlayer == WHITE ?
-						MOVE_TO(move->_move) - 8 : MOVE_TO(move->_move) + 8;
+		unsigned int enPasIndex = pBoard->_ActivePlayer == WHITE ?
+		MOVE_TO(move->_move) - 8 :
+																	MOVE_TO(move->_move) + 8;
 		pBoard->_enPassant = ONE << enPasIndex;
 
 	}
@@ -343,12 +319,10 @@ void _updateCastlingRightsForMove(sboard * pBoard, smove* move) {
 	// Update castling flags if rooks or kings have moved
 	switch (MOVE_FROM(move->_move)) {
 	case e1:
-		pBoard->_castlingRights &=
-				~(CASTLING_WHITE_QUEEN | CASTLING_WHITE_KING);
+		pBoard->_castlingRights &= ~(CASTLING_WHITE_QUEEN | CASTLING_WHITE_KING);
 		break;
 	case e8:
-		pBoard->_castlingRights &=
-				~(CASTLING_BLACK_QUEEN | CASTLING_BLACK_KING);
+		pBoard->_castlingRights &= ~(CASTLING_BLACK_QUEEN | CASTLING_BLACK_KING);
 		break;
 	case a1:
 		pBoard->_castlingRights &= ~CASTLING_WHITE_QUEEN;
@@ -373,31 +347,26 @@ void boardGenerateAllMoves(sboard* board, smoveList* moveList) {
 		U64 ptm = board->_pieces[board->_ActivePlayer][ptype];
 		while (ptm) {
 			int from = _popLsb(&ptm);
-			getMovesForSquare(board, moveList, ptype, board->_ActivePlayer,
-					from);
+			getMovesForSquare(board, moveList, ptype, board->_ActivePlayer, from);
 		}
 		ptype++;
 	}
 
 	if (board->_ActivePlayer == WHITE) {
 		if (whiteCanCastleKs(board)) {
-			moveBuildCastle(&moveList->_sMoveList[moveList->_nbrMove++], e1, g1,
-					KSIDE_CASTLE);
+			moveBuildCastle(&moveList->_sMoveList[moveList->_nbrMove++], e1, g1, KSIDE_CASTLE);
 		}
 		if (whiteCanCastleQs(board)) {
-			moveBuildCastle(&moveList->_sMoveList[moveList->_nbrMove++], e1, c1,
-					QSIDE_CASTLE);
+			moveBuildCastle(&moveList->_sMoveList[moveList->_nbrMove++], e1, c1, QSIDE_CASTLE);
 		}
 	}
 
 	if (board->_ActivePlayer == BLACK) {
 		if (blackCanCastleKs(board)) {
-			moveBuildCastle(&moveList->_sMoveList[moveList->_nbrMove++], e8, g8,
-					KSIDE_CASTLE);
+			moveBuildCastle(&moveList->_sMoveList[moveList->_nbrMove++], e8, g8, KSIDE_CASTLE);
 		}
 		if (blackCanCastleQs(board)) {
-			moveBuildCastle(&moveList->_sMoveList[moveList->_nbrMove++], e8, c8,
-					QSIDE_CASTLE);
+			moveBuildCastle(&moveList->_sMoveList[moveList->_nbrMove++], e8, c8, QSIDE_CASTLE);
 		}
 	}
 
@@ -416,16 +385,14 @@ void boardGenerateAllLegalMoves(sboard* board, smoveList* moveList) {
 		doMove(&tmpBoard, &tmpList._sMoveList[ii]);
 		if (!colorIsInCheck(&tmpBoard, !tmpBoard._ActivePlayer)) {
 			{
-				moveCpy(&moveList->_sMoveList[moveList->_nbrMove],
-						&tmpList._sMoveList[ii]);
+				moveCpy(&moveList->_sMoveList[moveList->_nbrMove], &tmpList._sMoveList[ii]);
 				moveList->_nbrMove++;
 			}
 		}
 	}
 }
 
-void boardAddMovesPromotion(sboard* board, smoveList* moveList, int from,
-		PieceType pieceType, U64 moves, U64 attackable) {
+void boardAddMovesPromotion(sboard* board, smoveList* moveList, int from, PieceType pieceType, U64 moves, U64 attackable) {
 // Ignore all moves/attacks to kings
 	moves &= ~(board->_pieces[!board->_ActivePlayer][KING]);
 
@@ -434,14 +401,10 @@ void boardAddMovesPromotion(sboard* board, smoveList* moveList, int from,
 	while (nonAttacks) {
 		int to = _popLsb(&nonAttacks);
 
-		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], from,
-				to, PAWN, 0, QUEEN);
-		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], from,
-				to, PAWN, 0, ROOK);
-		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], from,
-				to, PAWN, 0, BISHOP);
-		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], from,
-				to, PAWN, 0, KNIGHT);
+		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], from, to, PAWN, 0, QUEEN);
+		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], from, to, PAWN, 0, ROOK);
+		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], from, to, PAWN, 0, BISHOP);
+		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], from, to, PAWN, 0, KNIGHT);
 	}
 
 // Generate attacks
@@ -449,24 +412,15 @@ void boardAddMovesPromotion(sboard* board, smoveList* moveList, int from,
 	while (attacks) {
 		int to = _popLsb(&attacks);
 
-		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], from,
-				to, PAWN, getPieceAtSquare(board, !board->_ActivePlayer, to),
-				QUEEN);
-		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], from,
-				to, PAWN, getPieceAtSquare(board, !board->_ActivePlayer, to),
-				ROOK);
-		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], from,
-				to, PAWN, getPieceAtSquare(board, !board->_ActivePlayer, to),
-				BISHOP);
-		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], from,
-				to, PAWN, getPieceAtSquare(board, !board->_ActivePlayer, to),
-				KNIGHT);
+		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], from, to, PAWN, getPieceAtSquare(board, !board->_ActivePlayer, to), QUEEN);
+		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], from, to, PAWN, getPieceAtSquare(board, !board->_ActivePlayer, to), ROOK);
+		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], from, to, PAWN, getPieceAtSquare(board, !board->_ActivePlayer, to), BISHOP);
+		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], from, to, PAWN, getPieceAtSquare(board, !board->_ActivePlayer, to), KNIGHT);
 
 	}
 }
 
-void boardAddMovesEnPassant(sboard* board, smoveList* moveList, int from,
-		PieceType pieceType, U64 moves) {
+void boardAddMovesEnPassant(sboard* board, smoveList* moveList, int from, PieceType pieceType, U64 moves) {
 // Ignore all moves/attacks to kings
 	moves &= ~(board->_pieces[!board->_ActivePlayer][KING]);
 
@@ -475,14 +429,12 @@ void boardAddMovesEnPassant(sboard* board, smoveList* moveList, int from,
 	while (nonAttacks) {
 		int to = _popLsb(&nonAttacks);
 
-		moveBuildEnPassant(&moveList->_sMoveList[moveList->_nbrMove++], from,
-				to, pieceType);
+		moveBuildEnPassant(&moveList->_sMoveList[moveList->_nbrMove++], from, to, pieceType);
 	}
 
 }
 
-void boardAddMoves(sboard* board, smoveList* moveList, int from,
-		PieceType pieceType, U64 moves, U64 attackable) {
+void boardAddMoves(sboard* board, smoveList* moveList, int from, PieceType pieceType, U64 moves, U64 attackable) {
 // Ignore all moves/attacks to kings
 	moves &= ~(board->_pieces[!board->_ActivePlayer][KING]);
 
@@ -490,21 +442,18 @@ void boardAddMoves(sboard* board, smoveList* moveList, int from,
 	U64 nonAttacks = moves & ~attackable;
 	while (nonAttacks) {
 		int to = _popLsb(&nonAttacks);
-		moveBuild(&moveList->_sMoveList[moveList->_nbrMove++], from, to,
-				pieceType);
+		moveBuild(&moveList->_sMoveList[moveList->_nbrMove++], from, to, pieceType);
 	}
 
 // Generate attacks
 	U64 attacks = moves & attackable;
 	while (attacks) {
 		int to = _popLsb(&attacks);
-		moveBuildCapture(&moveList->_sMoveList[moveList->_nbrMove++], from, to,
-				pieceType, getPieceAtSquare(board, !board->_ActivePlayer, to));
+		moveBuildCapture(&moveList->_sMoveList[moveList->_nbrMove++], from, to, pieceType, getPieceAtSquare(board, !board->_ActivePlayer, to));
 	}
 }
 
-U64 getMovesForSquare(sboard * pBoard, smoveList* moveList, PieceType pieceType,
-		Color color, int square) {
+U64 getMovesForSquare(sboard * pBoard, smoveList* moveList, PieceType pieceType, Color color, int square) {
 // Special case for pawns
 	if (pieceType == PAWN) {
 		switch (color) {
@@ -525,33 +474,24 @@ U64 getMovesForSquare(sboard * pBoard, smoveList* moveList, PieceType pieceType,
 	U64 attacks = ZERO;
 	switch (pieceType) {
 	case ROOK:
-		attacks = getRookAttacks(square, pBoard->_occupied)
-				& ~pBoard->_allPieces[color];
-		boardAddMoves(pBoard, moveList, square, pieceType, attacks,
-				pBoard->_allPieces[!color]);
+		attacks = getRookAttacks(square, pBoard->_occupied) & ~pBoard->_allPieces[color];
+		boardAddMoves(pBoard, moveList, square, pieceType, attacks, pBoard->_allPieces[!color]);
 		break;
 	case KNIGHT:
 		attacks = getKnightAttacks(square) & ~pBoard->_allPieces[color];
-		boardAddMoves(pBoard, moveList, square, pieceType, attacks,
-				pBoard->_allPieces[!color]);
+		boardAddMoves(pBoard, moveList, square, pieceType, attacks, pBoard->_allPieces[!color]);
 		break;
 	case BISHOP:
-		attacks = getBishopAttacks(square, pBoard->_occupied)
-				& ~pBoard->_allPieces[color];
-		boardAddMoves(pBoard, moveList, square, pieceType, attacks,
-				pBoard->_allPieces[!color]);
+		attacks = getBishopAttacks(square, pBoard->_occupied) & ~pBoard->_allPieces[color];
+		boardAddMoves(pBoard, moveList, square, pieceType, attacks, pBoard->_allPieces[!color]);
 		break;
 	case QUEEN:
-		attacks = getQueenAttacks(square, pBoard->_occupied)
-				& ~pBoard->_allPieces[color];
-		boardAddMoves(pBoard, moveList, square, pieceType, attacks,
-				pBoard->_allPieces[!color]);
+		attacks = getQueenAttacks(square, pBoard->_occupied) & ~pBoard->_allPieces[color];
+		boardAddMoves(pBoard, moveList, square, pieceType, attacks, pBoard->_allPieces[!color]);
 		break;
 	case KING:
 		attacks = getKingAttacks(square) & ~pBoard->_allPieces[color];
-		boardAddMoves(pBoard, moveList, square, pieceType, attacks,
-				pBoard->_allPieces[!color]);
-
+		boardAddMoves(pBoard, moveList, square, pieceType, attacks, pBoard->_allPieces[!color]);
 		break;
 
 	case PAWN:
@@ -581,8 +521,7 @@ PieceType getPieceAtSquare(sboard * pBoard, Color color, int squareIndex) {
 	else if (square & pBoard->_pieces[color][QUEEN])
 		piece = QUEEN;
 	else
-		printf("getPieceAtSquare should be never reach(square index:%i)\n",
-				squareIndex);
+		printf("getPieceAtSquare should be never reach(square index:%i)\n", squareIndex);
 
 	return piece;
 }
@@ -652,11 +591,9 @@ int whiteCanCastleKs(sboard * pBoard) {
 
 	U64 passThroughSquares = (ONE << f1) | (ONE << g1);
 	U64 squaresOccupied = passThroughSquares & pBoard->_occupied;
-	U64 squaresAttacked = _squareUnderAttack(pBoard, BLACK, f1)
-			|| _squareUnderAttack(pBoard, BLACK, g1);
+	U64 squaresAttacked = _squareUnderAttack(pBoard, BLACK, f1) || _squareUnderAttack(pBoard, BLACK, g1);
 
-	return !colorIsInCheck(pBoard, WHITE) && !squaresOccupied
-			&& !squaresAttacked;
+	return !colorIsInCheck(pBoard, WHITE) && !squaresOccupied && !squaresAttacked;
 }
 
 int whiteCanCastleQs(sboard * pBoard) {
@@ -666,11 +603,9 @@ int whiteCanCastleQs(sboard * pBoard) {
 
 	U64 inbetweenSquares = (ONE << c1) | (ONE << d1) | (ONE << b1);
 	U64 squaresOccupied = inbetweenSquares & pBoard->_occupied;
-	U64 squaresAttacked = _squareUnderAttack(pBoard, BLACK, d1)
-			|| _squareUnderAttack(pBoard, BLACK, c1);
+	U64 squaresAttacked = _squareUnderAttack(pBoard, BLACK, d1) || _squareUnderAttack(pBoard, BLACK, c1);
 
-	return !colorIsInCheck(pBoard, WHITE) && !squaresOccupied
-			&& !squaresAttacked;
+	return !colorIsInCheck(pBoard, WHITE) && !squaresOccupied && !squaresAttacked;
 }
 
 int blackCanCastleKs(sboard * pBoard) {
@@ -680,11 +615,9 @@ int blackCanCastleKs(sboard * pBoard) {
 
 	U64 passThroughSquares = (ONE << f8) | (ONE << g8);
 	U64 squaresOccupied = passThroughSquares & pBoard->_occupied;
-	U64 squaresAttacked = _squareUnderAttack(pBoard, WHITE, f8)
-			|| _squareUnderAttack(pBoard, WHITE, g8);
+	U64 squaresAttacked = _squareUnderAttack(pBoard, WHITE, f8) || _squareUnderAttack(pBoard, WHITE, g8);
 
-	return !colorIsInCheck(pBoard, BLACK) && !squaresOccupied
-			&& !squaresAttacked;
+	return !colorIsInCheck(pBoard, BLACK) && !squaresOccupied && !squaresAttacked;
 }
 
 int blackCanCastleQs(sboard * pBoard) {
@@ -694,34 +627,27 @@ int blackCanCastleQs(sboard * pBoard) {
 
 	U64 inbetweenSquares = (ONE << b8) | (ONE << c8) | (ONE << d8);
 	U64 squaresOccupied = inbetweenSquares & pBoard->_occupied;
-	U64 squaresAttacked = _squareUnderAttack(pBoard, WHITE, c8)
-			|| _squareUnderAttack(pBoard, WHITE, d8);
+	U64 squaresAttacked = _squareUnderAttack(pBoard, WHITE, c8) || _squareUnderAttack(pBoard, WHITE, d8);
 
-	return !colorIsInCheck(pBoard, BLACK) && !squaresOccupied
-			&& !squaresAttacked;
+	return !colorIsInCheck(pBoard, BLACK) && !squaresOccupied && !squaresAttacked;
 }
 
 int _squareUnderAttack(sboard * pBoard, Color color, int squareIndex) {
 // Check for pawn, knight and king attacks
-	if (getNonSlidingAttacks(PAWN, squareIndex, !color)
-			& pBoard->_pieces[color][PAWN])
+	if (getNonSlidingAttacks(PAWN, squareIndex, !color) & pBoard->_pieces[color][PAWN])
 		return 1;
-	if (getNonSlidingAttacks(KNIGHT, squareIndex, !color)
-			& pBoard->_pieces[color][KNIGHT])
+	if (getNonSlidingAttacks(KNIGHT, squareIndex, !color) & pBoard->_pieces[color][KNIGHT])
 		return 1;
-	if (getNonSlidingAttacks(KING, squareIndex, !color)
-			& pBoard->_pieces[color][KING])
+	if (getNonSlidingAttacks(KING, squareIndex, !color) & pBoard->_pieces[color][KING])
 		return 1;
 
 // Check for bishop/queen attacks
-	U64 bishopsQueens = pBoard->_pieces[color][BISHOP]
-			| pBoard->_pieces[color][QUEEN];
+	U64 bishopsQueens = pBoard->_pieces[color][BISHOP] | pBoard->_pieces[color][QUEEN];
 	if (getBishopAttacks(squareIndex, pBoard->_occupied) & bishopsQueens)
 		return 1;
 
 // Check for rook/queen attacks
-	U64 rooksQueens = pBoard->_pieces[color][ROOK]
-			| pBoard->_pieces[color][QUEEN];
+	U64 rooksQueens = pBoard->_pieces[color][ROOK] | pBoard->_pieces[color][QUEEN];
 	if (getRookAttacks(squareIndex, pBoard->_occupied) & rooksQueens)
 		return 1;
 

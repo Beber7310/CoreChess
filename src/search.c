@@ -8,24 +8,21 @@
 #include "board.h"
 #include "search.h"
 #include "evaluate.h"
-#include <sys/time.h>
+#include "search.h"
 #include <time.h>
 
-time_t startSearchTIme;
-
 int stopSearch;
-int maxSearchTime;
-int nbrNode;
-int nbrNodeCheck;
+
+searchStat stat;
 
 #define INF (99999)
 
 int searchGetTime() {
-	return time(NULL) - startSearchTIme;
+	return time(NULL) - stat.startSearchTIme;
 }
 
 void searchCheckTime() {
-	if (searchGetTime() > maxSearchTime)
+	if (searchGetTime() > stat.maxSearchTime)
 		stopSearch = 1;
 
 }
@@ -37,46 +34,45 @@ int max(int a, int b) {
 		return b;
 }
 
-
-void logUci(int depth,int node,int score)
-{
-
-	  printf("info depth %i ",depth);
-	  printf("seldepth %i ",depth);
-	  printf("nodes %i ",node);
-	  printf("score cp %i ",score);
-	  printf("time %i pv a7a5\n",searchGetTime());
-
+void UciInfo(int depth, int node, int score) {
+	printf("info depth %i\n ", depth);
+	printf("info depth %i ", depth);
+	printf("nodes %i ", node);
+	printf("score cp %i ", score);
+	printf("time %i pv a7a5\n", searchGetTime());
 
 }
 smove searchStart(sboard * pBoard, int wtime, int btime, int moveToGo) {
 
 	smove bestMove;
 
-	time(&startSearchTIme);
+	time(&stat.startSearchTIme);
 
 	if (pBoard->_ActivePlayer == WHITE) {
-		maxSearchTime = wtime;
+		stat.maxSearchTime = wtime;
 	} else {
-		maxSearchTime = btime;
+		stat.maxSearchTime = btime;
 	}
 
 	if (moveToGo > 0) {
-		maxSearchTime = maxSearchTime / moveToGo;
-		maxSearchTime =maxSearchTime/1000; 			//milli seconde to seconde
+		stat.maxSearchTime = stat.maxSearchTime / moveToGo;
+		stat.maxSearchTime = stat.maxSearchTime / 1000; 			//milli seconde to seconde
 	} else {
-		maxSearchTime = 5;
+		stat.maxSearchTime = 5;
 	}
+
 	stopSearch = 0;
-	nbrNode = 0;
-	nbrNodeCheck = 0;
+	stat.nbrNode = 0;
+	stat.nbrNodeCheck = 0;
 
 	for (int depth = 1; depth < 20; depth++) {
-		int res=negamax(pBoard, depth, -INF, INF, pBoard->_ActivePlayer);
-		logUci(depth,nbrNode,res);
+		int res = negamax(pBoard, depth, -INF, INF, pBoard->_ActivePlayer);
+		UciInfo(depth, stat.nbrNode, res);
 		if (stopSearch)
 			return bestMove;
 		moveCpy(&bestMove, &pBoard->_bestMove);
+		if (searchGetTime() > stat.maxSearchTime / 2)
+			return bestMove;
 	}
 	return pBoard->_bestMove;
 }
@@ -89,13 +85,12 @@ int negamax(sboard * pNode, int depth, int alpha, int beta, Color color) {
 		return 0;
 
 	if (depth == 0) { // or node is a terminal node then
-		nbrNode++;
-		nbrNodeCheck++;
+		stat.nbrNode++;
+		stat.nbrNodeCheck++;
 
-		if (nbrNodeCheck > 100000) {
+		if (stat.nbrNodeCheck > 100000) {
 			searchCheckTime();
-
-			nbrNodeCheck=0;
+			stat.nbrNodeCheck = 0;
 		}
 		int res = evaluate(pNode);
 

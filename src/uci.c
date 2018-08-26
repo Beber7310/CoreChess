@@ -10,6 +10,7 @@
 #include "board.h"
 #include "move.h"
 #include "search.h"
+#include "perft.h"
 
 sboard uciBoard;
 
@@ -152,6 +153,8 @@ void uciParseCmd(char* str) {
 	} else if (strncmp("go", token, sizeof("go") - 1) == 0) {
 		token = strtok(NULL, "");
 		uciParseGo(token);
+	}else if (strncmp("perft", token, sizeof("perft") - 1) == 0) {
+		perftCheckFile("perftcheck.epd", 4);
 	}
 
 }
