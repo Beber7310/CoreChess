@@ -17,14 +17,17 @@ searchStat stat;
 
 #define INF (99999)
 
+#define DISABLE_TIME 0
+
 int searchGetTime() {
 	return time(NULL) - stat.startSearchTIme;
 }
 
 void searchCheckTime() {
+#if DISABLE_TIME == 1
 	if (searchGetTime() > stat.maxSearchTime)
-		stopSearch = 1;
-
+	stopSearch = 1;
+#endif
 }
 
 int max(int a, int b) {
@@ -101,6 +104,10 @@ int negamax(sboard * pNode, int depth, int alpha, int beta, Color color) {
 	}
 
 	boardGenerateAllLegalMoves(pNode, &mliste);
+	// Check for checkmate and stalemate
+	if (mliste._nbrMove == 0) {
+		return colorIsInCheck(pNode, pNode->_ActivePlayer) ? -INF : 0;;
+	}
 
 	int value = -INF;
 	for (int ii = 0; ii < mliste._nbrMove; ii++) {

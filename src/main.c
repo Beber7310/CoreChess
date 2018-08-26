@@ -27,13 +27,6 @@ int main(int argc, char* argv[]) {
 	fprintf(pFile, ">UCI Start \n");
 	fclose(pFile);
 
-	/*
-	 xboardMode = 1;
-	 if (argc > 1)
-	 if (strcmp(argv[1], "xboard") == 0) {
-	 xboardMode = 1;
-	 }
-	 */
 
 	main_UCI();
 }

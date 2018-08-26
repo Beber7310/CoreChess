@@ -155,7 +155,11 @@ void uciParseCmd(char* str) {
 		uciParseGo(token);
 	}else if (strncmp("perft", token, sizeof("perft") - 1) == 0) {
 		perftCheckFile("perftcheck.epd", 4);
+	}else if (strncmp("puz2", token, sizeof("puz2") - 1) == 0) {
+		puzzlzCheckFile("mat2.epd", 2);
 	}
+
+
 
 }
 

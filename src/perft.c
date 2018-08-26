@@ -10,7 +10,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "search.h"
+
 #define PRINT_PERFT_MOVE	0
+#define BUZZ_SIZE 512
 
 #if PRINT_PERFT_MOVE > 0
 #endif
@@ -94,19 +97,8 @@ int perftMasterRun(char* posStart, int e1, int e2, int e3, int e4, int e5, int e
 
 }
 
-void perftCheck(void) {
-
-	printf("   --- Start perft check ---  \n\n");
-	perftMasterRun("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 20, 400, 8902, 197281, 4865609, 0);
-	perftMasterRun("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1", 48, 2039, 97862, 4085603, 0, 0);
-	perftMasterRun("n1n5/PPPk4/8/8/8/8/4Kppp/5N1N b - - 0 1", 24, 496, 9483, 182838, 0, 0);
-	perftMasterRun("4k3/8/8/8/8/8/8/4K2R w K - 0 1", 15, 66, 1197, 7059, 133987, 764643);
-	perftMasterRun("4k3/8/8/8/8/8/8/R3K3 w Q - 0 1", 16, 71, 1287, 7626, 145232, 846648);
-
-}
-
 int perftCheckFile(char* fileName, int depth) {
-#define BUZZ_SIZE 512
+
 	char buff[BUZZ_SIZE];
 	char* pos;
 	char* strD[6];
@@ -141,3 +133,47 @@ int perftCheckFile(char* fileName, int depth) {
 	return 0;
 }
 
+int puzzleMasterRun(char* posStart, int depth) {
+	sboard board;
+	boardInitFen(&board, posStart);
+#if PRINT_PERFT_MOVE > 0
+	boardPrint(&board);
+#endif
+
+	int res=negamax(&board, (2*depth)+1, -INF, INF, board._ActivePlayer);
+
+	printf("%s ",posStart);
+
+	if (res != INF) {
+		printf("Error! \n");
+		return 1;
+	} else {
+		printf("OK!  \n");
+		return 0;
+	}
+
+}
+
+int puzzlzCheckFile(char* fileName, int depth) {
+
+	char buff[BUZZ_SIZE];
+	char* pos;
+
+	int err = 0;
+	FILE *f = fopen(fileName, "r");
+	if (f == NULL)
+		printf("Error while opening puzzle file %s\n", fileName);
+
+	while (fgets(buff, BUZZ_SIZE, f)) {
+		pos = strtok(buff, ";");
+		err += puzzleMasterRun(pos, depth);
+	}
+	fclose(f);
+
+	if (err) {
+		printf("Puzzle check finish with error!\n");
+	} else
+		printf("Puzzle check OK!\n");
+
+	return 0;
+}
