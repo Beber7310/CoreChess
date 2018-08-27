@@ -12,16 +12,22 @@
 
 #define INF (99999)
 
-smove searchStart(sboard * pBoard, int wtime, int btime, int moveToGo);
-int negamax(sboard * pNode, int depth, int alpha, int beta, Color color);
-
 
 typedef struct searchStat_t {
 	time_t startSearchTIme;
 	int maxSearchTime;
+	int maxDepth;
 	int nbrNode;
-	int nbrNodeCheck;
+	int nbrCut;
+	int boardEval;
+	smoveList pv;
 
 }searchStat;
+
+
+
+smove searchStart(sboard * pBoard, int wtime, int btime, int moveToGo, searchStat* stat);
+int negamax(sboard * pNode, int depth, int alpha, int beta, Color color, searchStat* stat);
+
 
 #endif /* SRC_SEARCH_H_ */

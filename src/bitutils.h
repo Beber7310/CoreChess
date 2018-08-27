@@ -64,6 +64,7 @@ U64 _eastOne(U64 board);
 U64 _westOne(U64 board);
 
 
+int max(int a, int b);
 
 
 

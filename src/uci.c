@@ -48,7 +48,8 @@ void uciParseGo(char* str) {
 		token = strtok(NULL, " ");
 	}
 
-	smove mv = searchStart(&uciBoard, wtime, btime, movestogo);
+	searchStat stat;
+	smove mv = searchStart(&uciBoard, wtime, btime, movestogo,&stat);
 	printf("bestmove ");
 	movePrintShort(&mv);
 	printf("\n");
@@ -157,7 +158,12 @@ void uciParseCmd(char* str) {
 		perftCheckFile("perftcheck.epd", 4);
 	}else if (strncmp("puz2", token, sizeof("puz2") - 1) == 0) {
 		puzzlzCheckFile("mat2.epd", 2);
+	}else if (strncmp("puz3", token, sizeof("puz3") - 1) == 0) {
+		puzzlzCheckFile("mat3.epd", 3);
+	}else if (strncmp("puz4", token, sizeof("puz4") - 1) == 0) {
+		puzzlzCheckFile("mat4.epd", 4);
 	}
+
 
 
 

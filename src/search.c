@@ -5,36 +5,32 @@
  *      Author: Bertrand
  */
 
+#include <time.h>
+#include "bitutils.h"
 #include "board.h"
 #include "search.h"
 #include "evaluate.h"
 #include "search.h"
-#include <time.h>
+#include "moveOrder.h"
 
-int stopSearch;
+static int gStopSearch;		  // used to stop digging when time is over
+static int gNodeCptCheckTime; //Used as a counter to choose when to print some info
 
-searchStat stat;
+//searchStat stat;
 
 #define INF (99999)
 
 #define DISABLE_TIME 0
 
-int searchGetTime() {
-	return time(NULL) - stat.startSearchTIme;
+int searchGetTime(searchStat* stat) {
+	return time(NULL) - stat->startSearchTIme;
 }
 
-void searchCheckTime() {
+void searchCheckTime(searchStat* stat) {
 #if DISABLE_TIME == 1
-	if (searchGetTime() > stat.maxSearchTime)
+	if (searchGetTime() > stat->maxSearchTime)
 	stopSearch = 1;
 #endif
-}
-
-int max(int a, int b) {
-	if (a > b)
-		return a;
-	else
-		return b;
 }
 
 void UciInfo(int depth, int node, int score) {
@@ -42,58 +38,62 @@ void UciInfo(int depth, int node, int score) {
 	printf("info depth %i ", depth);
 	printf("nodes %i ", node);
 	printf("score cp %i ", score);
-	printf("time %i pv a7a5\n", searchGetTime());
 
 }
-smove searchStart(sboard * pBoard, int wtime, int btime, int moveToGo) {
+
+smove searchStart(sboard * pBoard, int wtime, int btime, int moveToGo, searchStat* stat) {
 
 	smove bestMove;
 
-	time(&stat.startSearchTIme);
-
 	if (pBoard->_ActivePlayer == WHITE) {
-		stat.maxSearchTime = wtime;
+		stat->maxSearchTime = wtime;
 	} else {
-		stat.maxSearchTime = btime;
+		stat->maxSearchTime = btime;
 	}
 
 	if (moveToGo > 0) {
-		stat.maxSearchTime = stat.maxSearchTime / moveToGo;
-		stat.maxSearchTime = stat.maxSearchTime / 1000; 			//milli seconde to seconde
+		stat->maxSearchTime = stat->maxSearchTime / moveToGo;
+		stat->maxSearchTime = stat->maxSearchTime / 1000; //milli seconde to seconde
 	} else {
-		stat.maxSearchTime = 5;
+		stat->maxSearchTime = 5;
 	}
 
-	stopSearch = 0;
-	stat.nbrNode = 0;
-	stat.nbrNodeCheck = 0;
+	gStopSearch = 0;
+	stat->nbrNode = 0;
+	stat->nbrCut = 0;
+
+	time(&stat->startSearchTIme);
+
+	gNodeCptCheckTime = 0;
 
 	for (int depth = 1; depth < 20; depth++) {
-		int res = negamax(pBoard, depth, -INF, INF, pBoard->_ActivePlayer);
-		UciInfo(depth, stat.nbrNode, res);
-		if (stopSearch)
+		stat->maxDepth=depth;
+		negamax(pBoard, 0, -INF, INF, pBoard->_ActivePlayer, stat);
+		if (gStopSearch)
 			return bestMove;
 		moveCpy(&bestMove, &pBoard->_bestMove);
-		if (searchGetTime() > stat.maxSearchTime / 2)
+		if (searchGetTime(stat) > stat->maxSearchTime / 2)
+			return bestMove;
+		if(stat->boardEval==INF ||stat->boardEval==-INF)
 			return bestMove;
 	}
 	return pBoard->_bestMove;
 }
 
-int negamax(sboard * pNode, int depth, int alpha, int beta, Color color) {
+int negamax(sboard * pNode, int depth, int alpha, int beta, Color color, searchStat* stat) {
 	smoveList mliste;
 	sboard child;
 
-	if (stopSearch)
+	if (gStopSearch)
 		return 0;
 
-	if (depth == 0) { // or node is a terminal node then
-		stat.nbrNode++;
-		stat.nbrNodeCheck++;
+	if (depth == stat->maxDepth) { // or node is a terminal node then
+		stat->nbrNode++;
+		gNodeCptCheckTime++;
 
-		if (stat.nbrNodeCheck > 100000) {
-			searchCheckTime();
-			stat.nbrNodeCheck = 0;
+		if (gNodeCptCheckTime > 100000) {
+			searchCheckTime(stat);
+			gNodeCptCheckTime = 0;
 		}
 		int res = evaluate(pNode);
 
@@ -109,21 +109,30 @@ int negamax(sboard * pNode, int depth, int alpha, int beta, Color color) {
 		return colorIsInCheck(pNode, pNode->_ActivePlayer) ? -INF : 0;;
 	}
 
+	moveOrder(&mliste,stat);
+
 	int value = -INF;
 	for (int ii = 0; ii < mliste._nbrMove; ii++) {
 		boardCpy(&child, pNode);
 
 		doMove(&child, &mliste._sMoveList[ii]);
-		value = max(value, -negamax(&child, depth - 1, -beta, -alpha, !color));
+		value = max(value, -negamax(&child, depth + 1, -beta, -alpha, !color, stat));
 
-		if (stopSearch)
+		if (gStopSearch)
 			return 0;
 
 		if (value > alpha)
+		{
 			moveCpy(&pNode->_bestMove, &mliste._sMoveList[ii]);
+			moveCpy(&stat->pv._sMoveList[depth],  &mliste._sMoveList[ii]);
+			stat->pv._nbrMove=stat->maxDepth;
+			stat->boardEval=value;
+			alpha = value;
+		}
 
-		alpha = max(alpha, value);
+		//alpha = max(alpha, value);
 		if (alpha >= beta) {
+			stat->nbrCut++;
 			return value;	//break (* cut-off *)
 		}
 	}
