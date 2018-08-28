@@ -33,11 +33,17 @@ void searchCheckTime(searchStat* stat) {
 #endif
 }
 
-void UciInfo(int depth, int node, int score) {
-	printf("info depth %i\n ", depth);
+void UciInfo(int depth, int node, int score, searchStat* stat) {
 	printf("info depth %i ", depth);
 	printf("nodes %i ", node);
 	printf("score cp %i ", score);
+	printf("time 15 ");
+	printf("pv ");
+	for (int ii = 0; ii < stat->pv._nbrMove; ii++) {
+		movePrintShort(&stat->pv._sMoveList[ii]);
+	}
+
+	printf("\n");
 
 }
 
@@ -67,14 +73,15 @@ smove searchStart(sboard * pBoard, int wtime, int btime, int moveToGo, searchSta
 	gNodeCptCheckTime = 0;
 
 	for (int depth = 1; depth < 20; depth++) {
-		stat->maxDepth=depth;
+		stat->maxDepth = depth;
 		negamax(pBoard, 0, -INF, INF, pBoard->_ActivePlayer, stat);
+		UciInfo(depth, stat->nbrNode, stat->boardEval,stat);
 		if (gStopSearch)
 			return bestMove;
 		moveCpy(&bestMove, &pBoard->_bestMove);
 		if (searchGetTime(stat) > stat->maxSearchTime / 2)
 			return bestMove;
-		if(stat->boardEval==INF ||stat->boardEval==-INF)
+		if (stat->boardEval == INF || stat->boardEval == -INF)
 			return bestMove;
 	}
 	return pBoard->_bestMove;
@@ -109,7 +116,7 @@ int negamax(sboard * pNode, int depth, int alpha, int beta, Color color, searchS
 		return colorIsInCheck(pNode, pNode->_ActivePlayer) ? -INF : 0;;
 	}
 
-	moveOrder(&mliste,stat);
+	moveOrder(&mliste, stat);
 
 	int value = -INF;
 	for (int ii = 0; ii < mliste._nbrMove; ii++) {
@@ -121,18 +128,18 @@ int negamax(sboard * pNode, int depth, int alpha, int beta, Color color, searchS
 		if (gStopSearch)
 			return 0;
 
-		if (value > alpha)
-		{
+		if (value > alpha) {
 			moveCpy(&pNode->_bestMove, &mliste._sMoveList[ii]);
-			moveCpy(&stat->pv._sMoveList[depth],  &mliste._sMoveList[ii]);
-			stat->pv._nbrMove=stat->maxDepth;
-			stat->boardEval=value;
+			moveCpy(&stat->pv._sMoveList[depth], &mliste._sMoveList[ii]);
+			stat->pv._nbrMove = stat->maxDepth;
+			stat->boardEval = value;
 			alpha = value;
 		}
 
 		//alpha = max(alpha, value);
 		if (alpha >= beta) {
 			stat->nbrCut++;
+			moveOrderAddKiller(&mliste._sMoveList[ii]);
 			return value;	//break (* cut-off *)
 		}
 	}

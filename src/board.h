@@ -59,6 +59,7 @@ void boardInitFen(sboard * pBoard, char* pFEN);
 void boardPrintMove(U64 m);
 U64 getMovesForSquare(sboard * pBoard, smoveList* moveList, PieceType pieceType, Color color, int square);
 void boardGenerateAllMoves(sboard* board, smoveList* moveList);
+
 void boardGenerateAllLegalMoves(sboard* board, smoveList* moveList);
 void boardAddMoves(sboard* board, smoveList* moveList, int from, PieceType pieceType, U64 moves, U64 attackable);
 void boardAddMovesPromotion(sboard* board, smoveList* moveList, int from, PieceType pieceType, U64 moves, U64 attackable);

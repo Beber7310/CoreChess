@@ -12,7 +12,7 @@
 U64 NON_SLIDING_ATTACKS[2][6][64] = { { { 0 } } };
 U64 RAYS[8][64] = { { 0 } };
 
-void moveGenInit() {
+void moveGenInit(void) {
 	initPawnAttacks();
 	initKnightAttacks();
 	initKingAttacks();

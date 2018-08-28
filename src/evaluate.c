@@ -10,6 +10,25 @@
 
 //position startpos moves b2b4 a7a6 b4b5
 
+int evaluateMobility(sboard * pboard) {
+	int score = 0;
+
+	PieceType ptype = 0;
+
+	while (ptype < 6) {
+		U64 ptm = pboard->_pieces[pboard->_ActivePlayer][ptype];
+		while (ptm) {
+			int from = _popLsb(&ptm);
+			getMovesForSquare(pboard, moveList, ptype, pboard->_ActivePlayer, from);
+		}
+		ptype++;
+	}
+
+	  U64 getMovesForSquare(sboard * pBoard, smoveList* moveList, PieceType pieceType, Color color, int square) {
+
+	return score;
+}
+
 int evaluate(sboard * pboard) {
 	int score = 0;
 
