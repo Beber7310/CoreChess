@@ -5,23 +5,20 @@
  *      Author: dosdab
  */
 
+#include <stdlib.h>
 #include "transposition.h"
 
 
 static ttEntry* ttTable;
 
-int ttInit(int size)
-{
-	ttTable= malloc(size);
+int ttInit(int size) {
+	ttTable = malloc(size);
 }
 
-ttEntry* ttGet(U64 key)
-{
+ttEntry* ttGet(U64 key) {
 
 }
 
-
- ttSet(sboard *pBoard,int value,int depth,ttFlag flag )
-{
+void ttSet(sboard *pBoard, int value, int depth, ttFlag flag) {
 
 }

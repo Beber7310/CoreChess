@@ -51,6 +51,8 @@ typedef struct sboard_t {
 	U64 _enPassant;
 
 	smove _bestMove;
+
+	U64 _zobKey;
 } sboard;
 
 void boardInit(sboard * pBoard);

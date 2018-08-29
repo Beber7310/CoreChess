@@ -69,6 +69,8 @@ void boardInit(sboard * pBoard) {
 
 	pBoard->_bestMove._move = 0;
 	pBoard->_bestMove._value = 0;
+
+	pBoard->_zobKey=zobCompute(pBoard);
 }
 
 void boardInitFen(sboard * pBoard, char* pFEN) {
@@ -167,6 +169,8 @@ void boardInitFen(sboard * pBoard, char* pFEN) {
 	pBoard->_occupied = pBoard->_allPieces[WHITE] | pBoard->_allPieces[BLACK];
 	pBoard->_notOccupied = ~pBoard->_occupied;
 
+	pBoard->_zobKey=zobCompute(pBoard);
+
 }
 
 void boardCpy(sboard * dst, sboard * src) {
@@ -186,6 +190,7 @@ void _removePiece(sboard * pBoard, Color color, PieceType pieceType, int squareI
 		pBoard->_attackable[color] ^= square;
 	}
 
+	pBoard->_zobKey = zobFlipPiece(color, pieceType, squareIndex, pBoard->_zobKey);
 }
 
 void _addPiece(sboard * pBoard, Color color, PieceType pieceType, int squareIndex) {
@@ -200,6 +205,7 @@ void _addPiece(sboard * pBoard, Color color, PieceType pieceType, int squareInde
 	if (pieceType != KING) {
 		pBoard->_attackable[color] ^= square;
 	}
+	pBoard->_zobKey = zobFlipPiece(color, pieceType, squareIndex, pBoard->_zobKey);
 }
 
 void _movePiece(sboard * pBoard, Color color, PieceType pieceType, int from, int to) {
@@ -242,6 +248,8 @@ void doMove(sboard * pBoard, smove* move) {
 		} else {
 			_movePiece(pBoard, BLACK, ROOK, h8, f8);
 		}
+		pBoard->_zobKey=zobFlipKsCastle(pBoard->_ActivePlayer == WHITE,pBoard->_zobKey);
+
 
 	} else if (flags & QSIDE_CASTLE) {
 		// Move the king
@@ -253,6 +261,7 @@ void doMove(sboard * pBoard, smove* move) {
 		} else {
 			_movePiece(pBoard, BLACK, ROOK, a8, d8);
 		}
+		pBoard->_zobKey=zobFlipKsCastle(pBoard->_ActivePlayer == WHITE,pBoard->_zobKey);
 	} else if (flags & EN_PASSANT) {
 
 		// Remove the correct pawn
@@ -501,7 +510,6 @@ U64 getMovesForSquare(sboard * pBoard, smoveList* moveList, PieceType pieceType,
 
 	return attacks & ~own;
 }
-
 
 PieceType getPieceAtSquare(sboard * pBoard, Color color, int squareIndex) {
 

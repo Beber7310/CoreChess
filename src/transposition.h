@@ -21,5 +21,7 @@ typedef struct ttEntry_t {
 	int depth;
 }ttEntry;
 
+ttEntry* ttGet(U64 key);
+void ttSet(sboard *pBoard, int value, int depth, ttFlag flag);
 
 #endif /* SRC_TRANSPOSITION_H_ */
