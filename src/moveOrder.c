@@ -13,7 +13,7 @@
 #include "bitutils.h"
 #include <string.h>
 
-#define ORDER_NBR_KILLER_MOVE	3
+#define ORDER_NBR_KILLER_MOVE	5
 static smove killerMoves[ORDER_NBR_KILLER_MOVE];
 static int indexKiller;
 
@@ -29,6 +29,7 @@ void moveOrder(smoveList* pMoveList, searchStat* pStat) {
 	int idx = 0;
 	smoveList tmpList;
 
+	//Killer move
 	for (int jj = 0; jj < ORDER_NBR_KILLER_MOVE; jj++) {
 		for (int ii = 0; ii < pMoveList->_nbrMove; ii++) {
 			if (pMoveList->_sMoveList[ii]._move == killerMoves[ii]._move) {
@@ -38,12 +39,24 @@ void moveOrder(smoveList* pMoveList, searchStat* pStat) {
 		}
 	}
 
+	//PV move
+	for (int jj = 0; jj < pStat->maxDepth; jj++) {
+		for (int ii = 0; ii < pMoveList->_nbrMove; ii++) {
+			if (pMoveList->_sMoveList[ii]._move ==pStat->pv._sMoveList[ii]._move) {
+				moveCpy(&tmpList._sMoveList[idx], &pStat->pv._sMoveList[ii]);
+				idx++;
+			}
+		}
+	}
+
+
 	for (int ii = 0; ii < pMoveList->_nbrMove; ii++) {
 		if (MOVE_FLAG(pMoveList->_sMoveList[ii]._move) & CAPTURE) {
 			moveCpy(&tmpList._sMoveList[idx], &pMoveList->_sMoveList[ii]);
 			idx++;
 		}
 	}
+
 	for (int ii = 0; ii < pMoveList->_nbrMove; ii++) {
 		if ((MOVE_FLAG(pMoveList->_sMoveList[ii]._move) & CAPTURE) == 0) {
 			moveCpy(&tmpList._sMoveList[idx], &pMoveList->_sMoveList[ii]);

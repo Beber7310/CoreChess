@@ -14,6 +14,7 @@
 #define ROOK_VALUE   500
 #define QUEEN_VALUE  900
 
+#define MOBILITY_BONUS 1
 
 int evaluate(sboard * pboard);
 

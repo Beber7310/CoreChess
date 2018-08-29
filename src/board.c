@@ -502,49 +502,6 @@ U64 getMovesForSquare(sboard * pBoard, smoveList* moveList, PieceType pieceType,
 	return attacks & ~own;
 }
 
-U64 getMovesEvalForSquare(sboard * pBoard, PieceType pieceType, Color color, int square) {
-// Special case for pawns
-	/*if (pieceType == PAWN) {
-		switch (color) {
-		case WHITE:
-			getWhitePawnAttacks(pBoard, square, moveList);
-			getWhitePawnMove(pBoard, square, moveList);
-			break;
-		case BLACK:
-			getBlackPawnAttacks(pBoard, square, moveList);
-			getBlackPawnMove(pBoard, square, moveList);
-			break;
-		}
-		return 0;
-	}*/
-
-	U64 own = pBoard->_allPieces[color];
-
-	U64 attacks = ZERO;
-	switch (pieceType) {
-	case ROOK:
-		attacks = getRookAttacks(square, pBoard->_occupied) & ~pBoard->_allPieces[color];
-		break;
-	case KNIGHT:
-		attacks = getKnightAttacks(square) & ~pBoard->_allPieces[color];
-		break;
-	case BISHOP:
-		attacks = getBishopAttacks(square, pBoard->_occupied) & ~pBoard->_allPieces[color];
-		break;
-	case QUEEN:
-		attacks = getQueenAttacks(square, pBoard->_occupied) & ~pBoard->_allPieces[color];
-		break;
-	case KING:
-		attacks = getKingAttacks(square) & ~pBoard->_allPieces[color];
-		break;
-
-	case PAWN:
-		printf("Error getAttacksForSquare , should never be reach\n");
-		break;
-	}
-
-	return attacks & ~own;
-}
 
 PieceType getPieceAtSquare(sboard * pBoard, Color color, int squareIndex) {
 
