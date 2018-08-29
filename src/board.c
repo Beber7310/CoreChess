@@ -70,7 +70,7 @@ void boardInit(sboard * pBoard) {
 	pBoard->_bestMove._move = 0;
 	pBoard->_bestMove._value = 0;
 
-	pBoard->_zobKey=zobCompute(pBoard);
+	pBoard->_zobKey = zobCompute(pBoard);
 }
 
 void boardInitFen(sboard * pBoard, char* pFEN) {
@@ -169,7 +169,7 @@ void boardInitFen(sboard * pBoard, char* pFEN) {
 	pBoard->_occupied = pBoard->_allPieces[WHITE] | pBoard->_allPieces[BLACK];
 	pBoard->_notOccupied = ~pBoard->_occupied;
 
-	pBoard->_zobKey=zobCompute(pBoard);
+	pBoard->_zobKey = zobCompute(pBoard);
 
 }
 
@@ -248,8 +248,7 @@ void doMove(sboard * pBoard, smove* move) {
 		} else {
 			_movePiece(pBoard, BLACK, ROOK, h8, f8);
 		}
-		pBoard->_zobKey=zobFlipKsCastle(pBoard->_ActivePlayer == WHITE,pBoard->_zobKey);
-
+		pBoard->_zobKey = zobFlipKsCastle(pBoard->_ActivePlayer == WHITE, pBoard->_zobKey);
 
 	} else if (flags & QSIDE_CASTLE) {
 		// Move the king
@@ -261,7 +260,7 @@ void doMove(sboard * pBoard, smove* move) {
 		} else {
 			_movePiece(pBoard, BLACK, ROOK, a8, d8);
 		}
-		pBoard->_zobKey=zobFlipKsCastle(pBoard->_ActivePlayer == WHITE,pBoard->_zobKey);
+		pBoard->_zobKey = zobFlipKsCastle(pBoard->_ActivePlayer == WHITE, pBoard->_zobKey);
 	} else if (flags & EN_PASSANT) {
 
 		// Remove the correct pawn
@@ -273,7 +272,6 @@ void doMove(sboard * pBoard, smove* move) {
 
 		// Move the capturing pawn
 		_movePiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE(move->_move), MOVE_FROM(move->_move), MOVE_TO(move->_move));
-
 	} else if (flags & PROMOTION) {
 // Remove promoted pawn
 		_removePiece(pBoard, pBoard->_ActivePlayer, PAWN, MOVE_FROM(move->_move));
@@ -285,9 +283,7 @@ void doMove(sboard * pBoard, smove* move) {
 
 		_movePiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE(move->_move), MOVE_FROM(move->_move), MOVE_TO(move->_move));
 		// Set square behind pawn as _enPassant
-		unsigned int enPasIndex = pBoard->_ActivePlayer == WHITE ?
-		MOVE_TO(move->_move) - 8 :
-																	MOVE_TO(move->_move) + 8;
+		unsigned int enPasIndex = pBoard->_ActivePlayer == WHITE ? MOVE_TO(move->_move) - 8 : MOVE_TO(move->_move) + 8;
 		pBoard->_enPassant = ONE << enPasIndex;
 
 	}
