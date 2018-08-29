@@ -145,3 +145,66 @@ int negamax(sboard * pNode, int depth, int alpha, int beta, Color color, searchS
 	}
 	return value;
 }
+
+
+int negamaxTT(sboard * pNode, int depth, int alpha, int beta, Color color, searchStat* stat) {
+	smoveList mliste;
+	sboard child;
+
+	int alphaOrig=alpha;
+
+	if (gStopSearch)
+		return 0;
+
+	if (depth == stat->maxDepth) { // or node is a terminal node then
+		stat->nbrNode++;
+		gNodeCptCheckTime++;
+
+		if (gNodeCptCheckTime > 100000) {
+			searchCheckTime(stat);
+			gNodeCptCheckTime = 0;
+		}
+		int res = evaluate(pNode);
+
+		if (color == WHITE)
+			return res;
+		else
+			return -res;
+	}
+
+	boardGenerateAllLegalMoves(pNode, &mliste);
+	// Check for checkmate and stalemate
+	if (mliste._nbrMove == 0) {
+		return colorIsInCheck(pNode, pNode->_ActivePlayer) ? -INF : 0;;
+	}
+
+	moveOrder(&mliste,stat);
+
+	int value = -INF;
+	for (int ii = 0; ii < mliste._nbrMove; ii++) {
+		boardCpy(&child, pNode);
+
+		doMove(&child, &mliste._sMoveList[ii]);
+		value = max(value, -negamax(&child, depth + 1, -beta, -alpha, !color, stat));
+
+		if (gStopSearch)
+			return 0;
+
+		if (value > alpha)
+		{
+			moveCpy(&pNode->_bestMove, &mliste._sMoveList[ii]);
+			moveCpy(&stat->pv._sMoveList[depth],  &mliste._sMoveList[ii]);
+			stat->pv._nbrMove=stat->maxDepth;
+			stat->boardEval=value;
+			alpha = value;
+		}
+
+		//alpha = max(alpha, value);
+		if (alpha >= beta) {
+			stat->nbrCut++;
+			return value;	//break (* cut-off *)
+		}
+	}
+	return value;
+}
+
