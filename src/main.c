@@ -9,9 +9,9 @@
 #include "movegen.h"
 #include "perft.h"
 #include "uci.h"
-#include "zobrist .h"
 #include "search.h"
 #include "moveOrder.h"
+#include "zobrist.h"
 
 
 int main(int argc, char* argv[]) {

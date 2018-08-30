@@ -4,11 +4,12 @@
  *  Created on: 7 ao�t 2018
  *      Author: Bertrand
  */
+#include <string.h>
 
 #include "board.h"
 #include "movegen.h"
 #include "bitutils.h"
-#include <string.h>
+#include "zobrist.h"
 
 void boardClear(sboard * pBoard) {
 	for (int ii = 0; ii < 2; ii++) {
@@ -54,10 +55,10 @@ void boardInit(sboard * pBoard) {
 	pBoard->_pieces[WHITE][KING] = RANK_1 & (FILE_E);
 	pBoard->_pieces[BLACK][KING] = RANK_8 & (FILE_E);
 
-	pBoard->_allPieces[WHITE] = pBoard->_pieces[WHITE][PAWN] | pBoard->_pieces[WHITE][ROOK] | pBoard->_pieces[WHITE][KNIGHT] | pBoard->_pieces[WHITE][BISHOP] | pBoard->_pieces[WHITE][QUEEN]
-			| pBoard->_pieces[WHITE][KING];
-	pBoard->_allPieces[BLACK] = pBoard->_pieces[BLACK][PAWN] | pBoard->_pieces[BLACK][ROOK] | pBoard->_pieces[BLACK][KNIGHT] | pBoard->_pieces[BLACK][BISHOP] | pBoard->_pieces[BLACK][QUEEN]
-			| pBoard->_pieces[BLACK][KING];
+	pBoard->_allPieces[WHITE] = pBoard->_pieces[WHITE][PAWN] | pBoard->_pieces[WHITE][ROOK] | pBoard->_pieces[WHITE][KNIGHT] | pBoard->_pieces[WHITE][BISHOP]
+			| pBoard->_pieces[WHITE][QUEEN] | pBoard->_pieces[WHITE][KING];
+	pBoard->_allPieces[BLACK] = pBoard->_pieces[BLACK][PAWN] | pBoard->_pieces[BLACK][ROOK] | pBoard->_pieces[BLACK][KNIGHT] | pBoard->_pieces[BLACK][BISHOP]
+			| pBoard->_pieces[BLACK][QUEEN] | pBoard->_pieces[BLACK][KING];
 
 	pBoard->_occupied = pBoard->_allPieces[WHITE] | pBoard->_allPieces[BLACK];
 	pBoard->_notOccupied = ~pBoard->_occupied;
@@ -161,10 +162,10 @@ void boardInitFen(sboard * pBoard, char* pFEN) {
 	 ::notationToIndex(token);
 	 */
 
-	pBoard->_allPieces[WHITE] = pBoard->_pieces[WHITE][PAWN] | pBoard->_pieces[WHITE][ROOK] | pBoard->_pieces[WHITE][KNIGHT] | pBoard->_pieces[WHITE][BISHOP] | pBoard->_pieces[WHITE][QUEEN]
-			| pBoard->_pieces[WHITE][KING];
-	pBoard->_allPieces[BLACK] = pBoard->_pieces[BLACK][PAWN] | pBoard->_pieces[BLACK][ROOK] | pBoard->_pieces[BLACK][KNIGHT] | pBoard->_pieces[BLACK][BISHOP] | pBoard->_pieces[BLACK][QUEEN]
-			| pBoard->_pieces[BLACK][KING];
+	pBoard->_allPieces[WHITE] = pBoard->_pieces[WHITE][PAWN] | pBoard->_pieces[WHITE][ROOK] | pBoard->_pieces[WHITE][KNIGHT] | pBoard->_pieces[WHITE][BISHOP]
+			| pBoard->_pieces[WHITE][QUEEN] | pBoard->_pieces[WHITE][KING];
+	pBoard->_allPieces[BLACK] = pBoard->_pieces[BLACK][PAWN] | pBoard->_pieces[BLACK][ROOK] | pBoard->_pieces[BLACK][KNIGHT] | pBoard->_pieces[BLACK][BISHOP]
+			| pBoard->_pieces[BLACK][QUEEN] | pBoard->_pieces[BLACK][KING];
 
 	pBoard->_occupied = pBoard->_allPieces[WHITE] | pBoard->_allPieces[BLACK];
 	pBoard->_notOccupied = ~pBoard->_occupied;
@@ -216,7 +217,22 @@ void _movePiece(sboard * pBoard, Color color, PieceType pieceType, int from, int
 void doMove(sboard * pBoard, smove* move) {
 	unsigned int flags = MOVE_FLAG(move->_move);
 
+
+	if (zobCompute(pBoard) != pBoard->_zobKey) {
+			printf("Error in zob computation\n");
+			printf("0x%X\n", zobCompute(pBoard));
+			printf("0x%X\n", pBoard->_zobKey);
+			printf(" %i ",MOVE_PIECE(move->_move));
+			movePrintShort(move);
+			printf("\n");
+			printf(" %x\n ",MOVE_FLAG(move->_move));
+		}
+
+
 // En passant always cleared after a move
+	if (pBoard->_enPassant) {
+		pBoard->_zobKey = zobEnPassant(pBoard->_zobKey, pBoard->_enPassant % 8);
+	}
 	pBoard->_enPassant = ZERO;
 
 // Handle move depending on what type of move it is
@@ -248,7 +264,6 @@ void doMove(sboard * pBoard, smove* move) {
 		} else {
 			_movePiece(pBoard, BLACK, ROOK, h8, f8);
 		}
-		pBoard->_zobKey = zobFlipKsCastle(pBoard->_ActivePlayer == WHITE, pBoard->_zobKey);
 
 	} else if (flags & QSIDE_CASTLE) {
 		// Move the king
@@ -260,7 +275,6 @@ void doMove(sboard * pBoard, smove* move) {
 		} else {
 			_movePiece(pBoard, BLACK, ROOK, a8, d8);
 		}
-		pBoard->_zobKey = zobFlipKsCastle(pBoard->_ActivePlayer == WHITE, pBoard->_zobKey);
 	} else if (flags & EN_PASSANT) {
 
 		// Remove the correct pawn
@@ -285,7 +299,7 @@ void doMove(sboard * pBoard, smove* move) {
 		// Set square behind pawn as _enPassant
 		unsigned int enPasIndex = pBoard->_ActivePlayer == WHITE ? MOVE_TO(move->_move) - 8 : MOVE_TO(move->_move) + 8;
 		pBoard->_enPassant = ONE << enPasIndex;
-
+		pBoard->_zobKey = zobEnPassant(pBoard->_zobKey, pBoard->_enPassant % 8);
 	}
 	/* FIXME TO BE IMPLEMENTED
 	 // Halfmove clock reset on pawn moves or captures, incremented otherwise
@@ -296,27 +310,48 @@ void doMove(sboard * pBoard, smove* move) {
 	 }*/
 
 	_updateCastlingRightsForMove(pBoard, move);
+
 	pBoard->_ActivePlayer = !pBoard->_ActivePlayer;
+	pBoard->_zobKey = zobFlipPLayer(pBoard->_zobKey);
+	///////////////////////////   DEBUG   /////////////////////////////
+	///////////////////////////    TBR    /////////////////////////////
+
+	if (zobCompute(pBoard) != pBoard->_zobKey) {
+		printf("Error in zob computation\n");
+		printf("0x%X\n", zobCompute(pBoard));
+		printf("0x%X\n", pBoard->_zobKey);
+		printf(" %i ",MOVE_PIECE(move->_move));
+		movePrintShort(move);
+		printf("\n");
+		printf("flag %x\n ",MOVE_FLAG(move->_move));
+		printf("\n");
+	}
+
 }
 
 void _updateCastlingRightsForMove(sboard * pBoard, smove* move) {
 	unsigned int flags = MOVE_FLAG(move->_move);
+	U64 oldCastlingRights = pBoard->_castlingRights;
 
 	// Update castling flags if rooks have been captured
 	if (flags & CAPTURE) {
 		// Update castling rights if a rook was captured
 		switch (MOVE_TO(move->_move)) {
 		case a1:
+
 			pBoard->_castlingRights &= ~CASTLING_WHITE_QUEEN;
+
 			break;
 		case h1:
 			pBoard->_castlingRights &= ~CASTLING_WHITE_KING;
+
 			break;
 		case a8:
 			pBoard->_castlingRights &= ~CASTLING_BLACK_QUEEN;
 			break;
 		case h8:
 			pBoard->_castlingRights &= ~CASTLING_BLACK_KING;
+
 			break;
 		}
 	}
@@ -342,6 +377,19 @@ void _updateCastlingRightsForMove(sboard * pBoard, smove* move) {
 		pBoard->_castlingRights &= ~CASTLING_BLACK_KING;
 		break;
 	}
+
+	if ((oldCastlingRights ^ pBoard->_castlingRights) & CASTLING_WHITE_QUEEN)
+		pBoard->_zobKey = zobFlipQsCastle(WHITE, pBoard->_zobKey);
+
+	if ((oldCastlingRights ^ pBoard->_castlingRights) & CASTLING_WHITE_KING)
+		pBoard->_zobKey = zobFlipKsCastle(WHITE, pBoard->_zobKey);
+
+	if ((oldCastlingRights ^ pBoard->_castlingRights) & CASTLING_BLACK_QUEEN)
+		pBoard->_zobKey = zobFlipQsCastle(WHITE, pBoard->_zobKey);
+
+	if ((oldCastlingRights ^ pBoard->_castlingRights) & CASTLING_BLACK_KING)
+		pBoard->_zobKey = zobFlipKsCastle(WHITE, pBoard->_zobKey);
+
 
 }
 

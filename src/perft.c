@@ -12,7 +12,7 @@
 
 #include "search.h"
 
-#define PRINT_PERFT_MOVE	0
+#define PRINT_PERFT_MOVE	1
 #define BUZZ_SIZE 512
 
 #if PRINT_PERFT_MOVE > 0
