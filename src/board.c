@@ -55,10 +55,10 @@ void boardInit(sboard * pBoard) {
 	pBoard->_pieces[WHITE][KING] = RANK_1 & (FILE_E);
 	pBoard->_pieces[BLACK][KING] = RANK_8 & (FILE_E);
 
-	pBoard->_allPieces[WHITE] = pBoard->_pieces[WHITE][PAWN] | pBoard->_pieces[WHITE][ROOK] | pBoard->_pieces[WHITE][KNIGHT] | pBoard->_pieces[WHITE][BISHOP]
-			| pBoard->_pieces[WHITE][QUEEN] | pBoard->_pieces[WHITE][KING];
-	pBoard->_allPieces[BLACK] = pBoard->_pieces[BLACK][PAWN] | pBoard->_pieces[BLACK][ROOK] | pBoard->_pieces[BLACK][KNIGHT] | pBoard->_pieces[BLACK][BISHOP]
-			| pBoard->_pieces[BLACK][QUEEN] | pBoard->_pieces[BLACK][KING];
+	pBoard->_allPieces[WHITE] = pBoard->_pieces[WHITE][PAWN] | pBoard->_pieces[WHITE][ROOK] | pBoard->_pieces[WHITE][KNIGHT] | pBoard->_pieces[WHITE][BISHOP] | pBoard->_pieces[WHITE][QUEEN]
+			| pBoard->_pieces[WHITE][KING];
+	pBoard->_allPieces[BLACK] = pBoard->_pieces[BLACK][PAWN] | pBoard->_pieces[BLACK][ROOK] | pBoard->_pieces[BLACK][KNIGHT] | pBoard->_pieces[BLACK][BISHOP] | pBoard->_pieces[BLACK][QUEEN]
+			| pBoard->_pieces[BLACK][KING];
 
 	pBoard->_occupied = pBoard->_allPieces[WHITE] | pBoard->_allPieces[BLACK];
 	pBoard->_notOccupied = ~pBoard->_occupied;
@@ -162,10 +162,10 @@ void boardInitFen(sboard * pBoard, char* pFEN) {
 	 ::notationToIndex(token);
 	 */
 
-	pBoard->_allPieces[WHITE] = pBoard->_pieces[WHITE][PAWN] | pBoard->_pieces[WHITE][ROOK] | pBoard->_pieces[WHITE][KNIGHT] | pBoard->_pieces[WHITE][BISHOP]
-			| pBoard->_pieces[WHITE][QUEEN] | pBoard->_pieces[WHITE][KING];
-	pBoard->_allPieces[BLACK] = pBoard->_pieces[BLACK][PAWN] | pBoard->_pieces[BLACK][ROOK] | pBoard->_pieces[BLACK][KNIGHT] | pBoard->_pieces[BLACK][BISHOP]
-			| pBoard->_pieces[BLACK][QUEEN] | pBoard->_pieces[BLACK][KING];
+	pBoard->_allPieces[WHITE] = pBoard->_pieces[WHITE][PAWN] | pBoard->_pieces[WHITE][ROOK] | pBoard->_pieces[WHITE][KNIGHT] | pBoard->_pieces[WHITE][BISHOP] | pBoard->_pieces[WHITE][QUEEN]
+			| pBoard->_pieces[WHITE][KING];
+	pBoard->_allPieces[BLACK] = pBoard->_pieces[BLACK][PAWN] | pBoard->_pieces[BLACK][ROOK] | pBoard->_pieces[BLACK][KNIGHT] | pBoard->_pieces[BLACK][BISHOP] | pBoard->_pieces[BLACK][QUEEN]
+			| pBoard->_pieces[BLACK][KING];
 
 	pBoard->_occupied = pBoard->_allPieces[WHITE] | pBoard->_allPieces[BLACK];
 	pBoard->_notOccupied = ~pBoard->_occupied;
@@ -217,42 +217,30 @@ void _movePiece(sboard * pBoard, Color color, PieceType pieceType, int from, int
 void doMove(sboard * pBoard, smove* move) {
 	unsigned int flags = MOVE_FLAG(move->_move);
 
-
-	if (zobCompute(pBoard) != pBoard->_zobKey) {
-			printf("Error in zob computation\n");
-			printf("0x%X\n", zobCompute(pBoard));
-			printf("0x%X\n", pBoard->_zobKey);
-			printf(" %i ",MOVE_PIECE(move->_move));
-			movePrintShort(move);
-			printf("\n");
-			printf(" %x\n ",MOVE_FLAG(move->_move));
-		}
-
-
-// En passant always cleared after a move
+	// En passant always cleared after a move
 	if (pBoard->_enPassant) {
 		pBoard->_zobKey = zobEnPassant(pBoard->_zobKey, pBoard->_enPassant % 8);
 	}
 	pBoard->_enPassant = ZERO;
 
-// Handle move depending on what type of move it is
+	// Handle move depending on what type of move it is
 	if (!flags) {
-// No flags set, not a special move
+		// No flags set, not a special move
 		_movePiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE(move->_move), MOVE_FROM(move->_move), MOVE_TO(move->_move));
 	} else if ((flags & CAPTURE) && (flags & PROMOTION)) { // Capture promotion special case
-// Remove captured Piece
+		// Remove captured Piece
 		_removePiece(pBoard, !pBoard->_ActivePlayer, MOVE_PIECE_CAPTURED(move->_move), MOVE_TO(move->_move));
 
-// Remove promoting pawn
+		// Remove promoting pawn
 		_removePiece(pBoard, pBoard->_ActivePlayer, PAWN, MOVE_FROM(move->_move));
 
-// Add promoted piece
+		// Add promoted piece
 		_addPiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE_PROMOTION(move->_move), MOVE_TO(move->_move));
 	} else if (flags & CAPTURE) {
-// Remove captured Piece
+		// Remove captured Piece
 		_removePiece(pBoard, !pBoard->_ActivePlayer, MOVE_PIECE_CAPTURED(move->_move), MOVE_TO(move->_move));
 
-// Move capturing piece
+		// Move capturing piece
 		_movePiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE(move->_move), MOVE_FROM(move->_move), MOVE_TO(move->_move));
 	} else if (flags & KSIDE_CASTLE) {
 		// Move the king
@@ -287,10 +275,9 @@ void doMove(sboard * pBoard, smove* move) {
 		// Move the capturing pawn
 		_movePiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE(move->_move), MOVE_FROM(move->_move), MOVE_TO(move->_move));
 	} else if (flags & PROMOTION) {
-// Remove promoted pawn
+		// Remove promoted pawn
 		_removePiece(pBoard, pBoard->_ActivePlayer, PAWN, MOVE_FROM(move->_move));
-
-// Add promoted piece
+		// Add promoted piece
 		_addPiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE_PROMOTION(move->_move), MOVE_TO(move->_move));
 
 	} else if (flags & DOUBLE_PAWN_PUSH) {
@@ -315,18 +302,20 @@ void doMove(sboard * pBoard, smove* move) {
 	pBoard->_zobKey = zobFlipPLayer(pBoard->_zobKey);
 	///////////////////////////   DEBUG   /////////////////////////////
 	///////////////////////////    TBR    /////////////////////////////
-
-	if (zobCompute(pBoard) != pBoard->_zobKey) {
-		printf("Error in zob computation\n");
-		printf("0x%X\n", zobCompute(pBoard));
-		printf("0x%X\n", pBoard->_zobKey);
-		printf(" %i ",MOVE_PIECE(move->_move));
-		movePrintShort(move);
-		printf("\n");
-		printf("flag %x\n ",MOVE_FLAG(move->_move));
-		printf("\n");
-	}
-
+	/*
+	 if (zobCompute(pBoard) != pBoard->_zobKey) {
+	 boardPrint(pBoard);
+	 printf("Error in zob computation\n");
+	 printf("0x%X\n", zobCompute(pBoard));
+	 printf("0x%X\n", pBoard->_zobKey);
+	 printf("0x%X\n", pBoard->_zobKey^zobCompute(pBoard));
+	 printf(" %i ", MOVE_PIECE(move->_move));
+	 movePrintShort(move);
+	 printf("\n");
+	 printf("flag %x\n ", MOVE_FLAG(move->_move));
+	 printf("\n");
+	 }
+	 */
 }
 
 void _updateCastlingRightsForMove(sboard * pBoard, smove* move) {
@@ -338,20 +327,16 @@ void _updateCastlingRightsForMove(sboard * pBoard, smove* move) {
 		// Update castling rights if a rook was captured
 		switch (MOVE_TO(move->_move)) {
 		case a1:
-
 			pBoard->_castlingRights &= ~CASTLING_WHITE_QUEEN;
-
 			break;
 		case h1:
 			pBoard->_castlingRights &= ~CASTLING_WHITE_KING;
-
 			break;
 		case a8:
 			pBoard->_castlingRights &= ~CASTLING_BLACK_QUEEN;
 			break;
 		case h8:
 			pBoard->_castlingRights &= ~CASTLING_BLACK_KING;
-
 			break;
 		}
 	}
@@ -385,11 +370,10 @@ void _updateCastlingRightsForMove(sboard * pBoard, smove* move) {
 		pBoard->_zobKey = zobFlipKsCastle(WHITE, pBoard->_zobKey);
 
 	if ((oldCastlingRights ^ pBoard->_castlingRights) & CASTLING_BLACK_QUEEN)
-		pBoard->_zobKey = zobFlipQsCastle(WHITE, pBoard->_zobKey);
+		pBoard->_zobKey = zobFlipQsCastle(BLACK, pBoard->_zobKey);
 
 	if ((oldCastlingRights ^ pBoard->_castlingRights) & CASTLING_BLACK_KING)
-		pBoard->_zobKey = zobFlipKsCastle(WHITE, pBoard->_zobKey);
-
+		pBoard->_zobKey = zobFlipKsCastle(BLACK, pBoard->_zobKey);
 
 }
 

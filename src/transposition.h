@@ -11,7 +11,7 @@
 #include "board.h"
 
 typedef enum {
-	 EXACT,LOWERBOUND,UPPERBOUND
+	 EMPTY=0,EXACT,LOWERBOUND,UPPERBOUND
 }ttFlag;
 
 typedef struct ttEntry_t {

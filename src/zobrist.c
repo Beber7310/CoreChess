@@ -16,21 +16,22 @@ U64 KS_CASTLE_KEYS[2];
 U64 QS_CASTLE_KEYS[2];
 U64 WHITE_TO_MOVE_KEY;
 
-
 U64 rand64(void) {
-	static int fr=0;
-	return fr++;
+	static U64 fr = 1;
 
 	U64 ret = 0;
-/*
-	for (int ii = 0; ii < 8; ii++) {
-		ret <<= 8;
-		ret |= rand() % 256;
-	}
-	return ret;
-	*/
+	/*
+	 for (int ii = 0; ii < 8; ii++) {
+	 ret <<= 8;
+	 ret |= rand() % 256;
+	 }
+	 return ret;
+	 */
 
-	return fr++;
+	fr = fr << 1;
+	if (!fr)
+		fr = 0x01;
+	return fr;
 }
 
 void zobInit(void) {
@@ -71,7 +72,7 @@ U64 zobFlipQsCastle(Color color, U64 key) {
 }
 
 U64 zobFlipPLayer(U64 key) {
-	return key^WHITE_TO_MOVE_KEY;
+	return key ^ WHITE_TO_MOVE_KEY;
 }
 
 U64 zobEnPassant(U64 key, unsigned int file) {
@@ -107,16 +108,16 @@ U64 zobCompute(sboard* board) {
 
 	// Add castles
 	if (board->_castlingRights & CASTLING_WHITE_KING) { //getKsCastlingRights(WHITE)
-		_key=zobFlipKsCastle(WHITE, _key);
+		_key = zobFlipKsCastle(WHITE, _key);
 	}
 	if (board->_castlingRights & CASTLING_WHITE_QUEEN) { //getQsCastlingRights(WHITE)
-		_key=zobFlipQsCastle(WHITE, _key);
+		_key = zobFlipQsCastle(WHITE, _key);
 	}
 	if (board->_castlingRights & CASTLING_BLACK_KING) { //getKsCastlingRights(BLACK)
-		_key=zobFlipKsCastle(BLACK, _key);
+		_key = zobFlipKsCastle(BLACK, _key);
 	}
 	if (board->_castlingRights & CASTLING_BLACK_QUEEN) { // getQsCastlingRights(BLACK)
-		_key=zobFlipQsCastle(BLACK, _key);
+		_key = zobFlipQsCastle(BLACK, _key);
 	}
 
 	return _key;

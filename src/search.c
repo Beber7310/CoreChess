@@ -156,6 +156,10 @@ int negamaxTT(sboard * pNode, int depth, int alpha, int beta, Color color, searc
 	if (gStopSearch)
 		return 0;
 
+
+
+
+
 	if (depth == stat->maxDepth) { // or node is a terminal node then
 		stat->nbrNode++;
 		gNodeCptCheckTime++;
