@@ -6,23 +6,33 @@
  */
 
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 #include "transposition.h"
 
 
 static ttEntry* ttTable;
 static int gSize;
-static U64	gMaskTT;
-static U64	gShiftTT;
+static int	gMaskTT;
+static int	gShiftTT;
 
 int ttInit(int size) {
 	ttTable = malloc(size);
-	gSize=size;
+	if(ttTable==NULL)
+	{
+		printf("Error while malloc ttInit\n");
+	}
+	memset (ttTable,0,size);
 
+	gMaskTT;
+	gShiftTT;
+
+	gSize=size;
 	return 0;
 }
 
 ttEntry* ttGet(U64 key) {
-	int idx=(key>>gShiftTT)&gMaskTT;
+	int idx=(key&gMaskTT)>>gShiftTT;
 	return &ttTable[idx];
 }
 
