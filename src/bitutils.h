@@ -65,6 +65,7 @@ U64 _westOne(U64 board);
 
 
 int max(int a, int b);
+int min(int a, int b);
 
 
 

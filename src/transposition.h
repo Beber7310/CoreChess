@@ -15,13 +15,15 @@ typedef enum {
 }ttFlag;
 
 typedef struct ttEntry_t {
-	sboard	board;
-	ttFlag flag;
-	int value;
-	int depth;
+	//sboard	board;
+	U64 key;
+	int32_t value;
+	uint8_t depth;
+	uint8_t flag;
 }ttEntry;
 
+int ttInit(int size);
 ttEntry* ttGet(U64 key);
-void ttSet(sboard *pBoard, int value, int depth, ttFlag flag);
+void ttSet(sboard *pBoard, int32_t value, uint8_t depth, ttFlag flag);
 
 #endif /* SRC_TRANSPOSITION_H_ */

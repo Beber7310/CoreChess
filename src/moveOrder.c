@@ -28,7 +28,7 @@ void moveOrderInit(void) {
 void moveOrder(smoveList* pMoveList, searchStat* pStat) {
 	int idx = 0;
 	smoveList tmpList;
-
+/*
 	//Killer move
 	for (int jj = 0; jj < ORDER_NBR_KILLER_MOVE; jj++) {
 		for (int ii = 0; ii < pMoveList->_nbrMove; ii++) {
@@ -38,8 +38,9 @@ void moveOrder(smoveList* pMoveList, searchStat* pStat) {
 			}
 		}
 	}
-
+*/
 	//PV move
+	/*
 	for (int jj = 0; jj < pStat->maxDepth; jj++) {
 		for (int ii = 0; ii < pMoveList->_nbrMove; ii++) {
 			if (pMoveList->_sMoveList[ii]._move ==pStat->pv._sMoveList[ii]._move) {
@@ -47,7 +48,7 @@ void moveOrder(smoveList* pMoveList, searchStat* pStat) {
 				idx++;
 			}
 		}
-	}
+	}*/
 
 
 	for (int ii = 0; ii < pMoveList->_nbrMove; ii++) {
