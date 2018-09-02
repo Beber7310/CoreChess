@@ -12,6 +12,7 @@
 #include "search.h"
 #include "moveOrder.h"
 #include "zobrist.h"
+#include "transposition.h"
 
 
 int main(int argc, char* argv[]) {

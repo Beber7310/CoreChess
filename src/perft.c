@@ -133,7 +133,7 @@ int perftCheckFile(char* fileName, int depth) {
 	return 0;
 }
 
-int puzzleMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut) {
+int puzzleMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut, int* nbrZob) {
 	sboard board;
 	boardInitFen(&board, posStart);
 #if PRINT_PERFT_MOVE > 0
@@ -156,11 +156,12 @@ int puzzleMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut) {
 		}
 		printf("\n");
 		printf("Terminal node %i\n", stat.nbrNode);
-		printf("Cut           %i\n\n",stat.nbrCut);
+		printf("Cut           %i\n", stat.nbrCut);
+		printf("Zob           %i\n\n", stat.nbrZob);
 
-		*nbrNode+=stat.nbrNode;
-		*nbrCut+=stat.nbrCut;
-
+		*nbrNode += stat.nbrNode;
+		*nbrCut += stat.nbrCut;
+		*nbrZob += stat.nbrZob;
 		return 0;
 	}
 
@@ -171,8 +172,9 @@ int puzzlzCheckFile(char* fileName, int depth) {
 	char buff[BUZZ_SIZE];
 	char* pos;
 
-	int nbrNode=0;
-	int nbrCut=0;
+	int nbrNode = 0;
+	int nbrCut = 0;
+	int nbrZob = 0;
 
 	int startTime, endTime;
 
@@ -184,7 +186,7 @@ int puzzlzCheckFile(char* fileName, int depth) {
 	startTime = time(NULL);
 	while (fgets(buff, BUZZ_SIZE, f)) {
 		pos = strtok(buff, ";");
-		err += puzzleMasterRun(pos, depth, &nbrNode, &nbrCut);
+		err += puzzleMasterRun(pos, depth, &nbrNode, &nbrCut, &nbrZob);
 	}
 	endTime = time(NULL);
 	fclose(f);
@@ -194,9 +196,11 @@ int puzzlzCheckFile(char* fileName, int depth) {
 	} else {
 		printf("   --- Puzzle check OK! --- \n");
 		printf("Nodes %i\n", nbrNode);
-		if((endTime-startTime))
-			printf("nps   %i\n", nbrNode/(endTime-startTime));
+		if ((endTime - startTime))
+			printf("nps   %i\n", nbrNode / (endTime - startTime));
 		printf("Cuts  %i\n", nbrCut);
+		printf("Zobs  %i\n", nbrZob);
+
 	}
 	return 0;
 }

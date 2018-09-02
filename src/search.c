@@ -68,6 +68,7 @@ smove searchStart(sboard * pBoard, int wtime, int btime, int moveToGo, searchSta
 	gStopSearch = 0;
 	stat->nbrNode = 0;
 	stat->nbrCut = 0;
+	stat->nbrZob = 0;
 
 	time(&stat->startSearchTIme);
 
@@ -164,6 +165,7 @@ int negamaxTT(sboard * pNode, int depth, int alpha, int beta, Color color, searc
 		if (tt) {
 			if (tt->flag != EMPTY) {
 				if (tt->depth >= (stat->maxDepth - depth)) {
+					stat->nbrZob++;
 					switch (tt->flag) {
 					case EXACT:
 						return tt->value;
@@ -175,7 +177,7 @@ int negamaxTT(sboard * pNode, int depth, int alpha, int beta, Color color, searc
 						alpha = max(alpha, tt->value);
 						break;
 					case EMPTY:
-						printf("Mustnot happen!(negamaxTT)");
+						printf("Must not happen!(negamaxTT)");
 						break;
 					}
 				}
@@ -227,23 +229,27 @@ int negamaxTT(sboard * pNode, int depth, int alpha, int beta, Color color, searc
 		}
 
 		//alpha = max(alpha, value);
+
 		if (alpha >= beta) {
 			stat->nbrCut++;
 			break;
 			//return value;	//break (* cut-off *)
 		}
+
 	}
 
 	uint8_t flag = 0;
-	;
-	if (value <= alphaOrig)
-		flag = UPPERBOUND;
-	else if (value <= beta)
-		flag = LOWERBOUND;
-	else
-		flag = EXACT;
 
-	ttSet(pNode, value, stat->maxDepth - depth, flag);
+	if (value <= alphaOrig) {
+		flag = UPPERBOUND;
+	} else if (value >= beta) {
+		flag = LOWERBOUND;
+	} else {
+		flag = EXACT;
+		ttSet(pNode, value, stat->maxDepth - depth, flag);
+	}
+
+	//
 
 	return value;
 }

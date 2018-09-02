@@ -34,8 +34,7 @@ int ttInit(int size) {
 ttEntry* ttGet(U64 key) {
 	ttEntry* tt;
 	tt = &ttTable[key & gMaskTT];
-	if (key == tt->key)
-	{
+	if (key == tt->key) {
 		return tt;
 	}
 	return NULL;
@@ -56,12 +55,12 @@ void ttSet(sboard *pBoard, int32_t value, uint8_t depth, ttFlag flag) {
 	prev = ttGet(pBoard->_zobKey);
 	if (prev == NULL) {
 		writeNew = 1;
-		prev=ttAllocate(pBoard->_zobKey);
+		prev = ttAllocate(pBoard->_zobKey);
 	} else if (prev->flag == EMPTY) {
 		writeNew = 1;
 	} else if (depth > prev->depth) {
 		writeNew = 1;
-	} else if (depth == prev->depth && prev->flag == EXACT) {
+	} else if ((depth == prev->depth) && (prev->flag == EXACT)) {
 		writeNew = 1;
 	}
 

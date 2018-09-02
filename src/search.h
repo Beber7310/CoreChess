@@ -19,6 +19,7 @@ typedef struct searchStat_t {
 	int maxDepth;
 	int nbrNode;
 	int nbrCut;
+	int nbrZob;
 	int boardEval;
 	smoveList pv;
 
