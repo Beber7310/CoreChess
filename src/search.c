@@ -74,6 +74,8 @@ smove searchStart(sboard * pBoard, int wtime, int btime, int moveToGo, searchSta
 
 	gNodeCptCheckTime = 0;
 
+	moveOrderClearKiller();
+
 	for (int depth = 1; depth < 20; depth++) {
 		stat->maxDepth = depth;
 		//negamax(pBoard, 0, -INF, INF, pBoard->_ActivePlayer, stat);
@@ -119,7 +121,7 @@ int negamax(sboard * pNode, int depth, int alpha, int beta, Color color, searchS
 		return colorIsInCheck(pNode, pNode->_ActivePlayer) ? -INF : 0;;
 	}
 
-	moveOrder(&mliste, stat);
+	moveOrder(&mliste,depth, stat);
 
 	int value = -INF;
 	for (int ii = 0; ii < mliste._nbrMove; ii++) {
@@ -142,7 +144,7 @@ int negamax(sboard * pNode, int depth, int alpha, int beta, Color color, searchS
 		//alpha = max(alpha, value);
 		if (alpha >= beta) {
 			stat->nbrCut++;
-			moveOrderAddKiller(&mliste._sMoveList[ii]);
+			moveOrderAddKiller(&mliste._sMoveList[ii], depth);
 			return value;	//break (* cut-off *)
 		}
 	}
@@ -208,7 +210,7 @@ int negamaxTT(sboard * pNode, int depth, int alpha, int beta, Color color, searc
 		return colorIsInCheck(pNode, pNode->_ActivePlayer) ? -INF : 0;;
 	}
 
-	moveOrder(&mliste, stat);
+	moveOrder(&mliste, depth, stat);
 
 	int value = -INF;
 	for (int ii = 0; ii < mliste._nbrMove; ii++) {
@@ -232,6 +234,8 @@ int negamaxTT(sboard * pNode, int depth, int alpha, int beta, Color color, searc
 
 		if (alpha >= beta) {
 			stat->nbrCut++;
+			mliste._sMoveList[ii]._value=alpha;
+			moveOrderAddKiller(&mliste._sMoveList[ii], depth);
 			break;
 			//return value;	//break (* cut-off *)
 		}
@@ -246,10 +250,10 @@ int negamaxTT(sboard * pNode, int depth, int alpha, int beta, Color color, searc
 		flag = LOWERBOUND;
 	} else {
 		flag = EXACT;
-		ttSet(pNode, value, stat->maxDepth - depth, flag);
+
 	}
 
-	//
+	ttSet(pNode, value, stat->maxDepth - depth, flag);
 
 	return value;
 }

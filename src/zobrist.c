@@ -17,21 +17,15 @@ U64 QS_CASTLE_KEYS[2];
 U64 WHITE_TO_MOVE_KEY;
 
 U64 rand64(void) {
-	static U64 fr = 1;
 
 	U64 ret = 0;
-	/*
-	 for (int ii = 0; ii < 8; ii++) {
-	 ret <<= 8;
-	 ret |= rand() % 256;
-	 }
-	 return ret;
-	 */
 
-	fr = fr << 1;
-	if (!fr)
-		fr = 0x01;
-	return fr;
+	for (int ii = 0; ii < 8; ii++) {
+		ret <<= 8;
+		ret |= rand() % 256;
+	}
+	return ret;
+
 }
 
 void zobInit(void) {

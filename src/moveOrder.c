@@ -13,43 +13,49 @@
 #include "bitutils.h"
 #include <string.h>
 
-#define ORDER_NBR_KILLER_MOVE	5
+#define ORDER_NBR_KILLER_MOVE	20
 static smove killerMoves[ORDER_NBR_KILLER_MOVE];
-static int indexKiller;
 
-void moveOrderInit(void) {
+void moveOrderClearKiller(void) {
 	for (int ii = 0; ii < ORDER_NBR_KILLER_MOVE; ii++) {
 		killerMoves[ii]._move = 0;
 		killerMoves[ii]._value = 0;
 	}
-	indexKiller = 0;
 }
 
-void moveOrder(smoveList* pMoveList, searchStat* pStat) {
+void moveOrderDebug(smoveList* pMoveList1, smoveList* pMoveList2) {
+	int found = 0;
+	for (int ii = 0; ii < pMoveList1->_nbrMove; ii++) {
+		found = 0;
+		for (int jj = 0; jj < pMoveList1->_nbrMove; jj++) {
+			if (pMoveList1->_sMoveList[ii]._move == pMoveList2->_sMoveList[jj]._move) {
+				found = 1;
+			}
+
+		}
+		if (found == 0) {
+			printf("moveOrderDebug: Erreur\n");
+			exit(-1);
+		}
+	}
+}
+
+void moveOrder(smoveList* pMoveList, int depth, searchStat* pStat) {
 	int idx = 0;
 	smoveList tmpList;
-/*
-	//Killer move
-	for (int jj = 0; jj < ORDER_NBR_KILLER_MOVE; jj++) {
-		for (int ii = 0; ii < pMoveList->_nbrMove; ii++) {
-			if (pMoveList->_sMoveList[ii]._move == killerMoves[ii]._move) {
-				moveCpy(&tmpList._sMoveList[idx], &killerMoves[ii]);
+
+	for (int ii = 0; ii < pMoveList->_nbrMove; ii++) {
+		if (pMoveList->_sMoveList[ii]._move == killerMoves[depth]._move) {
+			if (pMoveList->_sMoveList[ii]._value < killerMoves[depth]._value) {
+				moveCpy(&tmpList._sMoveList[idx], &killerMoves[depth]);
 				idx++;
+
+				// Remove the move from the original move to avoid to get it 2 times
+				moveCpy(&pMoveList->_sMoveList[ii], &pMoveList->_sMoveList[pMoveList->_nbrMove-1]);
+				pMoveList->_nbrMove--;
 			}
 		}
 	}
-*/
-	//PV move
-	/*
-	for (int jj = 0; jj < pStat->maxDepth; jj++) {
-		for (int ii = 0; ii < pMoveList->_nbrMove; ii++) {
-			if (pMoveList->_sMoveList[ii]._move ==pStat->pv._sMoveList[ii]._move) {
-				moveCpy(&tmpList._sMoveList[idx], &pStat->pv._sMoveList[ii]);
-				idx++;
-			}
-		}
-	}*/
-
 
 	for (int ii = 0; ii < pMoveList->_nbrMove; ii++) {
 		if (MOVE_FLAG(pMoveList->_sMoveList[ii]._move) & CAPTURE) {
@@ -65,17 +71,19 @@ void moveOrder(smoveList* pMoveList, searchStat* pStat) {
 		}
 	}
 
-
 	// copy back sorted movement
 	for (int ii = 0; ii < pMoveList->_nbrMove; ii++) {
 		moveCpy(&pMoveList->_sMoveList[ii], &tmpList._sMoveList[ii]);
 	}
+
+	moveOrderDebug(pMoveList,&tmpList);
 }
 
-void moveOrderAddKiller(smove* pMove) {
-	killerMoves[indexKiller]._move = pMove->_move;
-	killerMoves[indexKiller]._value = pMove->_value;
-	indexKiller++;
-	if(indexKiller>=ORDER_NBR_KILLER_MOVE)
-		indexKiller=0;
+
+
+void moveOrderAddKiller(smove* pMove, int depth) {
+	if (depth < ORDER_NBR_KILLER_MOVE) {
+		killerMoves[depth]._move = pMove->_move;
+		killerMoves[depth]._value = pMove->_value;
+	}
 }
