@@ -78,8 +78,8 @@ smove searchStart(sboard * pBoard, int wtime, int btime, int moveToGo, searchSta
 
 	for (int depth = 1; depth < 20; depth++) {
 		stat->maxDepth = depth;
-		//negamax(pBoard, 0, -INF, INF, pBoard->_ActivePlayer, stat);
-		negamaxTT(pBoard, 0, -INF, INF, pBoard->_ActivePlayer, stat);
+		negamax(pBoard, 0, -INF, INF, pBoard->_ActivePlayer, stat);
+		//negamaxTT(pBoard, 0, -INF, INF, pBoard->_ActivePlayer, stat);
 		UciInfo(depth, stat->nbrNode, stat->boardEval, stat);
 		if (gStopSearch)
 			return bestMove;

@@ -164,9 +164,6 @@ void uciParseCmd(char* str) {
 		puzzlzCheckFile("mat4.epd", 4);
 	}
 
-
-
-
 }
 
 void main_UCI() {
