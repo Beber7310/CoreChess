@@ -9,6 +9,7 @@
 #include "board.h"
 #include "move.h"
 #include "bitutils.h"
+#include "tcpserver.h"
 
 void moveBuild(smove* pMove, unsigned int from, unsigned int to, PieceType piece) {
 	unsigned int flags = 0;
@@ -69,25 +70,30 @@ void movePrint(smove* move) {
 
 void movePrintShort(smove* move) {
 	int from,to;
+	char str[10];
+
+
 	from=MOVE_FROM(move->_move);
 	to=MOVE_TO(move->_move);
 
-	printf("%c%i%c%i",'a'+(from&0x7),(from>>3)+1,'a'+(to&0x07),(to>>3)+1);
+	sprintf(str,"%c%i%c%i",'a'+(from&0x7),(from>>3)+1,'a'+(to&0x07),(to>>3)+1);
+	printTcp(str);
+
 	  if (MOVE_FLAG(move->_move) & PROMOTION) {
 	    switch (MOVE_PIECE_PROMOTION(move->_move)) {
-	      case QUEEN:printf("q");
+	      case QUEEN:printTcp("q");
 	        break;
-	      case ROOK: printf("r");
+	      case ROOK: printTcp("r");
 	        break;
-	      case KNIGHT: printf("n");
+	      case KNIGHT: printTcp("n");
 	        break;
-	      case BISHOP: printf("b");
+	      case BISHOP: printTcp("b");
 	        break;
 	      default:
 	        break;
 	    }
 	  }
-	  printf(" ");
+	  printTcp(" ");
 }
 
 void moveCpy(smove * dst, smove * src) {

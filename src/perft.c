@@ -12,7 +12,7 @@
 
 #include "search.h"
 
-#define PRINT_PERFT_MOVE	1
+#define PRINT_PERFT_MOVE	0
 #define BUZZ_SIZE 512
 
 #if PRINT_PERFT_MOVE > 0
@@ -142,18 +142,20 @@ int puzzleMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut, int* n
 
 	searchStat stat;
 
-	searchStart(&board, 40000, 40000, 2, &stat);
+	searchStart(&board, 80000, 80000, 2, &stat);
 
 	printf("%s ", posStart);
 
 	if (stat.boardEval != INF) {
 		printf("Error! \n");
+		movePrintShort(&board._bestMove);
 		return 1;
 	} else {
 		printf("OK! ");
-		for (int ii = 0; ii < stat.pv._nbrMove; ii++) {
-			movePrintShort(&stat.pv._sMoveList[ii]);
-		}
+		movePrintShort(&board._bestMove);
+
+ 
+
 		printf("\n");
 		printf("Terminal node %i\n", stat.nbrNode);
 		printf("Cut           %i\n", stat.nbrCut);
@@ -183,12 +185,12 @@ int puzzlzCheckFile(char* fileName, int depth) {
 	if (f == NULL)
 		printf("Error while opening puzzle file %s\n", fileName);
 
-	startTime = time(NULL);
+	startTime =(int) time(NULL);
 	while (fgets(buff, BUZZ_SIZE, f)) {
 		pos = strtok(buff, ";");
 		err += puzzleMasterRun(pos, depth, &nbrNode, &nbrCut, &nbrZob);
 	}
-	endTime = time(NULL);
+	endTime = (int)  time(NULL);
 	fclose(f);
 
 	if (err) {

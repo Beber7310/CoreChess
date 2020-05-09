@@ -222,11 +222,13 @@ void initEastRays() {
 
 void initNorthEastRays() {
 	U64 startRay = 0x8040201008040200ull;
-	for (int file = 0; file < 8; file++, startRay = _eastOne(startRay)) {
+	for (int file = 0; file < 8; file++,startRay = _eastOne(startRay)) {
+		
 		U64 currRay = startRay;
 		for (int rank8 = 0; rank8 < 64; rank8 += 8, currRay <<= 8ull) {
 			RAYS[NORTH_EAST][rank8 + file] = currRay;
 		}
+		
 	}
 }
 

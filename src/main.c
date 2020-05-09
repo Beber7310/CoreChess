@@ -14,13 +14,18 @@
 #include "zobrist.h"
 #include "transposition.h"
 
+int main_TCP(void);
 
+#ifdef _WIN64
+int mainChess(int argc, char* argv[]) {
+#else
 int main(int argc, char* argv[]) {
+#endif
 	moveGenInit();
 	zobInit();
 	moveOrderClearKiller();
 	ttInit(32*1024*1024);
-
+	
 	FILE * pFile;
 	pFile = fopen("logUci.txt", "w");
 	fprintf(pFile, " --- Core Chess --- \n");
@@ -31,5 +36,7 @@ int main(int argc, char* argv[]) {
 
 
 	main_UCI();
-}
+	//main_TCP();
 
+	return 0;
+}

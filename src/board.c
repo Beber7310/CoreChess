@@ -11,7 +11,7 @@
 #include "bitutils.h"
 #include "zobrist.h"
 
-void boardClear(sboard * pBoard) {
+void boardClear(sboard* pBoard) {
 	for (int ii = 0; ii < 2; ii++) {
 		for (int jj = 0; jj < 6; jj++) {
 			pBoard->_pieces[ii][jj] = ZERO;
@@ -36,7 +36,7 @@ void boardClear(sboard * pBoard) {
 	return;
 }
 
-void boardInit(sboard * pBoard) {
+void boardInit(sboard* pBoard) {
 	pBoard->_pieces[WHITE][PAWN] = RANK_2;
 	pBoard->_pieces[BLACK][PAWN] = RANK_7;
 
@@ -56,9 +56,9 @@ void boardInit(sboard * pBoard) {
 	pBoard->_pieces[BLACK][KING] = RANK_8 & (FILE_E);
 
 	pBoard->_allPieces[WHITE] = pBoard->_pieces[WHITE][PAWN] | pBoard->_pieces[WHITE][ROOK] | pBoard->_pieces[WHITE][KNIGHT] | pBoard->_pieces[WHITE][BISHOP] | pBoard->_pieces[WHITE][QUEEN]
-			| pBoard->_pieces[WHITE][KING];
+		| pBoard->_pieces[WHITE][KING];
 	pBoard->_allPieces[BLACK] = pBoard->_pieces[BLACK][PAWN] | pBoard->_pieces[BLACK][ROOK] | pBoard->_pieces[BLACK][KNIGHT] | pBoard->_pieces[BLACK][BISHOP] | pBoard->_pieces[BLACK][QUEEN]
-			| pBoard->_pieces[BLACK][KING];
+		| pBoard->_pieces[BLACK][KING];
 
 	pBoard->_occupied = pBoard->_allPieces[WHITE] | pBoard->_allPieces[BLACK];
 	pBoard->_notOccupied = ~pBoard->_occupied;
@@ -74,7 +74,7 @@ void boardInit(sboard * pBoard) {
 	pBoard->_zobKey = zobCompute(pBoard);
 }
 
-void boardInitFen(sboard * pBoard, char* pFEN) {
+void boardInitFen(sboard* pBoard, char* pFEN) {
 	char tmp[512];
 	sprintf(tmp, "%s", pFEN);
 	char* token = strtok(tmp, " ");
@@ -129,11 +129,11 @@ void boardInitFen(sboard * pBoard, char* pFEN) {
 		idx++;
 	}
 
-// Next to move
+	// Next to move
 	token = strtok(NULL, " ");
 	pBoard->_ActivePlayer = token[0] == 'w' ? WHITE : BLACK;
 
-// Castling
+	// Castling
 	token = strtok(NULL, " ");
 	pBoard->_castlingRights = 0;
 	idx = 0;
@@ -155,17 +155,17 @@ void boardInitFen(sboard * pBoard, char* pFEN) {
 		idx++;
 	}
 
-// En passant target square
-	/*
-	 fenStream >> token;
-	 _enPassant = token == "-" ? ZERO : ONE << Move
-	 ::notationToIndex(token);
-	 */
+	// En passant target square
+		/*
+		 fenStream >> token;
+		 _enPassant = token == "-" ? ZERO : ONE << Move
+		 ::notationToIndex(token);
+		 */
 
 	pBoard->_allPieces[WHITE] = pBoard->_pieces[WHITE][PAWN] | pBoard->_pieces[WHITE][ROOK] | pBoard->_pieces[WHITE][KNIGHT] | pBoard->_pieces[WHITE][BISHOP] | pBoard->_pieces[WHITE][QUEEN]
-			| pBoard->_pieces[WHITE][KING];
+		| pBoard->_pieces[WHITE][KING];
 	pBoard->_allPieces[BLACK] = pBoard->_pieces[BLACK][PAWN] | pBoard->_pieces[BLACK][ROOK] | pBoard->_pieces[BLACK][KNIGHT] | pBoard->_pieces[BLACK][BISHOP] | pBoard->_pieces[BLACK][QUEEN]
-			| pBoard->_pieces[BLACK][KING];
+		| pBoard->_pieces[BLACK][KING];
 
 	pBoard->_occupied = pBoard->_allPieces[WHITE] | pBoard->_allPieces[BLACK];
 	pBoard->_notOccupied = ~pBoard->_occupied;
@@ -174,11 +174,11 @@ void boardInitFen(sboard * pBoard, char* pFEN) {
 
 }
 
-void boardCpy(sboard * dst, sboard * src) {
+void boardCpy(sboard* dst, sboard* src) {
 	memcpy(dst, src, sizeof(sboard));
 }
 
-void _removePiece(sboard * pBoard, Color color, PieceType pieceType, int squareIndex) {
+void _removePiece(sboard* pBoard, Color color, PieceType pieceType, int squareIndex) {
 	U64 square = ONE << squareIndex;
 
 	pBoard->_pieces[color][pieceType] ^= square;
@@ -194,7 +194,7 @@ void _removePiece(sboard * pBoard, Color color, PieceType pieceType, int squareI
 	pBoard->_zobKey = zobFlipPiece(color, pieceType, squareIndex, pBoard->_zobKey);
 }
 
-void _addPiece(sboard * pBoard, Color color, PieceType pieceType, int squareIndex) {
+void _addPiece(sboard* pBoard, Color color, PieceType pieceType, int squareIndex) {
 	U64 square = ONE << squareIndex;
 
 	pBoard->_pieces[color][pieceType] |= square;
@@ -209,12 +209,12 @@ void _addPiece(sboard * pBoard, Color color, PieceType pieceType, int squareInde
 	pBoard->_zobKey = zobFlipPiece(color, pieceType, squareIndex, pBoard->_zobKey);
 }
 
-void _movePiece(sboard * pBoard, Color color, PieceType pieceType, int from, int to) {
+void _movePiece(sboard* pBoard, Color color, PieceType pieceType, int from, int to) {
 	_removePiece(pBoard, color, pieceType, from);
 	_addPiece(pBoard, color, pieceType, to);
 }
 
-void doMove(sboard * pBoard, smove* move) {
+void doMove(sboard* pBoard, smove* move) {
 	unsigned int flags = MOVE_FLAG(move->_move);
 
 	// En passant always cleared after a move
@@ -227,8 +227,9 @@ void doMove(sboard * pBoard, smove* move) {
 	if (!flags) {
 		// No flags set, not a special move
 		_movePiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE(move->_move), MOVE_FROM(move->_move), MOVE_TO(move->_move));
-	} else if ((flags & CAPTURE) && (flags & PROMOTION)) { // Capture promotion special case
-		// Remove captured Piece
+	}
+	else if ((flags & CAPTURE) && (flags & PROMOTION)) { // Capture promotion special case
+	 // Remove captured Piece
 		_removePiece(pBoard, !pBoard->_ActivePlayer, MOVE_PIECE_CAPTURED(move->_move), MOVE_TO(move->_move));
 
 		// Remove promoting pawn
@@ -236,51 +237,60 @@ void doMove(sboard * pBoard, smove* move) {
 
 		// Add promoted piece
 		_addPiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE_PROMOTION(move->_move), MOVE_TO(move->_move));
-	} else if (flags & CAPTURE) {
+	}
+	else if (flags & CAPTURE) {
 		// Remove captured Piece
 		_removePiece(pBoard, !pBoard->_ActivePlayer, MOVE_PIECE_CAPTURED(move->_move), MOVE_TO(move->_move));
 
 		// Move capturing piece
 		_movePiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE(move->_move), MOVE_FROM(move->_move), MOVE_TO(move->_move));
-	} else if (flags & KSIDE_CASTLE) {
+	}
+	else if (flags & KSIDE_CASTLE) {
 		// Move the king
 		_movePiece(pBoard, pBoard->_ActivePlayer, KING, MOVE_FROM(move->_move), MOVE_TO(move->_move));
 
 		// Move the correct rook
 		if (pBoard->_ActivePlayer == WHITE) {
 			_movePiece(pBoard, WHITE, ROOK, h1, f1);
-		} else {
+		}
+		else {
 			_movePiece(pBoard, BLACK, ROOK, h8, f8);
 		}
 
-	} else if (flags & QSIDE_CASTLE) {
+	}
+	else if (flags & QSIDE_CASTLE) {
 		// Move the king
 		_movePiece(pBoard, pBoard->_ActivePlayer, KING, MOVE_FROM(move->_move), MOVE_TO(move->_move));
 
 		// Move the correct rook
 		if (pBoard->_ActivePlayer == WHITE) {
 			_movePiece(pBoard, WHITE, ROOK, a1, d1);
-		} else {
+		}
+		else {
 			_movePiece(pBoard, BLACK, ROOK, a8, d8);
 		}
-	} else if (flags & EN_PASSANT) {
+	}
+	else if (flags & EN_PASSANT) {
 
 		// Remove the correct pawn
 		if (pBoard->_ActivePlayer == WHITE) {
 			_removePiece(pBoard, BLACK, PAWN, MOVE_TO(move->_move) - 8);
-		} else {
+		}
+		else {
 			_removePiece(pBoard, WHITE, PAWN, MOVE_TO(move->_move) + 8);
 		}
 
 		// Move the capturing pawn
 		_movePiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE(move->_move), MOVE_FROM(move->_move), MOVE_TO(move->_move));
-	} else if (flags & PROMOTION) {
+	}
+	else if (flags & PROMOTION) {
 		// Remove promoted pawn
 		_removePiece(pBoard, pBoard->_ActivePlayer, PAWN, MOVE_FROM(move->_move));
 		// Add promoted piece
 		_addPiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE_PROMOTION(move->_move), MOVE_TO(move->_move));
 
-	} else if (flags & DOUBLE_PAWN_PUSH) {
+	}
+	else if (flags & DOUBLE_PAWN_PUSH) {
 
 		_movePiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE(move->_move), MOVE_FROM(move->_move), MOVE_TO(move->_move));
 		// Set square behind pawn as _enPassant
@@ -303,22 +313,23 @@ void doMove(sboard * pBoard, smove* move) {
 	///////////////////////////   DEBUG   /////////////////////////////
 	///////////////////////////    TBR    /////////////////////////////
 	/*
-	 if (zobCompute(pBoard) != pBoard->_zobKey) {
-	 boardPrint(pBoard);
-	 printf("Error in zob computation\n");
-	 printf("0x%X\n", zobCompute(pBoard));
-	 printf("0x%X\n", pBoard->_zobKey);
-	 printf("0x%X\n", pBoard->_zobKey^zobCompute(pBoard));
-	 printf(" %i ", MOVE_PIECE(move->_move));
-	 movePrintShort(move);
-	 printf("\n");
-	 printf("flag %x\n ", MOVE_FLAG(move->_move));
-	 printf("\n");
-	 }
-	 */
+	if (zobCompute(pBoard) != pBoard->_zobKey) {
+		boardPrint(pBoard);
+		printf("Error in zob computation\n");
+		printf("0x%X\n", zobCompute(pBoard));
+		printf("0x%X\n", pBoard->_zobKey);
+		printf("0x%X\n", pBoard->_zobKey ^ zobCompute(pBoard));
+		printf(" %i ", MOVE_PIECE(move->_move));
+		movePrintShort(move);
+		printf("\n");
+		printf("flag %x\n ", MOVE_FLAG(move->_move));
+		printf("\n");
+	}
+	*/
+
 }
 
-void _updateCastlingRightsForMove(sboard * pBoard, smove* move) {
+void _updateCastlingRightsForMove(sboard* pBoard, smove* move) {
 	unsigned int flags = MOVE_FLAG(move->_move);
 	U64 oldCastlingRights = pBoard->_castlingRights;
 
@@ -430,10 +441,10 @@ void boardGenerateAllLegalMoves(sboard* board, smoveList* moveList) {
 }
 
 void boardAddMovesPromotion(sboard* board, smoveList* moveList, int from, PieceType pieceType, U64 moves, U64 attackable) {
-// Ignore all moves/attacks to kings
+	// Ignore all moves/attacks to kings
 	moves &= ~(board->_pieces[!board->_ActivePlayer][KING]);
 
-// Generate non attacks
+	// Generate non attacks
 	U64 nonAttacks = moves & ~attackable;
 	while (nonAttacks) {
 		int to = _popLsb(&nonAttacks);
@@ -444,7 +455,7 @@ void boardAddMovesPromotion(sboard* board, smoveList* moveList, int from, PieceT
 		moveBuildPromotion(&moveList->_sMoveList[moveList->_nbrMove++], from, to, PAWN, 0, KNIGHT);
 	}
 
-// Generate attacks
+	// Generate attacks
 	U64 attacks = moves & attackable;
 	while (attacks) {
 		int to = _popLsb(&attacks);
@@ -458,10 +469,10 @@ void boardAddMovesPromotion(sboard* board, smoveList* moveList, int from, PieceT
 }
 
 void boardAddMovesEnPassant(sboard* board, smoveList* moveList, int from, PieceType pieceType, U64 moves) {
-// Ignore all moves/attacks to kings
+	// Ignore all moves/attacks to kings
 	moves &= ~(board->_pieces[!board->_ActivePlayer][KING]);
 
-// Generate non attacks
+	// Generate non attacks
 	U64 nonAttacks = moves;
 	while (nonAttacks) {
 		int to = _popLsb(&nonAttacks);
@@ -472,17 +483,17 @@ void boardAddMovesEnPassant(sboard* board, smoveList* moveList, int from, PieceT
 }
 
 void boardAddMoves(sboard* board, smoveList* moveList, int from, PieceType pieceType, U64 moves, U64 attackable) {
-// Ignore all moves/attacks to kings
+	// Ignore all moves/attacks to kings
 	moves &= ~(board->_pieces[!board->_ActivePlayer][KING]);
 
-// Generate non attacks
+	// Generate non attacks
 	U64 nonAttacks = moves & ~attackable;
 	while (nonAttacks) {
 		int to = _popLsb(&nonAttacks);
 		moveBuild(&moveList->_sMoveList[moveList->_nbrMove++], from, to, pieceType);
 	}
 
-// Generate attacks
+	// Generate attacks
 	U64 attacks = moves & attackable;
 	while (attacks) {
 		int to = _popLsb(&attacks);
@@ -490,8 +501,8 @@ void boardAddMoves(sboard* board, smoveList* moveList, int from, PieceType piece
 	}
 }
 
-U64 getMovesForSquare(sboard * pBoard, smoveList* moveList, PieceType pieceType, Color color, int square) {
-// Special case for pawns
+U64 getMovesForSquare(sboard* pBoard, smoveList* moveList, PieceType pieceType, Color color, int square) {
+	// Special case for pawns
 	if (pieceType == PAWN) {
 		switch (color) {
 		case WHITE:
@@ -539,7 +550,7 @@ U64 getMovesForSquare(sboard * pBoard, smoveList* moveList, PieceType pieceType,
 	return attacks & ~own;
 }
 
-PieceType getPieceAtSquare(sboard * pBoard, Color color, int squareIndex) {
+PieceType getPieceAtSquare(sboard* pBoard, Color color, int squareIndex) {
 
 	U64 square = ONE << squareIndex;
 
@@ -578,7 +589,7 @@ void boardPrintMove(U64 m) {
 	printf(" ABCDEFGH\n");
 }
 
-void boardPrint(sboard * pBoard) {
+void boardPrint(sboard* pBoard) {
 	printf(" ABCDEFGH\n");
 	for (int jj = 56; jj >= 0; jj -= 8) {
 		printf("%i", 1 + (jj / 8));
@@ -613,7 +624,8 @@ void boardPrint(sboard * pBoard) {
 					printf("K");
 				if (pBoard->_pieces[BLACK][KING] >> (ii + jj) & ONE)
 					printf("k");
-			} else
+			}
+			else
 				printf(" ");
 		}
 		printf("\n");
@@ -621,7 +633,7 @@ void boardPrint(sboard * pBoard) {
 	printf(" ABCDEFGH\n\n");
 }
 
-int whiteCanCastleKs(sboard * pBoard) {
+int whiteCanCastleKs(sboard* pBoard) {
 	if (!(pBoard->_castlingRights & CASTLING_WHITE_KING)) {
 		return 0;
 	}
@@ -633,7 +645,7 @@ int whiteCanCastleKs(sboard * pBoard) {
 	return !colorIsInCheck(pBoard, WHITE) && !squaresOccupied && !squaresAttacked;
 }
 
-int whiteCanCastleQs(sboard * pBoard) {
+int whiteCanCastleQs(sboard* pBoard) {
 	if (!(pBoard->_castlingRights & CASTLING_WHITE_QUEEN)) {
 		return 0;
 	}
@@ -645,7 +657,7 @@ int whiteCanCastleQs(sboard * pBoard) {
 	return !colorIsInCheck(pBoard, WHITE) && !squaresOccupied && !squaresAttacked;
 }
 
-int blackCanCastleKs(sboard * pBoard) {
+int blackCanCastleKs(sboard* pBoard) {
 	if (!(pBoard->_castlingRights & CASTLING_BLACK_KING)) {
 		return 0;
 	}
@@ -657,7 +669,7 @@ int blackCanCastleKs(sboard * pBoard) {
 	return !colorIsInCheck(pBoard, BLACK) && !squaresOccupied && !squaresAttacked;
 }
 
-int blackCanCastleQs(sboard * pBoard) {
+int blackCanCastleQs(sboard* pBoard) {
 	if (!(pBoard->_castlingRights & CASTLING_BLACK_QUEEN)) {
 		return 0;
 	}
@@ -669,8 +681,8 @@ int blackCanCastleQs(sboard * pBoard) {
 	return !colorIsInCheck(pBoard, BLACK) && !squaresOccupied && !squaresAttacked;
 }
 
-int _squareUnderAttack(sboard * pBoard, Color color, int squareIndex) {
-// Check for pawn, knight and king attacks
+int _squareUnderAttack(sboard* pBoard, Color color, int squareIndex) {
+	// Check for pawn, knight and king attacks
 	if (getNonSlidingAttacks(PAWN, squareIndex, !color) & pBoard->_pieces[color][PAWN])
 		return 1;
 	if (getNonSlidingAttacks(KNIGHT, squareIndex, !color) & pBoard->_pieces[color][KNIGHT])
@@ -678,12 +690,12 @@ int _squareUnderAttack(sboard * pBoard, Color color, int squareIndex) {
 	if (getNonSlidingAttacks(KING, squareIndex, !color) & pBoard->_pieces[color][KING])
 		return 1;
 
-// Check for bishop/queen attacks
+	// Check for bishop/queen attacks
 	U64 bishopsQueens = pBoard->_pieces[color][BISHOP] | pBoard->_pieces[color][QUEEN];
 	if (getBishopAttacks(squareIndex, pBoard->_occupied) & bishopsQueens)
 		return 1;
 
-// Check for rook/queen attacks
+	// Check for rook/queen attacks
 	U64 rooksQueens = pBoard->_pieces[color][ROOK] | pBoard->_pieces[color][QUEEN];
 	if (getRookAttacks(squareIndex, pBoard->_occupied) & rooksQueens)
 		return 1;
@@ -691,7 +703,7 @@ int _squareUnderAttack(sboard * pBoard, Color color, int squareIndex) {
 	return 0;
 }
 
-int colorIsInCheck(sboard * pBoard, Color color) {
+int colorIsInCheck(sboard* pBoard, Color color) {
 	int kingSquare = _bitscanForward(pBoard->_pieces[color][KING]);
 	return _squareUnderAttack(pBoard, !color, kingSquare);
 }

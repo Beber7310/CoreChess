@@ -14,7 +14,17 @@
  *  Created on: 9 août 2018
  *      Author: Bertrand
  */
+#ifdef _MSC_VER
+    //#pragma intrinsic(_BitScanReverse)
 
+    #define max(a,b) (((a) > (b)) ? (a) : (b))
+    #define min(a,b) (((a) < (b)) ? (a) : (b))
+#else
+ //   int max(int a, int b);
+ //   int min(int a, int b);
+#endif
+
+ 
 #include "defs.h"
 
 /**
@@ -62,10 +72,6 @@ U64 _eastOne(U64 board);
  * @return A bitboard with all set bits moved one square west, bits falling off the edge discarded
  */
 U64 _westOne(U64 board);
-
-
-int max(int a, int b);
-int min(int a, int b);
 
 
 

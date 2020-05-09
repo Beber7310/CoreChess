@@ -76,7 +76,9 @@ void moveOrder(smoveList* pMoveList, int depth, searchStat* pStat) {
 		moveCpy(&pMoveList->_sMoveList[ii], &tmpList._sMoveList[ii]);
 	}
 
+#ifdef _DEBUG
 	moveOrderDebug(pMoveList,&tmpList);
+#endif
 }
 
 

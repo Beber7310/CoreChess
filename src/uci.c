@@ -11,6 +11,9 @@
 #include "move.h"
 #include "search.h"
 #include "perft.h"
+#include "uci.h"
+#include "tcpserver.h"
+
 
 sboard uciBoard;
 
@@ -50,9 +53,10 @@ void uciParseGo(char* str) {
 
 	searchStat stat;
 	smove mv = searchStart(&uciBoard, wtime, btime, movestogo,&stat);
-	printf("bestmove ");
+	printTcp("bestmove ");
+	
 	movePrintShort(&mv);
-	printf("\n");
+	printTcp("\n");
 
 }
 
@@ -139,15 +143,15 @@ void uciParseCmd(char* str) {
 	} else if (strncmp("ucinewgame", token, sizeof("ucinewgame") - 1) == 0) {
 		// rien :)
 	} else if (strncmp("uci", token, sizeof("uci") - 1) == 0) {
-		printf("id name CoreChess\n");
-		printf("id author Bertrand\n");
+		/*printTcp(ClientSocket, "id name CoreChess\n");		
+		printTcp(ClientSocket, "id author Bertrand\n");
 
-		printf("option name option1 type string default\n");
-		printf("option name option2 type spin default 1 min 1 max 32\n");
-
-		printf("uciok\n");
+		printTcp( "option name option1 type string default\n");
+		printTcp( "option name option2 type spin default 1 min 1 max 32\n");
+		*/
+		printTcp( "uciok\n");
 	} else if (strncmp("isready", token, sizeof("isready") - 1) == 0) {
-		printf("readyok\n");
+		printTcp("readyok\n");
 	} else if (strncmp("position", token, sizeof("position") - 1) == 0) {
 		token = strtok(NULL, "");
 		uciParsePosition(token);
@@ -159,9 +163,11 @@ void uciParseCmd(char* str) {
 	}else if (strncmp("puz2", token, sizeof("puz2") - 1) == 0) {
 		puzzlzCheckFile("mat2.epd", 2);
 	}else if (strncmp("puz3", token, sizeof("puz3") - 1) == 0) {
-		puzzlzCheckFile("mat3.epd", 3);
+		puzzlzCheckFile("mat3.epd", 4);
 	}else if (strncmp("puz4", token, sizeof("puz4") - 1) == 0) {
 		puzzlzCheckFile("mat4.epd", 4);
+	}else if (strncmp("exit", token, sizeof("exit") - 1) == 0) {
+		exit(0);
 	}
 
 }
