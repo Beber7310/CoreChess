@@ -142,9 +142,9 @@ int puzzleMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut, int* n
 
 	searchStat stat;
 
+	printf("%s ", posStart);
 	searchStart(&board, 80000, 80000, 2, &stat);
 
-	printf("%s ", posStart);
 
 	if (stat.boardEval != INF) {
 		printf("Error! \n");

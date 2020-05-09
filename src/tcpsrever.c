@@ -178,11 +178,12 @@ int main_TCP(void)
 
 void printTcp(char* str)
 {
-    int iSendResult;
+
     
     if (ClientSocket)
     {
 #ifdef _MSC_VER
+    	 int iSendResult;
         iSendResult = send(ClientSocket, str, (size_t)strlen(str), 0);
         if (iSendResult == SOCKET_ERROR) {
             printf("send failed with error: %d\n", WSAGetLastError());
