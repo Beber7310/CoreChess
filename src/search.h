@@ -28,7 +28,8 @@ typedef struct searchStat_t {
 
 void searchCheckTime(searchStat* stat);
 smove searchStart(sboard * pBoard, int wtime, int btime, int moveToGo, searchStat* stat);
-int negamax(sboard * pNode, int depth,  Color color, searchStat* stat);
+int negamax(sboard * pNode, int depth,  Color color, int alpha, int beta,searchStat* stat);
 int alphaBeta(sboard* pNode, int depth,Color color,int alpha,int beta, searchStat* stat);
+int negascout (sboard* pNode, int depth, Color color, int alpha, int beta, searchStat* stat);
 
 #endif /* SRC_SEARCH_H_ */
