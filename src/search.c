@@ -17,7 +17,6 @@
 #include "moveOrder.h"
 #include "transposition.h"
 
-
 static int gStopSearch;		  // used to stop digging when time is over
 static int gNodeCptCheckTime; //Used as a counter to choose when to print some info
 
@@ -25,16 +24,16 @@ static int gNodeCptCheckTime; //Used as a counter to choose when to print some i
 
 #define INF (99999)
 
-#define DISABLE_TIME 1
+#define DISABLE_TIME 0
 
 int searchGetTime(searchStat* stat) {
-	return (int)(time(NULL) - stat->startSearchTIme);
+	return (int) (time(NULL) - stat->startSearchTIme);
 }
 
 void searchCheckTime(searchStat* stat) {
 #if DISABLE_TIME == 1
 	if (searchGetTime(stat) > stat->maxSearchTime)
-		gStopSearch = 1;
+	gStopSearch = 1;
 #endif
 }
 
@@ -42,12 +41,7 @@ void UciInfo(int depth, int node, int score, searchStat* stat) {
 
 	printf("info depth %i ", depth);
 	printf("nodes %i ", node);
-	printf("score cp %i ", score);
-	printf("time 15 ");
-	printf("pv ");
-	/*for (int ii = 0; ii < stat->pv._nbrMove; ii++) {
-	 movePrintShort(&stat->pv._sMoveList[ii]);
-	 }*/
+	printf("score %i ", score);
 
 	printf("\n");
 
@@ -57,28 +51,17 @@ smove searchStart(sboard* pBoard, int wtime, int btime, int moveToGo, searchStat
 
 	smove bestMove;
 
-	searchStat statNM; // Negamax
-	searchStat statAB; // AlphaBeta
-
-	sboard boardNM;
-	sboard boardAB;
-
-	memcpy(&boardNM, pBoard, sizeof(sboard));
-	memcpy(&boardAB, pBoard, sizeof(sboard));
-
 	if (pBoard->_ActivePlayer == WHITE) {
 		stat->maxSearchTime = wtime;
-	}
-	else {
+	} else {
 		stat->maxSearchTime = btime;
 	}
 
 	if (moveToGo > 0) {
 		stat->maxSearchTime = stat->maxSearchTime / moveToGo;
 		stat->maxSearchTime = stat->maxSearchTime / 1000; //milli seconde to seconde
-	}
-	else {
-		stat->maxSearchTime = 60;
+	} else {
+		stat->maxSearchTime = 5;
 	}
 
 	gStopSearch = 0;
@@ -86,10 +69,52 @@ smove searchStart(sboard* pBoard, int wtime, int btime, int moveToGo, searchStat
 	stat->nbrCut = 0;
 	stat->nbrZob = 0;
 
-	memcpy(&statAB, stat, sizeof(searchStat));
-	memcpy(&statNM, stat, sizeof(searchStat));
+	time(&stat->startSearchTIme);
 
-	time(&statNM.startSearchTIme);
+	gNodeCptCheckTime = 0;
+
+	moveOrderClearKiller();
+
+	for (int depth = 3; depth < 20; depth++) {
+		stat->maxDepth = depth;
+		stat->boardEval = negamax(pBoard, depth, -INF, INF, pBoard->_ActivePlayer, stat);
+		UciInfo(depth, stat->nbrNode, stat->boardEval, stat);
+
+		if (gStopSearch)
+			return bestMove;
+		moveCpy(&bestMove, &pBoard->_bestMove);
+		if (searchGetTime(stat) > stat->maxSearchTime / 2)
+			return bestMove;
+		if (stat->boardEval == INF || stat->boardEval == -INF)
+			return bestMove;
+	}
+	return pBoard->_bestMove;
+}
+
+smove algoCheck(sboard* pBoard, AlgoFunc algo1, AlgoFunc algo2, searchStat* stat) {
+
+	smove bestMove;
+
+	searchStat statAlgo1; // Negamax
+	searchStat statAlgo2; // AlphaBeta
+
+	sboard boardAlgo1;
+	sboard boardAlgo2;
+
+	memcpy(&boardAlgo1, pBoard, sizeof(sboard));
+	memcpy(&boardAlgo2, pBoard, sizeof(sboard));
+
+	stat->maxSearchTime = 60;
+
+	gStopSearch = 0;
+	stat->nbrNode = 0;
+	stat->nbrCut = 0;
+	stat->nbrZob = 0;
+
+	memcpy(&statAlgo1, stat, sizeof(searchStat));
+	memcpy(&statAlgo2, stat, sizeof(searchStat));
+
+	time(&statAlgo1.startSearchTIme);
 
 	gNodeCptCheckTime = 0;
 
@@ -98,51 +123,39 @@ smove searchStart(sboard* pBoard, int wtime, int btime, int moveToGo, searchStat
 	for (int depth = 2; depth < 20; depth++) {
 		int err = 0;
 
-		statNM.maxDepth = depth;
-		statAB.maxDepth = depth;
+		statAlgo1.maxDepth = depth;
+		statAlgo2.maxDepth = depth;
 
+		statAlgo1.boardEval = algo1(&boardAlgo1, statAlgo1.maxDepth, pBoard->_ActivePlayer, -INF, INF, &statAlgo1);
+		statAlgo2.boardEval = algo2(&boardAlgo2, statAlgo2.maxDepth, pBoard->_ActivePlayer, -INF, INF, &statAlgo2);
 
-
-		statNM.boardEval = negamax(&boardNM, statNM.maxDepth, pBoard->_ActivePlayer, -INF, INF, &statNM);
-		statAB.boardEval = alphaBeta(&boardAB, statAB.maxDepth, pBoard->_ActivePlayer, -INF, INF, &statAB);
-
-		/*
-		moveOrderClearKiller();
-		statNM.boardEval = alphaBeta(&boardNM, statNM.maxDepth, pBoard->_ActivePlayer, -INF, INF, &statNM);
-		moveOrderClearKiller();
-		statAB.boardEval = negascout(&boardAB, statNM.maxDepth, pBoard->_ActivePlayer, -INF, INF, &statAB);
-		*/
-
-		if (statNM.boardEval == statAB.boardEval) {
-			stat->boardEval = statNM.boardEval;
-			if ((statNM.boardEval == INF) || (statNM.boardEval == -INF))
-			{
-				if (boardNM._bestMove._move != boardAB._bestMove._move) {
+		if (statAlgo1.boardEval == statAlgo2.boardEval) {
+			stat->boardEval = statAlgo1.boardEval;
+			if ((statAlgo1.boardEval == INF) || (statAlgo1.boardEval == -INF)) {
+				if (boardAlgo1._bestMove._move != boardAlgo2._bestMove._move) {
 					printTcp("Error alphabeta and Negamax found different bestmove \n");
-					movePrint(&boardNM._bestMove);
-					movePrint(&boardAB._bestMove);
+					movePrint(&boardAlgo1._bestMove);
+					movePrint(&boardAlgo2._bestMove);
 					err++;
 				}
 			}
-		}
-		else {
-			if ((statNM.boardEval != INF) && (statNM.boardEval != -INF))
-			{
+		} else {
+			if ((abs(statAlgo1.boardEval) != INF) && (abs(statAlgo2.boardEval) != INF)) {
 				printTcp("Error alphabeta and Negamax found different eval \n");
 				err++;
 			}
 		}
 
-		memcpy(pBoard, &boardAB, sizeof(sboard));
-		memcpy(stat, &statAB, sizeof(searchStat));
+		memcpy(pBoard, &boardAlgo2, sizeof(sboard));
+		memcpy(stat, &statAlgo2, sizeof(searchStat));
 
 		printTcp("NM :");
-		movePrintShort(&boardNM._bestMove);
-		UciInfo(depth, statNM.nbrNode, statNM.boardEval, &statNM);
+		movePrintShort(&boardAlgo1._bestMove);
+		UciInfo(depth, statAlgo1.nbrNode, statAlgo1.boardEval, &statAlgo1);
 
 		printTcp("AB :");
-		movePrintShort(&boardAB._bestMove);
-		UciInfo(depth, statAB.nbrNode, statAB.boardEval, &statAB);
+		movePrintShort(&boardAlgo2._bestMove);
+		UciInfo(depth, statAlgo2.nbrNode, statAlgo2.boardEval, &statAlgo2);
 
 		if (err) {
 
@@ -150,16 +163,15 @@ smove searchStart(sboard* pBoard, int wtime, int btime, int moveToGo, searchStat
 			return pBoard->_bestMove;
 		}
 
-		if (gStopSearch)
-		{
+		if (gStopSearch) {
 			printf("searchStart stop by timeout \n");
 			return bestMove;
 		}
 
-		moveCpy(&bestMove, &boardAB._bestMove);
-		if (searchGetTime(&statNM) > statNM.maxSearchTime / 2)
+		moveCpy(&bestMove, &boardAlgo2._bestMove);
+		if (searchGetTime(&statAlgo1) > statAlgo1.maxSearchTime / 2)
 			return bestMove;
-		if (statNM.boardEval == INF || statNM.boardEval == -INF)
+		if (statAlgo1.boardEval == INF || statAlgo1.boardEval == -INF)
 			return bestMove;
 	}
 
@@ -210,6 +222,12 @@ int negamax(sboard* pNode, int depth, Color color, int alpha, int beta, searchSt
 		 movePrintShort(&mliste._sMoveList[ii]);
 		 printf(" \n");
 		 */
+		if ((stat->maxDepth - depth) == 0)
+			moveBreakPoint(&mliste._sMoveList[ii], "d4b5");
+	/*	if ((stat->maxDepth - depth) == 1)
+			moveBreakPoint(&mliste._sMoveList[ii], "c3c4");
+		if ((stat->maxDepth - depth) == 2)
+			moveBreakPoint(&mliste._sMoveList[ii], "b5d6");*/
 
 		boardCpy(&child, pNode);
 		doMove(&child, &mliste._sMoveList[ii]);
@@ -261,12 +279,12 @@ int alphaBeta(sboard* pNode, int depth, Color color, int alpha, int beta, search
 	for (int ii = 0; ii < mliste._nbrMove; ii++) {
 
 		/*for (int jj = 0; jj < (stat->maxDepth - depth); jj++)
-		{
-			printf(" ");
-		}
-		movePrintShort(&mliste._sMoveList[ii]);
-		printf(" \n");
-		*/
+		 {
+		 printf(" ");
+		 }
+		 movePrintShort(&mliste._sMoveList[ii]);
+		 printf(" \n");
+		 */
 		boardCpy(&child, pNode);
 		doMove(&child, &mliste._sMoveList[ii]);
 		value = -alphaBeta(&child, depth - 1, !color, -beta, -alpha, stat);
@@ -286,7 +304,6 @@ int alphaBeta(sboard* pNode, int depth, Color color, int alpha, int beta, search
 
 	return best;
 }
-
 
 int negascout(sboard* pNode, int depth, Color color, int alpha, int beta, searchStat* stat) {
 	smoveList mliste;
@@ -323,42 +340,33 @@ int negascout(sboard* pNode, int depth, Color color, int alpha, int beta, search
 	int bestscore = 0;
 	int score;
 
-
 	assert(mliste._nbrMove > 0);
 
 	for (int ii = 0; ii < mliste._nbrMove; ii++) {
 
 		boardCpy(&child, pNode);
 		doMove(&child, &mliste._sMoveList[ii]);
-		if (ii == 0)
-		{
+		if (ii == 0) {
 			bestscore = -negascout(&child, depth - 1, !color, -beta, -alpha, stat);
 			moveCpy(&pNode->_bestMove, &mliste._sMoveList[ii]);
-			if (bestscore > alpha)
-			{
-				if (bestscore > beta)
-				{
+			if (bestscore > alpha) {
+				if (bestscore > beta) {
 					stat->nbrCut++;
 					return bestscore;
 				}
 				alpha = bestscore;
 			}
-		}
-		else
-		{
+		} else {
 			score = -negascout(&child, depth - 1, !color, -alpha - 1, -alpha, stat);
-			if ((score > alpha) && (score < beta))
-			{
+			if ((score > alpha) && (score < beta)) {
 				score = -negascout(&child, depth - 1, !color, -beta, -alpha, stat);
 				if (score > alpha)
 					alpha = score;
 			}
 
-			if (score > bestscore)
-			{
+			if (score > bestscore) {
 				moveCpy(&pNode->_bestMove, &mliste._sMoveList[ii]);
-				if (score > beta)
-				{
+				if (score > beta) {
 					mliste._sMoveList[ii]._value = score;
 					moveOrderAddKiller(&mliste._sMoveList[ii], depth);
 					stat->nbrCut++;

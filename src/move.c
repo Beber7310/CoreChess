@@ -96,6 +96,23 @@ void movePrintShort(smove* move) {
 	  printTcp(" ");
 }
 
+void moveBreakPoint(smove* move,char *target) {
+	int from,to;
+	char str[10];
+
+
+	from=MOVE_FROM(move->_move);
+	to=MOVE_TO(move->_move);
+
+	sprintf(str,"%c%i%c%i",'a'+(from&0x7),(from>>3)+1,'a'+(to&0x07),(to>>3)+1);
+	if(strcmp(str,target)==0)
+	{
+		printf("moveBreakPoint find move %s\n", target);
+	}
+
+
+}
+
 void moveCpy(smove * dst, smove * src) {
 	memcpy((char*)dst, (char*)src, sizeof(smove));
 }

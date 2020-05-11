@@ -14,7 +14,6 @@
 #include "uci.h"
 #include "tcpserver.h"
 
-
 sboard uciBoard;
 
 void uciLog(char* s) {
@@ -52,9 +51,9 @@ void uciParseGo(char* str) {
 	}
 
 	searchStat stat;
-	smove mv = searchStart(&uciBoard, wtime, btime, movestogo,&stat);
+	smove mv = searchStart(&uciBoard, wtime, btime, movestogo, &stat);
 	printTcp("bestmove ");
-	
+
 	movePrintShort(&mv);
 	printTcp("\n");
 
@@ -100,7 +99,8 @@ void uciParseMove(char* str) {
 		moveListInit(&mliste);
 		boardGenerateAllMoves(&uciBoard, &mliste);
 		for (int ii = 0; ii < mliste._nbrMove; ii++) {
-			if ((from == MOVE_FROM(mliste._sMoveList[ii]._move)) && (to == MOVE_TO(mliste._sMoveList[ii]._move)) && (prom == MOVE_PIECE_PROMOTION(mliste._sMoveList[ii]._move))) {
+			if ((from == MOVE_FROM(mliste._sMoveList[ii]._move)) && (to == MOVE_TO(mliste._sMoveList[ii]._move))
+					&& (prom == MOVE_PIECE_PROMOTION(mliste._sMoveList[ii]._move))) {
 				doMove(&uciBoard, &mliste._sMoveList[ii]);
 				foundMove++;
 			}
@@ -144,12 +144,12 @@ void uciParseCmd(char* str) {
 		// rien :)
 	} else if (strncmp("uci", token, sizeof("uci") - 1) == 0) {
 		/*printTcp(ClientSocket, "id name CoreChess\n");		
-		printTcp(ClientSocket, "id author Bertrand\n");
+		 printTcp(ClientSocket, "id author Bertrand\n");
 
-		printTcp( "option name option1 type string default\n");
-		printTcp( "option name option2 type spin default 1 min 1 max 32\n");
-		*/
-		printTcp( "uciok\n");
+		 printTcp( "option name option1 type string default\n");
+		 printTcp( "option name option2 type spin default 1 min 1 max 32\n");
+		 */
+		printTcp("uciok\n");
 	} else if (strncmp("isready", token, sizeof("isready") - 1) == 0) {
 		printTcp("readyok\n");
 	} else if (strncmp("position", token, sizeof("position") - 1) == 0) {
@@ -158,15 +158,17 @@ void uciParseCmd(char* str) {
 	} else if (strncmp("go", token, sizeof("go") - 1) == 0) {
 		token = strtok(NULL, "");
 		uciParseGo(token);
-	}else if (strncmp("perft", token, sizeof("perft") - 1) == 0) {
+	} else if (strncmp("perft", token, sizeof("perft") - 1) == 0) {
 		perftCheckFile("perftcheck.epd", 4);
-	}else if (strncmp("puz2", token, sizeof("puz2") - 1) == 0) {
+	} else if (strncmp("puz2", token, sizeof("puz2") - 1) == 0) {
 		puzzlzCheckFile("mat2.epd", 2);
-	}else if (strncmp("puz3", token, sizeof("puz3") - 1) == 0) {
+	} else if (strncmp("puz3", token, sizeof("puz3") - 1) == 0) {
 		puzzlzCheckFile("mat3.epd", 4);
-	}else if (strncmp("puz4", token, sizeof("puz4") - 1) == 0) {
+	} else if (strncmp("puz4", token, sizeof("puz4") - 1) == 0) {
 		puzzlzCheckFile("mat4.epd", 4);
-	}else if (strncmp("exit", token, sizeof("exit") - 1) == 0) {
+	} else if (strncmp("check", token, sizeof("exit") - 1) == 0) {
+		puzzlzCompAlgo("mat2.epd", 2);
+	} else if (strncmp("exit", token, sizeof("exit") - 1) == 0) {
 		exit(0);
 	}
 

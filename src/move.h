@@ -71,4 +71,6 @@ void moveListInit(smoveList* pList);
 void movePrint(smove* move);
 void movePrintShort(smove* move);
 void moveCpy(smove * dst, smove * src);
+void moveBreakPoint(smove* move,char *target);
+
 #endif /* SRC_MOVE_H_ */

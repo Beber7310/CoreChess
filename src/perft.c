@@ -136,6 +136,7 @@ int perftCheckFile(char* fileName, int depth) {
 int puzzleMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut, int* nbrZob) {
 	sboard board;
 	boardInitFen(&board, posStart);
+	boardPrint(&board);
 #if PRINT_PERFT_MOVE > 0
 	boardPrint(&board);
 #endif
@@ -149,6 +150,7 @@ int puzzleMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut, int* n
 	if ((stat.boardEval != INF) && (stat.boardEval != -INF)) {
 		printf("Error puzzleMasterRun! \n");
 		movePrintShort(&board._bestMove);
+		printf("\n");
 		return 1;
 	} else {
 		printf("OK! ");
@@ -206,3 +208,80 @@ int puzzlzCheckFile(char* fileName, int depth) {
 	}
 	return 0;
 }
+
+
+int algoCheckMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut, int* nbrZob) {
+	sboard board;
+	boardInitFen(&board, posStart);
+#if PRINT_PERFT_MOVE > 0
+	boardPrint(&board);
+#endif
+
+	searchStat stat;
+
+	printf("%s", posStart);
+	algoCheck(&board, negamax, alphaBeta,  &stat);
+
+
+	if ((stat.boardEval != INF) && (stat.boardEval != -INF)) {
+		printf("Error puzzleMasterRun! \n");
+		movePrintShort(&board._bestMove);
+		return 1;
+	} else {
+		printf("OK! ");
+		movePrintShort(&board._bestMove);
+
+
+
+		printf("\n");
+		printf("Terminal node %i\n", stat.nbrNode);
+		printf("Cut           %i\n", stat.nbrCut);
+		printf("Zob           %i\n\n", stat.nbrZob);
+
+		*nbrNode += stat.nbrNode;
+		*nbrCut += stat.nbrCut;
+		*nbrZob += stat.nbrZob;
+		return 0;
+	}
+
+}
+
+
+int puzzlzCompAlgo(char* fileName, int depth) {
+
+	char buff[BUZZ_SIZE];
+	char* pos;
+
+	int nbrNode = 0;
+	int nbrCut = 0;
+	int nbrZob = 0;
+
+	int startTime, endTime;
+
+	int err = 0;
+	FILE *f = fopen(fileName, "r");
+	if (f == NULL)
+		printf("Error while opening puzzle file %s\n", fileName);
+
+	startTime =(int) time(NULL);
+	while (fgets(buff, BUZZ_SIZE, f)) {
+		pos = strtok(buff, ";");
+		err += algoCheckMasterRun(pos, depth, &nbrNode, &nbrCut, &nbrZob);
+	}
+	endTime = (int)  time(NULL);
+	fclose(f);
+
+	if (err) {
+		printf("Puzzle check finish with error!\n");
+	} else {
+		printf("   --- Puzzle check OK! --- \n");
+		printf("Nodes %i\n", nbrNode);
+		if ((endTime - startTime))
+			printf("nps   %i\n", nbrNode / (endTime - startTime));
+		printf("Cuts  %i\n", nbrCut);
+		printf("Zobs  %i\n", nbrZob);
+
+	}
+	return 0;
+}
+
