@@ -4,6 +4,8 @@
  *  Created on: 7 août 2018
  *      Author: Bertrand
  */
+//#include "vld.h"
+
 
 #include "board.h"
 #include "movegen.h"
@@ -16,11 +18,9 @@
 
 int main_TCP(void);
 
-#ifdef _WIN64
-int mainChess(int argc, char* argv[]) {
-#else
+
+
 int main(int argc, char* argv[]) {
-#endif
 	moveGenInit();
 	zobInit();
 	moveOrderClearKiller();

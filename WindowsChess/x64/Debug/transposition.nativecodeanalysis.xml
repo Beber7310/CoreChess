@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\bdosd\OneDrive\projects\github\CoreChess\src\</FILEPATH>
+      <FILENAME>transposition.c</FILENAME>
+      <LINE>25</LINE>
+      <COLUMN>8</COLUMN>
+    </SFA>
+    <DEFECTCODE>6328</DEFECTCODE>
+    <DESCRIPTION>Incompatibilité de taille : 'unsigned __int64' passé comme _Param_(2) lorsque 'int' est requis dans l'appel à 'printf'. </DESCRIPTION>
+    <FUNCTION>ttInit</FUNCTION>
+    <DECORATED>ttInit</DECORATED>
+    <FUNCLINE>17</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\bdosd\OneDrive\projects\github\CoreChess\src\</FILEPATH>
+      <FILENAME>transposition.c</FILENAME>
+      <LINE>22</LINE>
+      <COLUMN>7</COLUMN>
+    </SFA>
+    <DEFECTCODE>6387</DEFECTCODE>
+    <DESCRIPTION>'ttTable' peut être '0' : ceci n'est pas conforme à la spécification de la fonction 'memset'. </DESCRIPTION>
+    <FUNCTION>ttInit</FUNCTION>
+    <DECORATED>ttInit</DECORATED>
+    <FUNCLINE>17</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>4</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>C:\Users\bdosd\OneDrive\projects\github\CoreChess\src\</FILEPATH>
+        <FILENAME>transposition.c</FILENAME>
+        <LINE>18</LINE>
+        <COLUMN>9</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\bdosd\OneDrive\projects\github\CoreChess\src\</FILEPATH>
+        <FILENAME>transposition.c</FILENAME>
+        <LINE>19</LINE>
+        <COLUMN>13</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>créer une branche</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>'ttTable' peut avoir la valeur NULL (Entrer dans cette branche)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\bdosd\OneDrive\projects\github\CoreChess\src\</FILEPATH>
+        <FILENAME>transposition.c</FILENAME>
+        <LINE>20</LINE>
+        <COLUMN>8</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\bdosd\OneDrive\projects\github\CoreChess\src\</FILEPATH>
+        <FILENAME>transposition.c</FILENAME>
+        <LINE>22</LINE>
+        <COLUMN>7</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>déclaration</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>'ttTable' est un argument Entrée/sortie dans 'memset' (déclaré au niveau de &lt;no file&gt;:0)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\bdosd\OneDrive\projects\github\CoreChess\src\</FILEPATH>
+        <FILENAME>transposition.c</FILENAME>
+        <LINE>22</LINE>
+        <COLUMN>7</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>utilisation</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'ttTable' ne doit pas être NULL, car cela n'est pas cohérent avec l'annotation SAL sur 'memset'</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

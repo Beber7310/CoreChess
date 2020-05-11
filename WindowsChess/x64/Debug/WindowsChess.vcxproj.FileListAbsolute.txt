@@ -1,0 +1,2 @@
+C:\Users\bdosd\OneDrive\projects\github\CoreChess\WindowsChess\x64\Debug\WindowsChess.exe
+C:\Users\bdosd\OneDrive\projects\github\CoreChess\WindowsChess\x64\Debug\WindowsChess.pdb
