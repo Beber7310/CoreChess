@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
 	moveGenInit();
 	zobInit();
 	moveOrderClearKiller();
-	ttInit(32*1024*1024);
+	ttInit(512*1024*1024);
 	
 	FILE * pFile;
 	pFile = fopen("logUci.txt", "w");

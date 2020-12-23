@@ -77,7 +77,7 @@ smove searchStart(sboard* pBoard, int wtime, int btime, int moveToGo, searchStat
 
 	for (int depth = 3; depth < 20; depth++) {
 		stat->maxDepth = depth;
-		stat->boardEval = negamax(pBoard, depth, -INF, INF, pBoard->_ActivePlayer, stat);
+		stat->boardEval = negamaxTT(pBoard, depth, -INF, INF, pBoard->_ActivePlayer, stat);
 		UciInfo(depth, stat->nbrNode, stat->boardEval, stat);
 
 		if (gStopSearch)
@@ -197,7 +197,6 @@ int negamax(sboard* pNode, int depth, Color color, int alpha, int beta, searchSt
 
 	if (depth == 0) { // or node is a terminal node then
 		stat->nbrNode++;
-
 		gNodeCptCheckTime++;
 		if (gNodeCptCheckTime > 100000) {
 			searchCheckTime(stat);
@@ -208,7 +207,7 @@ int negamax(sboard* pNode, int depth, Color color, int alpha, int beta, searchSt
 		return (pNode->_ActivePlayer == WHITE) ? res : -res;
 	}
 
-//	moveOrder(&mliste, depth, stat);
+	moveOrder(&mliste, depth, stat);
 
 	int value = -INF;
 	int score;
@@ -222,9 +221,9 @@ int negamax(sboard* pNode, int depth, Color color, int alpha, int beta, searchSt
 		 movePrintShort(&mliste._sMoveList[ii]);
 		 printf(" \n");
 		 */
-		if ((stat->maxDepth - depth) == 0)
+		 /*	if ((stat->maxDepth - depth) == 0)
 			moveBreakPoint(&mliste._sMoveList[ii], "d4b5");
-	/*	if ((stat->maxDepth - depth) == 1)
+		if ((stat->maxDepth - depth) == 1)
 			moveBreakPoint(&mliste._sMoveList[ii], "c3c4");
 		if ((stat->maxDepth - depth) == 2)
 			moveBreakPoint(&mliste._sMoveList[ii], "b5d6");*/
@@ -271,7 +270,7 @@ int alphaBeta(sboard* pNode, int depth, Color color, int alpha, int beta, search
 		return (pNode->_ActivePlayer == WHITE) ? res : -res;
 	}
 
-//	moveOrder(&mliste, depth, stat);
+	moveOrder(&mliste, depth, stat);
 
 	int value;
 	int best = -INF;
@@ -288,6 +287,7 @@ int alphaBeta(sboard* pNode, int depth, Color color, int alpha, int beta, search
 		boardCpy(&child, pNode);
 		doMove(&child, &mliste._sMoveList[ii]);
 		value = -alphaBeta(&child, depth - 1, !color, -beta, -alpha, stat);
+		mliste._sMoveList[ii]._value = value;
 		if (value >= best) {
 			moveCpy(&pNode->_bestMove, &mliste._sMoveList[ii]);
 			best = value;

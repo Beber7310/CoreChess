@@ -1,4 +1,5 @@
 ﻿cl : ligne de commande warning D9025: substitution de '/sdl' par '/GS-'
-  search.c
-C:\Users\bdosd\OneDrive\projects\github\CoreChess\src\search.c(121,14): warning C4013: 'printTcp' non défini(e) ; extern retournant int pris par défaut
-  WindowsChess.vcxproj -> C:\Users\bdosd\OneDrive\projects\github\CoreChess\WindowsChess\x64\Debug\WindowsChess.exe
+  main.c
+  searchTT.c
+  Génération de code en cours...
+  WindowsChess.vcxproj -> C:\Users\bdosd\git\CoreChess\WindowsChess\x64\Debug\WindowsChess.exe

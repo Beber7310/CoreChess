@@ -1,4 +1,5 @@
  --- Core Chess --- 
-C:\Users\bdosd\OneDrive\projects\github\CoreChess\WindowsChess\x64\Release\WindowsChess.exe
+C:\Users\bdosd\git\CoreChess\WindowsChess\x64\Release\WindowsChess.exe
 >UCI Start 
 GUI CMD> puz3
+GUI CMD> puz4

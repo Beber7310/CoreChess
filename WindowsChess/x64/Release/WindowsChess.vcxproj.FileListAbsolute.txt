@@ -1,1 +1,2 @@
 C:\Users\bdosd\OneDrive\projects\github\CoreChess\WindowsChess\x64\Release\WindowsChess.exe
+C:\Users\bdosd\git\CoreChess\WindowsChess\x64\Release\WindowsChess.exe

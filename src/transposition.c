@@ -67,12 +67,12 @@ void ttSet(sboard *pBoard, int32_t value, uint8_t depth, ttFlag flag) {
 		writeNew = 1;
 	}
 	
-	/*
+	
 	if (writeNew) {
 		prev->key = pBoard->_zobKey;
 		prev->depth = depth;
 		prev->flag = flag;
 		prev->value = value;
 	}
-	*/
+	
 }
