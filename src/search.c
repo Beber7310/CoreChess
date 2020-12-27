@@ -17,34 +17,38 @@
 #include "moveOrder.h"
 #include "transposition.h"
 
-static int gStopSearch;		  // used to stop digging when time is over
-static int gNodeCptCheckTime; //Used as a counter to choose when to print some info
+ int gStopSearch;		  // used to stop digging when time is over
+ int gNodeCptCheckTime; //Used as a counter to choose when to print some info
 
 //searchStat stat;
 
 #define INF (99999)
 
-#define DISABLE_TIME 0
+//#define DISABLE_TIME 
 
 int searchGetTime(searchStat* stat) {
 	return (int) (time(NULL) - stat->startSearchTIme);
 }
 
 void searchCheckTime(searchStat* stat) {
-#if DISABLE_TIME == 1
+#if DISABLE_TIME  
 	if (searchGetTime(stat) > stat->maxSearchTime)
 	gStopSearch = 1;
 #endif
 }
 
 void UciInfo(int depth, int node, int score, searchStat* stat) {
+	char str[128];
 
+	/*
 	printf("info depth %i ", depth);
 	printf("nodes %i ", node);
 	printf("score %i ", score);
-
 	printf("\n");
+	*/
 
+	snprintf(str, sizeof(str) - 1, "info depth %i nodes %i score %i\n ", depth, node, score);
+	printTcp(str);
 }
 
 smove searchStart(sboard* pBoard, int wtime, int btime, int moveToGo, searchStat* stat) {
@@ -61,7 +65,7 @@ smove searchStart(sboard* pBoard, int wtime, int btime, int moveToGo, searchStat
 		stat->maxSearchTime = stat->maxSearchTime / moveToGo;
 		stat->maxSearchTime = stat->maxSearchTime / 1000; //milli seconde to seconde
 	} else {
-		stat->maxSearchTime = 5;
+		stat->maxSearchTime = 60;
 	}
 
 	gStopSearch = 0;

@@ -10,10 +10,7 @@
 #include "move.h"
 #include "movegen.h"
 
-
-//position startpos moves b2b4 a7a6 b4b5
-
-int evaluateMobility(sboard * pBoard, Color color) {
+ int evaluateMobility(sboard * pBoard, Color color) {
 
 	U64 own = pBoard->_allPieces[color];
 	U64 attacks = ZERO;

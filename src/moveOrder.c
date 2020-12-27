@@ -14,7 +14,7 @@
 #include <string.h>
 
 #define ORDER_NBR_KILLER_MOVE		20
-#define ORDER_NBR_KILLER_MOVE_DIM	2
+#define ORDER_NBR_KILLER_MOVE_DIM	5
 
 static smove killerMoves[ORDER_NBR_KILLER_MOVE][ORDER_NBR_KILLER_MOVE_DIM];
 
@@ -66,10 +66,7 @@ void moveOrder(smoveList* pMoveList, int depth, searchStat* pStat) {
 					moveCpy(&pMoveList->_sMoveList[ii], &pMoveList->_sMoveList[pMoveList->_nbrMove - 1]);
 					pMoveList->_nbrMove--;
 					ii--;
-
-
 				}
-
 			}
 		}
 	}
@@ -99,8 +96,6 @@ void moveOrder(smoveList* pMoveList, int depth, searchStat* pStat) {
 			moveCpy(&pMoveList->_sMoveList[ii], &pMoveList->_sMoveList[pMoveList->_nbrMove - 1]);
 			pMoveList->_nbrMove--;
 			ii--;
-
-
 		}
 	}
 
@@ -146,18 +141,26 @@ void moveOrderAddKiller(smove* pMove, int depth) {
 				killerMoves[depth][ii]._value = abs(pMove->_value);
 				return;
 			}
-			if (killerMoves[depth][ii]._move == pMove->_move)
+			else if (killerMoves[depth][ii]._move == pMove->_move)
 			{
 				killerMoves[depth][ii]._move = pMove->_move;
 				killerMoves[depth][ii]._value = max(abs(pMove->_value), killerMoves[depth][ii]._value);
 				return;
 			}
-			if (killerMoves[depth][ii]._value < abs(pMove->_value))
+			else if (killerMoves[depth][ii]._value < abs(pMove->_value))
 			{
 				killerMoves[depth][ii]._move = pMove->_move;
 				killerMoves[depth][ii]._value = abs(pMove->_value);
 				return;
 			}
+		/*	else {
+				killerMoves[depth][ii]._value -= 1;
+				if (killerMoves[depth][ii]._value < 100)
+				{
+					killerMoves[depth][ii]._move = 0;
+					killerMoves[depth][ii]._value = 0;
+				}				
+			}*/
 		}
 	}
 }

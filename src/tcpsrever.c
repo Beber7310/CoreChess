@@ -178,7 +178,7 @@ int main_TCP(void)
 
 void printTcp(char* str)
 {
-
+    FILE* pFile;
     
     if (ClientSocket)
     {
@@ -194,6 +194,10 @@ void printTcp(char* str)
     }
     else
     {
+        pFile = fopen("logUci.txt", "a");
+        fprintf(pFile, "GUI RSP> %s", str);
+        fclose(pFile);
+
         printf(str);
     }
 }

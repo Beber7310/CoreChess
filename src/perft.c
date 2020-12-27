@@ -202,6 +202,8 @@ int puzzlzCheckFile(char* fileName, int depth) {
 		printf("Nodes %i\n", nbrNode);
 		if ((endTime - startTime))
 			printf("nps   %i\n", nbrNode / (endTime - startTime));
+		if ((endTime - startTime))
+			printf("time   %i\n", endTime - startTime);
 		printf("Cuts  %i\n", nbrCut);
 		printf("Zobs  %i\n", nbrZob);
 

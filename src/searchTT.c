@@ -14,8 +14,8 @@
 #include "moveOrder.h"
 #include "transposition.h"
 
-static int gStopSearch;		  // used to stop digging when time is over
-static int gNodeCptCheckTime; //Used as a counter to choose when to print some info
+extern int gStopSearch;		  // used to stop digging when time is over
+extern int gNodeCptCheckTime; //Used as a counter to choose when to print some info
 
 //searchStat stat;
 
@@ -32,7 +32,7 @@ int negamaxTT(sboard* pNode, int depth, int alpha, int beta, Color color, search
 
 	if (gStopSearch)
 		return 0;
-	
+	 
 	if (depth != 0)
 	{
 		tt = ttGet(pNode->_zobKey);
@@ -42,7 +42,8 @@ int negamaxTT(sboard* pNode, int depth, int alpha, int beta, Color color, search
 					stat->nbrZob++;
 					switch (tt->flag) {
 					case EXACT:
-						return tt->value;
+						if(pNode->_bestMove._move !=0)
+							return tt->value;
 						break;
 					case UPPERBOUND:
 						beta = min(beta, tt->value);
@@ -55,15 +56,16 @@ int negamaxTT(sboard* pNode, int depth, int alpha, int beta, Color color, search
 						break;
 					}
 					if (alpha >= beta)
-					{
-						return tt->value;
+					{				
+						if (pNode->_bestMove._move != 0)
+							return tt->value;
 					}
 				}
 
 			}
 		}
 	}
-	
+	 
 
 	boardGenerateAllLegalMoves(pNode, &mliste);
 	// Check for checkmate and stalemate
@@ -101,14 +103,9 @@ int negamaxTT(sboard* pNode, int depth, int alpha, int beta, Color color, search
 
 		boardCpy(&child, pNode);
 		doMove(&child, &mliste._sMoveList[ii]);
-		//DEBUG
-		/*for (int ii = 0; ii < (stat->maxDepth - depth); ii++)
-			printf("  ");
-		movePrintShort(&mliste._sMoveList[ii]);
-		printf(" %i", child._ActivePlayer);
-		printf("\n");*/
-		//DEBUG
+	
 
+	 
 		value = max(value, -negamaxTT(&child, depth - 1, -beta, -alpha, !color, stat));
 
 		 
@@ -121,8 +118,7 @@ int negamaxTT(sboard* pNode, int depth, int alpha, int beta, Color color, search
 			stat->nbrCut++;
 			mliste._sMoveList[ii]._value = alpha;
 			moveOrderAddKiller(&mliste._sMoveList[ii], depth);
-			break;
-			//BD return value;	//break (* cut-off *)
+			break;  //break (* cut-off *)
 		}
 
 	}
@@ -137,7 +133,6 @@ int negamaxTT(sboard* pNode, int depth, int alpha, int beta, Color color, search
 	}
 	else {
 		flag = EXACT;
-
 	}
 
 	ttSet(pNode, value, depth, flag);
