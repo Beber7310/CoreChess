@@ -16,6 +16,7 @@
 #include "search.h"
 #include "moveOrder.h"
 #include "transposition.h"
+#include "book.h"
 
  int gStopSearch;		  // used to stop digging when time is over
  int gNodeCptCheckTime; //Used as a counter to choose when to print some info
@@ -24,17 +25,13 @@
 
 #define INF (99999)
 
-//#define DISABLE_TIME 
-
 int searchGetTime(searchStat* stat) {
 	return (int) (time(NULL) - stat->startSearchTIme);
 }
 
 void searchCheckTime(searchStat* stat) {
-#if DISABLE_TIME  
-	if (searchGetTime(stat) > stat->maxSearchTime)
+	if (searchGetTime(stat) >= stat->maxSearchTime)
 	gStopSearch = 1;
-#endif
 }
 
 void UciInfo(int depth, int node, int score, searchStat* stat) {
@@ -50,10 +47,25 @@ void UciInfo(int depth, int node, int score, searchStat* stat) {
 	snprintf(str, sizeof(str) - 1, "info depth %i nodes %i score %i\n ", depth, node, score);
 	printTcp(str);
 }
-
-smove searchStart(sboard* pBoard, int wtime, int btime, int moveToGo, searchStat* stat) {
+/// <summary>
+/// Entry point of the search algo. 
+/// If moveTo Go is > 0 we use wtime and btime otherwise we use mtime
+/// </summary>
+/// <param name="pBoard"></param>
+/// <param name="wtime"></param>
+/// <param name="btime"></param>
+/// <param name="moveToGo"></param>
+/// <param name="stat"></param>
+/// <returns></returns>
+smove searchStart(sboard* pBoard, int wtime, int btime, int mtime, int moveToGo, searchStat* stat) {
 
 	smove bestMove;
+
+
+	bestMove = getBookMove(pBoard, BOOK_NARROW);
+	if (bestMove._move != 0) {
+		return bestMove;
+	}
 
 	if (pBoard->_ActivePlayer == WHITE) {
 		stat->maxSearchTime = wtime;
@@ -65,7 +77,7 @@ smove searchStart(sboard* pBoard, int wtime, int btime, int moveToGo, searchStat
 		stat->maxSearchTime = stat->maxSearchTime / moveToGo;
 		stat->maxSearchTime = stat->maxSearchTime / 1000; //milli seconde to seconde
 	} else {
-		stat->maxSearchTime = 60;
+		stat->maxSearchTime = mtime/1000;
 	}
 
 	gStopSearch = 0;
@@ -81,7 +93,7 @@ smove searchStart(sboard* pBoard, int wtime, int btime, int moveToGo, searchStat
 
 	for (int depth = 3; depth < 20; depth++) {
 		stat->maxDepth = depth;
-		stat->boardEval = negamaxTT(pBoard, depth, -INF, INF, pBoard->_ActivePlayer, stat);
+		stat->boardEval = negamaxTT(pBoard, depth, -INF, INF, pBoard->_ActivePlayer, stat,1);
 		UciInfo(depth, stat->nbrNode, stat->boardEval, stat);
 
 		if (gStopSearch)

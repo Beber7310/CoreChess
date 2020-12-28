@@ -66,6 +66,7 @@ void moveOrder(smoveList* pMoveList, int depth, searchStat* pStat) {
 					moveCpy(&pMoveList->_sMoveList[ii], &pMoveList->_sMoveList[pMoveList->_nbrMove - 1]);
 					pMoveList->_nbrMove--;
 					ii--;
+					break;
 				}
 			}
 		}

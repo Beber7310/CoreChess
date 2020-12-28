@@ -26,6 +26,7 @@ void uciLog(char* s) {
 void uciParseGo(char* str) {
 	int wtime = 0;
 	int btime = 0;
+	int mtime = 0;
 	int movestogo = 0;
 
 //
@@ -47,13 +48,17 @@ void uciParseGo(char* str) {
 			token = strtok(NULL, " ");
 			movestogo = atoi(token);
 		}
+		if (strncmp("movetime", token, sizeof("movetime") - 1) == 0) {
+			token = strtok(NULL, " ");
+			mtime = atoi(token);
+		}
+  
 		token = strtok(NULL, " ");
 	}
 
 	searchStat stat;
-	smove mv = searchStart(&uciBoard, wtime, btime, movestogo, &stat);
+	smove mv = searchStart(&uciBoard, wtime, btime,mtime, movestogo, &stat);
 	printTcp("bestmove ");
-
 	movePrintShort(&mv);
 	printTcp("\n");
 
@@ -149,6 +154,7 @@ void uciParseCmd(char* str) {
 		 printTcp( "option name option1 type string default\n");
 		 printTcp( "option name option2 type spin default 1 min 1 max 32\n");
 		 */
+		printTcp("id name CoreChess 1.0\n");
 		printTcp("uciok\n");
 	} else if (strncmp("isready", token, sizeof("isready") - 1) == 0) {
 		printTcp("readyok\n");

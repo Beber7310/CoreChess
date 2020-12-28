@@ -22,7 +22,7 @@ int ttInit(int size) {
 	memset(ttTable, 0, size);
 
 	if (sizeof(ttEntry) > 16) {
-		printf("ERROR: ttEntry to big:%i!!!", sizeof(ttEntry));
+		printf("ERROR: ttEntry to big:%i!!!", (int)sizeof(ttEntry));
 		exit(-1);
 	}
 	gMaskTT = (size - 1) >> 4;

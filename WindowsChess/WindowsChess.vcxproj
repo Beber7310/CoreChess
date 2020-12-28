@@ -150,6 +150,10 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <ControlFlowGuard>false</ControlFlowGuard>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions512</EnableEnhancedInstructionSet>
+      <StructMemberAlignment>16Bytes</StructMemberAlignment>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -163,6 +167,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\bitutils.c" />
     <ClCompile Include="..\src\board.c" />
+    <ClCompile Include="..\src\book.c" />
     <ClCompile Include="..\src\evaluate.c" />
     <ClCompile Include="..\src\main.c" />
     <ClCompile Include="..\src\move.c" />
@@ -179,6 +184,7 @@
   <ItemGroup>
     <ClInclude Include="..\src\bitutils.h" />
     <ClInclude Include="..\src\board.h" />
+    <ClInclude Include="..\src\book.h" />
     <ClInclude Include="..\src\defs.h" />
     <ClInclude Include="..\src\evaluate.h" />
     <ClInclude Include="..\src\move.h" />
@@ -189,8 +195,6 @@
     <ClInclude Include="..\src\tcpserver.h" />
     <ClInclude Include="..\src\transposition.h" />
     <ClInclude Include="..\src\uci.h" />
-    <ClInclude Include="..\src\vld\vld.h" />
-    <ClInclude Include="..\src\vld\vldapi.h" />
     <ClInclude Include="..\src\zobrist.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

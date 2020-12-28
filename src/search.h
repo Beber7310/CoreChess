@@ -29,7 +29,7 @@ typedef struct searchStat_t {
 typedef int (*AlgoFunc) (sboard* pNode, int depth, Color color, int alpha, int beta, searchStat* stat);
 
 void searchCheckTime(searchStat* stat);
-smove searchStart(sboard * pBoard, int wtime, int btime, int moveToGo, searchStat* stat);
+smove searchStart(sboard * pBoard, int wtime, int btime, int mtime, int moveToGo, searchStat* stat);
 int negamax(sboard * pNode, int depth,  Color color, int alpha, int beta,searchStat* stat);
 int alphaBeta(sboard* pNode, int depth,Color color,int alpha,int beta, searchStat* stat);
 int negascout (sboard* pNode, int depth, Color color, int alpha, int beta, searchStat* stat);

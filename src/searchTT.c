@@ -16,14 +16,12 @@
 
 extern int gStopSearch;		  // used to stop digging when time is over
 extern int gNodeCptCheckTime; //Used as a counter to choose when to print some info
-
-//searchStat stat;
+ 
 
 #define INF (99999)
- 
- 
+  
 
-int negamaxTT(sboard* pNode, int depth, int alpha, int beta, Color color, searchStat* stat) {
+int negamaxTT(sboard* pNode, int depth, int alpha, int beta, Color color, searchStat* stat,int first) {
 	smoveList mliste;	
 	sboard child;
 	ttEntry* tt;
@@ -33,7 +31,7 @@ int negamaxTT(sboard* pNode, int depth, int alpha, int beta, Color color, search
 	if (gStopSearch)
 		return 0;
 	 
-	if (depth != 0)
+	if (depth != 0 && !first)
 	{
 		tt = ttGet(pNode->_zobKey);
 		if (tt) {
@@ -42,7 +40,6 @@ int negamaxTT(sboard* pNode, int depth, int alpha, int beta, Color color, search
 					stat->nbrZob++;
 					switch (tt->flag) {
 					case EXACT:
-						if(pNode->_bestMove._move !=0)
 							return tt->value;
 						break;
 					case UPPERBOUND:
@@ -56,12 +53,10 @@ int negamaxTT(sboard* pNode, int depth, int alpha, int beta, Color color, search
 						break;
 					}
 					if (alpha >= beta)
-					{				
-						if (pNode->_bestMove._move != 0)
-							return tt->value;
+					{										
+						return tt->value;
 					}
 				}
-
 			}
 		}
 	}
@@ -86,7 +81,10 @@ int negamaxTT(sboard* pNode, int depth, int alpha, int beta, Color color, search
 		}
 		int res = evaluate(pNode);
 
-		if (color == WHITE)
+		if (color != pNode->_ActivePlayer)
+			printf("error in negamaxTT arround color\n");
+
+		if (pNode->_ActivePlayer == WHITE)
 			return res;
 		else
 			return -res;
@@ -104,11 +102,8 @@ int negamaxTT(sboard* pNode, int depth, int alpha, int beta, Color color, search
 		boardCpy(&child, pNode);
 		doMove(&child, &mliste._sMoveList[ii]);
 	
-
-	 
-		value = max(value, -negamaxTT(&child, depth - 1, -beta, -alpha, !color, stat));
-
-		 
+		value = max(value, -negamaxTT(&child, depth - 1, -beta, -alpha, !color, stat,0));
+				 
 		if (value > alpha) {
 			moveCpy(&pNode->_bestMove, &mliste._sMoveList[ii]);			
 			alpha = value;
@@ -136,6 +131,15 @@ int negamaxTT(sboard* pNode, int depth, int alpha, int beta, Color color, search
 	}
 
 	ttSet(pNode, value, depth, flag);
+
+
+	// alpha is equal to -INF if this pos is always leading to mat. so we peek the first move to avoid leting best move empty
+	if ((alpha == -INF) && (mliste._nbrMove > 0))
+	{
+		moveCpy(&pNode->_bestMove, &mliste._sMoveList[0]);
+	}
+
+
 
 	return value;
 }

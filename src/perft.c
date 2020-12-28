@@ -115,7 +115,7 @@ int perftCheckFile(char* fileName, int depth) {
 			strD[ii] = strtok(NULL, ";");
 		}
 		for (int ii = 0; ii < 6; ii++) {
-			strtok(strD[ii], " ");
+			D[ii] = strtok(strD[ii], " ");
 			D[ii] = 0;
 			if (ii < depth)
 				D[ii] = atoi(strtok(NULL, " "));
@@ -144,7 +144,7 @@ int puzzleMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut, int* n
 	searchStat stat;
 
 	printf("%s", posStart);
-	searchStart(&board, 80000, 80000, 0, &stat);
+	searchStart(&board, 80000, 80000, 10000, 0, &stat);
 
 
 	if ((stat.boardEval != INF) && (stat.boardEval != -INF)) {
