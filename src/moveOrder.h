@@ -9,7 +9,7 @@
 #define SRC_MOVEORDER_H_
 
 void moveOrderClearKiller(void);
-void moveOrder(smoveList* pMoveList,int depth,searchStat* pStat );
+void moveOrder(smoveList* pMoveList,int depth, int filteeQuies,searchStat* pStat );
 void moveOrderAddKiller(smove* pMove, int depth);
 
 #endif /* SRC_MOVEORDER_H_ */

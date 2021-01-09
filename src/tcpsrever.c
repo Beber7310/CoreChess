@@ -40,7 +40,6 @@ int ClientSocket=0;
 #ifdef _MSC_VER
 int main_TCP(void)
 {
-
     WSADATA wsaData;
     int iResult;
 
@@ -53,6 +52,13 @@ int main_TCP(void)
     int iSendResult;
     char recvbuf[DEFAULT_BUFLEN];
     int recvbuflen = DEFAULT_BUFLEN;
+
+
+
+    printf("  Start Server                                 \n");
+    printf("                                   \n");
+    printf("                                   \n");
+    printf("                                   \n");
 
     // Initialize Winsock
     iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
@@ -189,7 +195,9 @@ void printTcp(char* str)
             printf("send failed with error: %d\n", WSAGetLastError());
             closesocket(ClientSocket);
             WSACleanup();
+           
         }
+        printf(str);
 #endif
     }
     else

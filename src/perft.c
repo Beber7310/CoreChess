@@ -21,7 +21,7 @@
 int perft(sboard* pBoard, int* pNodeCnt, int depth, int iteration) {
 	smoveList mList;
 	sboard nextBoard;
-
+	char res[64];
 	if (depth == 0) {
 		(*pNodeCnt)++;
 		return 1;
@@ -40,7 +40,8 @@ int perft(sboard* pBoard, int* pNodeCnt, int depth, int iteration) {
 		if (!colorIsInCheck(&nextBoard, !nextBoard._ActivePlayer)) {
 #if PRINT_PERFT_MOVE > 0
 			if (iteration == 0) {
-				movePrintShort(&mList._sMoveList[ii]);
+				movePrintShort(&mList._sMoveList[ii],res);
+				printTcp(res);
 			}
 #endif
 			legalMoves += perft(&nextBoard, pNodeCnt, depth - 1, iteration + 1);
@@ -133,10 +134,11 @@ int perftCheckFile(char* fileName, int depth) {
 	return 0;
 }
 
-int puzzleMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut, int* nbrZob) {
+int puzzleMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut, int* nbrZob,int* nbrQuies) {
 	sboard board;
 	boardInitFen(&board, posStart);
 	boardPrint(&board);
+	char res[64];
 #if PRINT_PERFT_MOVE > 0
 	boardPrint(&board);
 #endif
@@ -144,28 +146,33 @@ int puzzleMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut, int* n
 	searchStat stat;
 
 	printf("%s", posStart);
-	searchStart(&board, 80000, 80000, 10000, 0, &stat);
+	searchStart(&board, 80000, 80000, 80000, 0, &stat);
 
 
 	if ((stat.boardEval != INF) && (stat.boardEval != -INF)) {
 		printf("Error puzzleMasterRun! \n");
-		movePrintShort(&board._bestMove);
+		movePrintShort(&board._bestMove, res);
+		printTcp(res);
 		printf("\n");
 		return 1;
 	} else {
 		printf("OK! ");
-		movePrintShort(&board._bestMove);
-
+		movePrintShort(&board._bestMove,res);
+		printTcp(res);
  
 
 		printf("\n");
 		printf("Terminal node %i\n", stat.nbrNode);
 		printf("Cut           %i\n", stat.nbrCut);
 		printf("Zob           %i\n\n", stat.nbrZob);
+		printf("Quies         %i\n\n", stat.nbrQuies);
+		ttPrintStat();
 
 		*nbrNode += stat.nbrNode;
 		*nbrCut += stat.nbrCut;
 		*nbrZob += stat.nbrZob;
+		*nbrQuies += stat.nbrQuies;
+
 		return 0;
 	}
 
@@ -179,18 +186,19 @@ int puzzlzCheckFile(char* fileName, int depth) {
 	int nbrNode = 0;
 	int nbrCut = 0;
 	int nbrZob = 0;
-
+	int nbrQuies = 0;
 	int startTime, endTime;
 
 	int err = 0;
 	FILE *f = fopen(fileName, "r");
-	if (f == NULL)
+	if (f == NULL) {
 		printf("Error while opening puzzle file %s\n", fileName);
-
+		return;
+	}
 	startTime =(int) time(NULL);
-	while (fgets(buff, BUZZ_SIZE, f)) {
+	while (fgets(buff, BUZZ_SIZE, f) && (err==0)) {
 		pos = strtok(buff, ";");
-		err += puzzleMasterRun(pos, depth, &nbrNode, &nbrCut, &nbrZob);
+		err += puzzleMasterRun(pos, depth, &nbrNode, &nbrCut, &nbrZob,&nbrQuies);
 	}
 	endTime = (int)  time(NULL);
 	fclose(f);
@@ -206,84 +214,12 @@ int puzzlzCheckFile(char* fileName, int depth) {
 			printf("time   %i\n", endTime - startTime);
 		printf("Cuts  %i\n", nbrCut);
 		printf("Zobs  %i\n", nbrZob);
-
+		printf("Quies %i\n", nbrQuies);
+		
 	}
 	return 0;
 }
 
-
-int algoCheckMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut, int* nbrZob) {
-	sboard board;
-	boardInitFen(&board, posStart);
-#if PRINT_PERFT_MOVE > 0
-	boardPrint(&board);
-#endif
-
-	searchStat stat;
-
-	printf("%s", posStart);
-	algoCheck(&board, negamax, alphaBeta,  &stat);
-
-
-	if ((stat.boardEval != INF) && (stat.boardEval != -INF)) {
-		printf("Error puzzleMasterRun! \n");
-		movePrintShort(&board._bestMove);
-		return 1;
-	} else {
-		printf("OK! ");
-		movePrintShort(&board._bestMove);
-
-
-
-		printf("\n");
-		printf("Terminal node %i\n", stat.nbrNode);
-		printf("Cut           %i\n", stat.nbrCut);
-		printf("Zob           %i\n\n", stat.nbrZob);
-
-		*nbrNode += stat.nbrNode;
-		*nbrCut += stat.nbrCut;
-		*nbrZob += stat.nbrZob;
-		return 0;
-	}
-
-}
-
-
-int puzzlzCompAlgo(char* fileName, int depth) {
-
-	char buff[BUZZ_SIZE];
-	char* pos;
-
-	int nbrNode = 0;
-	int nbrCut = 0;
-	int nbrZob = 0;
-
-	int startTime, endTime;
-
-	int err = 0;
-	FILE *f = fopen(fileName, "r");
-	if (f == NULL)
-		printf("Error while opening puzzle file %s\n", fileName);
-
-	startTime =(int) time(NULL);
-	while (fgets(buff, BUZZ_SIZE, f)) {
-		pos = strtok(buff, ";");
-		err += algoCheckMasterRun(pos, depth, &nbrNode, &nbrCut, &nbrZob);
-	}
-	endTime = (int)  time(NULL);
-	fclose(f);
-
-	if (err) {
-		printf("Puzzle check finish with error!\n");
-	} else {
-		printf("   --- Puzzle check OK! --- \n");
-		printf("Nodes %i\n", nbrNode);
-		if ((endTime - startTime))
-			printf("nps   %i\n", nbrNode / (endTime - startTime));
-		printf("Cuts  %i\n", nbrCut);
-		printf("Zobs  %i\n", nbrZob);
-
-	}
-	return 0;
-}
+ 
+ 
 

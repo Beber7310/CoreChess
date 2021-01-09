@@ -21,18 +21,21 @@ typedef struct searchStat_t {
 	int nbrNode;
 	int nbrCut;
 	int nbrZob;
+	int nbrQuies;
 	int boardEval;
-	//smoveList movelist;
-
 }searchStat;
+
+
+typedef enum search_state_t
+{
+	SEARCH_FIRST,
+	SEARCH_ALPHA,
+	SEARCH_QUIESSENCE
+}search_state;
 
 typedef int (*AlgoFunc) (sboard* pNode, int depth, Color color, int alpha, int beta, searchStat* stat);
 
 void searchCheckTime(searchStat* stat);
 smove searchStart(sboard * pBoard, int wtime, int btime, int mtime, int moveToGo, searchStat* stat);
-int negamax(sboard * pNode, int depth,  Color color, int alpha, int beta,searchStat* stat);
-int alphaBeta(sboard* pNode, int depth,Color color,int alpha,int beta, searchStat* stat);
-int negascout (sboard* pNode, int depth, Color color, int alpha, int beta, searchStat* stat);
-smove algoCheck(sboard* pBoard,AlgoFunc algo1,AlgoFunc algo2, searchStat* stat);
 
 #endif /* SRC_SEARCH_H_ */

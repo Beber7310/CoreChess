@@ -16,8 +16,12 @@
 
 sboard uciBoard;
 
+
+int uciOptionHashSize = 128 * 1024 * 1024;
+int uciOptionQuiesence = 0;
+
 void uciLog(char* s) {
-	FILE * pFile;
+	FILE* pFile;
 	pFile = fopen("logUci.txt", "a");
 	fprintf(pFile, "%s\n", s);
 	fclose(pFile);
@@ -28,11 +32,12 @@ void uciParseGo(char* str) {
 	int btime = 0;
 	int mtime = 0;
 	int movestogo = 0;
-
-//
-//	go wtime 300000 btime 300000 movestogo 35
-//
-	char *token;
+	char res[64];
+	char strMove[64];
+	//
+	//	go wtime 300000 btime 300000 movestogo 35
+	//
+	char* token;
 	token = strtok(str, " ");
 
 	while (token != NULL) {
@@ -52,21 +57,60 @@ void uciParseGo(char* str) {
 			token = strtok(NULL, " ");
 			mtime = atoi(token);
 		}
-  
+
 		token = strtok(NULL, " ");
 	}
 
 	searchStat stat;
-	smove mv = searchStart(&uciBoard, wtime, btime,mtime, movestogo, &stat);
-	printTcp("bestmove ");
-	movePrintShort(&mv);
-	printTcp("\n");
-
+	smove mv = searchStart(&uciBoard, wtime, btime, mtime, movestogo, &stat);
+	movePrintShort(&mv, &strMove);
+	sprintf(res, "bestmove %s \n", strMove);
+	printTcp(res);
+	
 }
 
+void uciParseOption(char* str) {
+	//setoption name OwnBook value false
+
+	char optionName[64] = "";
+	char optionValue[64] = "";
+	char* token;
+
+
+	token = strtok(str, " ");
+	if (strncmp("name", token, sizeof("name") - 1) == 0) {
+		token = strtok(NULL, " ");
+		strncpy(optionName, token, sizeof(optionName) - 1);		
+	}
+
+	token = strtok(NULL, " ");
+	if (strncmp("value", token, sizeof("value") - 1) == 0) {
+		token = strtok(NULL, " ");
+		strncpy(optionValue, token, sizeof(optionValue) - 1);
+	}
+
+
+
+	if (strncmp("Hash", optionName, sizeof("Hash") - 1) == 0) {
+		uciOptionHashSize = atoi(optionValue);
+		ttInit(uciOptionHashSize);
+	}
+	if (strncmp("Quiescence", optionName, sizeof("Quiescence") - 1) == 0) {
+		if (strncmp(optionValue, "fasle", sizeof("fasle") - 1) == 0)
+		{
+			uciOptionQuiesence = 0;
+		}
+		else
+		{
+			uciOptionQuiesence = 1;
+		}
+
+	}
+
+}
 void uciParseMove(char* str) {
 
-	char *token;
+	char* token;
 	int from, to, prom;
 	int foundMove;
 	smoveList mliste;
@@ -105,7 +149,7 @@ void uciParseMove(char* str) {
 		boardGenerateAllMoves(&uciBoard, &mliste);
 		for (int ii = 0; ii < mliste._nbrMove; ii++) {
 			if ((from == MOVE_FROM(mliste._sMoveList[ii]._move)) && (to == MOVE_TO(mliste._sMoveList[ii]._move))
-					&& (prom == MOVE_PIECE_PROMOTION(mliste._sMoveList[ii]._move))) {
+				&& (prom == MOVE_PIECE_PROMOTION(mliste._sMoveList[ii]._move))) {
 				doMove(&uciBoard, &mliste._sMoveList[ii]);
 				foundMove++;
 			}
@@ -119,7 +163,7 @@ void uciParseMove(char* str) {
 
 void uciParsePosition(char* str) {
 
-	char *token;
+	char* token;
 	token = strtok(str, " ");
 
 	while (token != NULL) {
@@ -135,8 +179,8 @@ void uciParsePosition(char* str) {
 }
 
 void uciParseCmd(char* str) {
-	char *token;
-	FILE * pFile;
+	char* token;
+	FILE* pFile;
 	pFile = fopen("logUci.txt", "a");
 	fprintf(pFile, "GUI CMD> %s", str);
 	fclose(pFile);
@@ -145,55 +189,92 @@ void uciParseCmd(char* str) {
 
 	if (strncmp("quit", token, sizeof("quit") - 1) == 0) {
 		exit(0);
-	} else if (strncmp("ucinewgame", token, sizeof("ucinewgame") - 1) == 0) {
+	}
+	else if (strncmp("ucinewgame", token, sizeof("ucinewgame") - 1) == 0) {
 		// rien :)
-	} else if (strncmp("uci", token, sizeof("uci") - 1) == 0) {
-		/*printTcp(ClientSocket, "id name CoreChess\n");		
-		 printTcp(ClientSocket, "id author Bertrand\n");
+	}
+	else if (strncmp("uci", token, sizeof("uci") - 1) == 0) {
+		printTcp("option name Ponder type check default true\n");
+		if (uciOptionQuiesence)
+			printTcp("option name Quiescence type check default true\n");
+		else
+			printTcp("option name Quiescence type check default false\n");
 
-		 printTcp( "option name option1 type string default\n");
-		 printTcp( "option name option2 type spin default 1 min 1 max 32\n");
-		 */
+		printTcp("option name OwnBook type check default true\n");
+		printTcp("option name Hash type spin default 48 min 0 max 2048\n");
+		printTcp("option name PawnHash type spin default 256 min 0 max 4096\n");
+		printTcp("option name EvalHash type spin default 16 min 0 max 1024\n");
+		printTcp("option name NumBeers type spin default 0 min 0 max 10\n");
+		printTcp("option name NumThreads type spin default 1 min 1 max 8\n");
+		printTcp("option name LogStats type check default false");
+		printTcp("option name TraceLevel type spin default 0 min 0 max 3\n");
+		printTcp("option name TimeBuffer type spin default 0 min 0 max 60\n");
+
 		printTcp("id name CoreChess 1.0\n");
 		printTcp("uciok\n");
-	} else if (strncmp("isready", token, sizeof("isready") - 1) == 0) {
+	}
+	else if (strncmp("setoption", token, sizeof("setoption") - 1) == 0) {
+		token = strtok(NULL, "");
+		uciParseOption(token);
+	}
+	else if (strncmp("isready", token, sizeof("isready") - 1) == 0) {
 		printTcp("readyok\n");
-	} else if (strncmp("position", token, sizeof("position") - 1) == 0) {
+	}
+	else if (strncmp("position", token, sizeof("position") - 1) == 0) {
 		token = strtok(NULL, "");
 		uciParsePosition(token);
-	} else if (strncmp("go", token, sizeof("go") - 1) == 0) {
+	}
+	else if (strncmp("go", token, sizeof("go") - 1) == 0) {
 		token = strtok(NULL, "");
 		uciParseGo(token);
-	} else if (strncmp("perft", token, sizeof("perft") - 1) == 0) {
+	}
+	else if (strncmp("perft", token, sizeof("perft") - 1) == 0) {
 		perftCheckFile("perftcheck.epd", 4);
-	} else if (strncmp("puz2", token, sizeof("puz2") - 1) == 0) {
+	}
+	else if (strncmp("puz2", token, sizeof("puz2") - 1) == 0) {
 		puzzlzCheckFile("mat2.epd", 2);
-	} else if (strncmp("puz3", token, sizeof("puz3") - 1) == 0) {
+	}
+	else if (strncmp("puz3", token, sizeof("puz3") - 1) == 0) {
 		puzzlzCheckFile("mat3.epd", 4);
-	} else if (strncmp("puz4", token, sizeof("puz4") - 1) == 0) {
+	}
+	else if (strncmp("puz4", token, sizeof("puz4") - 1) == 0) {
 		puzzlzCheckFile("mat4.epd", 4);
-	} else if (strncmp("check", token, sizeof("exit") - 1) == 0) {
-		puzzlzCompAlgo("mat2.epd", 2);
-	} else if (strncmp("exit", token, sizeof("exit") - 1) == 0) {
+	}
+	else if (strncmp("exit", token, sizeof("exit") - 1) == 0) {
 		exit(0);
 	}
 
 }
 
+void uciBanner() {
+	char str[256];
+
+	printTcp("------------------------------------------------------------\n");
+	printTcp("-                                                          -\n");
+	printTcp("-                    CoreChess                             -\n");
+	printTcp("-                                                          -\n");
+	printTcp("------------------------------------------------------------\n");
+	sprintf(str, "\n");
+	printTcp(str);
+	sprintf(str, "Compiled on %s at %s\n", __DATE__, __TIME__);
+	printTcp(str);
+	sprintf(str, "\n");
+	printTcp(str);
+}
+
 void main_UCI() {
 	char str[1024];
-	FILE * pFile;
+	FILE* pFile;
 
 	pFile = fopen("logUci.txt", "a");
 
 	fclose(pFile);
 
 	setvbuf(stdout, NULL, _IONBF, 0);
-
+	uciBanner();
 	while (1) {
 		fgets(str, 1024, stdin);
 
 		uciParseCmd(str);
 	}
 }
-

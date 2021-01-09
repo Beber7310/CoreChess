@@ -14,7 +14,13 @@
 #define ROOK_VALUE   500
 #define QUEEN_VALUE  900
 
-#define MOBILITY_BONUS 1
+
+#define BISHOP_PAIR  30;
+#define KNIGHT_PAIR  8;
+#define ROOK_PAIR  16;
+
+#define MOBILITY_BONUS	2
+#define ATTACK_BONUS	5
 
 int evaluate(sboard * pboard);
 

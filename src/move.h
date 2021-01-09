@@ -69,7 +69,7 @@ void moveBuildDoublePawn(smove* pMove, unsigned int from, unsigned int to, Piece
 void moveBuildEnPassant(smove* pMove, unsigned int from, unsigned int to, PieceType piece);
 void moveListInit(smoveList* pList);
 void movePrint(smove* move);
-void movePrintShort(smove* move);
+void movePrintShort(smove* move, char* strMove);
 void moveCpy(smove * dst, smove * src);
 void moveBreakPoint(smove* move,char *target);
 

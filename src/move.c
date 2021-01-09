@@ -39,73 +39,76 @@ void moveBuildEnPassant(smove* pMove, unsigned int from, unsigned int to, PieceT
 void moveBuildPromotion(smove* pMove, unsigned int from, unsigned int to, PieceType piece, PieceType pieceKilled, PieceType pieceProm) {
 	moveBuild(pMove, from, to, piece);
 	unsigned int flags = PROMOTION;
-	if(pieceKilled)
+	if (pieceKilled)
 		flags |= CAPTURE;
-	pMove->_move |= ((flags & 0x7f) << 21) | ((pieceKilled & 0x7) << 6) | ((pieceProm&0x7)<<3);
+	pMove->_move |= ((flags & 0x7f) << 21) | ((pieceKilled & 0x7) << 6) | ((pieceProm & 0x7) << 3);
 }
 
 
-void moveBuildCastle(smove* pMove, unsigned int from, unsigned int to,  int flags) {
+void moveBuildCastle(smove* pMove, unsigned int from, unsigned int to, int flags) {
 	moveBuild(pMove, from, to, KING);
 	pMove->_move |= ((flags & 0x7f) << 21);
 }
 
 void moveListInit(smoveList* pList) {
 
+	ZeroMemory(pList, sizeof(smoveList));
+
+	/*
 	for (int ii = 0; ii < (sizeof(pList->_sMoveList) / sizeof(smove)); ii++) {
 		pList->_sMoveList[ii]._move = 0;
 		pList->_sMoveList[ii]._value = 0;
 	}
 	pList->_nbrMove = 0;
-
+	*/
 }
 
 void movePrint(smove* move) {
-	int from,to;
-	from=MOVE_FROM(move->_move);
-	to=MOVE_TO(move->_move);
+	int from, to;
+	from = MOVE_FROM(move->_move);
+	to = MOVE_TO(move->_move);
 
-	printf("%c%i%c%i flag %x prom %x\n",'a'+(from&0x7),(from>>3)+1,'a'+(to&0x07),(to>>3)+1,MOVE_FLAG(move->_move),MOVE_PIECE_PROMOTION(move->_move));
+	printf("%c%i%c%i flag %x prom %x\n", 'a' + (from & 0x7), (from >> 3) + 1, 'a' + (to & 0x07), (to >> 3) + 1, MOVE_FLAG(move->_move), MOVE_PIECE_PROMOTION(move->_move));
 }
 
-void movePrintShort(smove* move) {
-	int from,to;
+void movePrintShort(smove* move, char* str) {
+	int from, to;
+	 
+
+	from = MOVE_FROM(move->_move);
+	to = MOVE_TO(move->_move);
+
+	sprintf(str, "%c%i%c%i", 'a' + (from & 0x7), (from >> 3) + 1, 'a' + (to & 0x07), (to >> 3) + 1);
+	//printTcp(str);
+
+	if (MOVE_FLAG(move->_move) & PROMOTION) {
+		switch (MOVE_PIECE_PROMOTION(move->_move)) {
+		case QUEEN:strcat(str,"q");
+			break;
+		case ROOK: strcat(str, "r");
+			break;
+		case KNIGHT: strcat(str, "n");
+			break;
+		case BISHOP: strcat(str, "b");
+			break;
+		default:
+			break;
+		}
+	}
+	strcat(str, " ");
+	//printTcp(" ");
+}
+
+void moveBreakPoint(smove* move, char* target) {
+	int from, to;
 	char str[10];
 
 
-	from=MOVE_FROM(move->_move);
-	to=MOVE_TO(move->_move);
+	from = MOVE_FROM(move->_move);
+	to = MOVE_TO(move->_move);
 
-	sprintf(str,"%c%i%c%i",'a'+(from&0x7),(from>>3)+1,'a'+(to&0x07),(to>>3)+1);
-	printTcp(str);
-
-	  if (MOVE_FLAG(move->_move) & PROMOTION) {
-	    switch (MOVE_PIECE_PROMOTION(move->_move)) {
-	      case QUEEN:printTcp("q");
-	        break;
-	      case ROOK: printTcp("r");
-	        break;
-	      case KNIGHT: printTcp("n");
-	        break;
-	      case BISHOP: printTcp("b");
-	        break;
-	      default:
-	        break;
-	    }
-	  }
-	  printTcp(" ");
-}
-
-void moveBreakPoint(smove* move,char *target) {
-	int from,to;
-	char str[10];
-
-
-	from=MOVE_FROM(move->_move);
-	to=MOVE_TO(move->_move);
-
-	sprintf(str,"%c%i%c%i",'a'+(from&0x7),(from>>3)+1,'a'+(to&0x07),(to>>3)+1);
-	if(strcmp(str,target)==0)
+	sprintf(str, "%c%i%c%i", 'a' + (from & 0x7), (from >> 3) + 1, 'a' + (to & 0x07), (to >> 3) + 1);
+	if (strcmp(str, target) == 0)
 	{
 		printf("moveBreakPoint find move %s\n", target);
 	}
@@ -113,7 +116,7 @@ void moveBreakPoint(smove* move,char *target) {
 
 }
 
-void moveCpy(smove * dst, smove * src) {
+void moveCpy(smove* dst, smove* src) {
 	memcpy((char*)dst, (char*)src, sizeof(smove));
 }
 

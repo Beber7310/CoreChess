@@ -148,8 +148,6 @@ int book_add(sboard* pBoard, char* movestring) {
 	*  Make a move, because a new one is likely to be a couple    *
 	*  of steps further down the path, and exit.                  *
 	**************************************************************/
-	int fromX, fromY, toX, toY;
-	int from, to;
 	smove curr_move;
 	
 	/*
@@ -223,6 +221,7 @@ smove getBookMove(sboard* pBoard, book_conf book_type) {
 
 	
 	int max_freq = book_getMaxFreq(pBoard);
+	
 
 	if (book_type == BOOK_NONE) return book_move;
 	if (max_freq == 0)          return book_move;
