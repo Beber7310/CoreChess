@@ -12,6 +12,6 @@ int book_present(sboard* pBoard, smove* curr_move);
 int book_getMaxFreq(sboard* pBoard);
 void book_loadInternal();
 smove getBookMove(sboard* pBoard, book_conf book_type);
-
+void initBook();
 
 

@@ -1,0 +1,15 @@
+C:\Users\bdosd\source\repos\CoreChess\src\bitutils.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Debug\bitutils.obj
+C:\Users\bdosd\source\repos\CoreChess\src\board.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Debug\board.obj
+C:\Users\bdosd\source\repos\CoreChess\src\book.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Debug\book.obj
+C:\Users\bdosd\source\repos\CoreChess\src\evaluate.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Debug\evaluate.obj
+C:\Users\bdosd\source\repos\CoreChess\src\main.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Debug\main.obj
+C:\Users\bdosd\source\repos\CoreChess\src\move.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Debug\move.obj
+C:\Users\bdosd\source\repos\CoreChess\src\movegen.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Debug\movegen.obj
+C:\Users\bdosd\source\repos\CoreChess\src\moveOrder.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Debug\moveOrder.obj
+C:\Users\bdosd\source\repos\CoreChess\src\perft.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Debug\perft.obj
+C:\Users\bdosd\source\repos\CoreChess\src\quiescence.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Debug\quiescence.obj
+C:\Users\bdosd\source\repos\CoreChess\src\search.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Debug\search.obj
+C:\Users\bdosd\source\repos\CoreChess\src\tcpsrever.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Debug\tcpsrever.obj
+C:\Users\bdosd\source\repos\CoreChess\src\transposition.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Debug\transposition.obj
+C:\Users\bdosd\source\repos\CoreChess\src\uci.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Debug\uci.obj
+C:\Users\bdosd\source\repos\CoreChess\src\zobrist.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Debug\zobrist.obj

@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "transposition.h"
+#include "tcpserver.h"
 
 static ttEntry* ttTable = 0;
 static int gSize;

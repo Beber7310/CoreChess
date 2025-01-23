@@ -1,0 +1,15 @@
+C:\Users\bdosd\source\repos\CoreChess\src\bitutils.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Release\bitutils.obj
+C:\Users\bdosd\source\repos\CoreChess\src\board.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Release\board.obj
+C:\Users\bdosd\source\repos\CoreChess\src\book.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Release\book.obj
+C:\Users\bdosd\source\repos\CoreChess\src\evaluate.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Release\evaluate.obj
+C:\Users\bdosd\source\repos\CoreChess\src\main.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Release\main.obj
+C:\Users\bdosd\source\repos\CoreChess\src\move.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Release\move.obj
+C:\Users\bdosd\source\repos\CoreChess\src\movegen.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Release\movegen.obj
+C:\Users\bdosd\source\repos\CoreChess\src\moveOrder.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Release\moveOrder.obj
+C:\Users\bdosd\source\repos\CoreChess\src\perft.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Release\perft.obj
+C:\Users\bdosd\source\repos\CoreChess\src\quiescence.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Release\quiescence.obj
+C:\Users\bdosd\source\repos\CoreChess\src\search.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Release\search.obj
+C:\Users\bdosd\source\repos\CoreChess\src\tcpsrever.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Release\tcpsrever.obj
+C:\Users\bdosd\source\repos\CoreChess\src\transposition.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Release\transposition.obj
+C:\Users\bdosd\source\repos\CoreChess\src\uci.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Release\uci.obj
+C:\Users\bdosd\source\repos\CoreChess\src\zobrist.c;C:\Users\bdosd\source\repos\CoreChess\WindowsChess\WindowsChess\x64\Release\zobrist.obj

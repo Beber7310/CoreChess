@@ -1,0 +1,1 @@
+int Quiessence(sboard* pBoard, int depth, int alpha, int beta, searchStat* statistics, search_state state);

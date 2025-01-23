@@ -1,0 +1,8 @@
+﻿cl : ligne de commande  warning D9025: substitution de '/sdl' par '/GS-'
+  evaluate.c
+C:\Users\bdosd\source\repos\CoreChess\src\evaluate.c(122,1): warning C4716: 'evaluateKnight' : doit retourner une valeur
+C:\Users\bdosd\source\repos\CoreChess\src\evaluate.c(138,1): warning C4716: 'evaluateQueen' : doit retourner une valeur
+C:\Users\bdosd\source\repos\CoreChess\src\evaluate.c(154,1): warning C4716: 'evaluatePawn' : doit retourner une valeur
+C:\Users\bdosd\source\repos\CoreChess\src\evaluate.c(170,1): warning C4716: 'evaluateBishop' : doit retourner une valeur
+C:\Users\bdosd\source\repos\CoreChess\src\evaluate.c(187,1): warning C4716: 'evaluateRook' : doit retourner une valeur
+  WindowsChess.vcxproj -> C:\Users\bdosd\Source\Repos\CoreChess\WindowsChess\x64\Debug\WindowsChess.exe

@@ -229,7 +229,7 @@ void doMove(sboard* pBoard, smove* move) {
 		_movePiece(pBoard, pBoard->_ActivePlayer, MOVE_PIECE(move->_move), MOVE_FROM(move->_move), MOVE_TO(move->_move));
 	}
 	else if ((flags & CAPTURE) && (flags & PROMOTION)) { // Capture promotion special case
-	 // Remove captured Piece
+		// Remove captured Piece
 		_removePiece(pBoard, !pBoard->_ActivePlayer, MOVE_PIECE_CAPTURED(move->_move), MOVE_TO(move->_move));
 
 		// Remove promoting pawn
@@ -588,6 +588,47 @@ void boardPrintMove(U64 m) {
 	}
 	printf(" ABCDEFGH\n");
 }
+void boardPrintToStr(sboard* pBoard, char* str)
+{
+	for (int jj = 56; jj >= 0; jj -= 8) {
+		for (int ii = 0; ii < 8; ii++) {
+			if (pBoard->_occupied >> (ii + jj) & ONE) {
+				if (pBoard->_pieces[WHITE][PAWN] >> (ii + jj) & ONE)
+					str[(56 - jj) + ii] = 'P';
+				if (pBoard->_pieces[BLACK][PAWN] >> (ii + jj) & ONE)
+					str[(56 - jj) + ii] = 'p';
+
+				if (pBoard->_pieces[WHITE][ROOK] >> (ii + jj) & ONE)
+					str[(56 - jj) + ii] = 'R';
+				if (pBoard->_pieces[BLACK][ROOK] >> (ii + jj) & ONE)
+					str[(56 - jj) + ii] = 'r';
+
+				if (pBoard->_pieces[WHITE][KNIGHT] >> (ii + jj) & ONE)
+					str[(56 - jj) + ii] = 'N';
+				if (pBoard->_pieces[BLACK][KNIGHT] >> (ii + jj) & ONE)
+					str[(56 - jj) + ii] = 'n';
+
+				if (pBoard->_pieces[WHITE][BISHOP] >> (ii + jj) & ONE)
+					str[(56 - jj) + ii] = 'B';
+				if (pBoard->_pieces[BLACK][BISHOP] >> (ii + jj) & ONE)
+					str[(56 - jj) + ii] = 'b';
+
+				if (pBoard->_pieces[WHITE][QUEEN] >> (ii + jj) & ONE)
+					str[(56 - jj) + ii] = 'Q';
+				if (pBoard->_pieces[BLACK][QUEEN] >> (ii + jj) & ONE)
+					str[(56 - jj) + ii] = 'q';
+
+				if (pBoard->_pieces[WHITE][KING] >> (ii + jj) & ONE)
+					str[(56 - jj) + ii] = 'K';
+				if (pBoard->_pieces[BLACK][KING] >> (ii + jj) & ONE)
+					str[(56 - jj) + ii] = 'k';
+			}
+			else
+				str[(56 - jj) + ii] = ' ';
+		}
+	}
+	str[64] = 0;
+}
 
 void boardPrint(sboard* pBoard) {
 	printf(" ABCDEFGH\n");
@@ -632,6 +673,8 @@ void boardPrint(sboard* pBoard) {
 	}
 	printf(" ABCDEFGH\n\n");
 }
+
+
 
 int whiteCanCastleKs(sboard* pBoard) {
 	if (!(pBoard->_castlingRights & CASTLING_WHITE_KING)) {

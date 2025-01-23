@@ -27,7 +27,7 @@
 #endif
 
 
-#define DEFAULT_BUFLEN 512
+#define DEFAULT_BUFLEN 2048
 #define DEFAULT_PORT "13000"
 
 
@@ -129,6 +129,7 @@ int main_TCP(void)
         do {
 
             iResult = recv(ClientSocket, recvbuf, recvbuflen, 0);
+            
             if (iResult > 0) {
                 printf("Bytes received: %d\n", iResult);
                 recvbuf[iResult] = 0;
@@ -190,14 +191,16 @@ void printTcp(char* str)
     {
 #ifdef _MSC_VER
     	 int iSendResult;
-        iSendResult = send(ClientSocket, str, (size_t)strlen(str), 0);
+        iSendResult = send(ClientSocket, str, (int)strlen(str), 0);
         if (iSendResult == SOCKET_ERROR) {
             printf("send failed with error: %d\n", WSAGetLastError());
             closesocket(ClientSocket);
             WSACleanup();
-           
         }
         printf(str);
+        pFile = fopen("logUci.txt", "a");
+        fprintf(pFile, "GUI RSP> %s", str);
+        fclose(pFile);
 #endif
     }
     else

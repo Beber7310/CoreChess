@@ -1,0 +1,70 @@
+ --- Core Chess --- 
+C:\Users\bdosd\Source\Repos\CoreChess\WindowsChess\x64\Release\WindowsChess.exe
+>UCI Start 
+GUI CMD> position startpos
+GUI CMD> position startpos
+GUI CMD> position startpos
+GUI CMD> go movetime 15000
+GUI CMD> position startpos moves e2e4 e7e5 
+No move found!!!
+GUI CMD> go movetime 15000
+GUI CMD> position startpos moves e2e4 e7e5 g1f3 b8c6 
+No move found!!!
+GUI CMD> go movetime 15000
+GUI CMD> position startpos moves e2e4 e7e5 g1f3 b8c6 f1c4 f8c5 
+No move found!!!
+GUI CMD> go movetime 15000
+GUI CMD> position startpos moves e2e4 e7e5 g1f3 b8c6 f1c4 f8c5 c2c3 g8f6 
+No move found!!!
+GUI CMD> go movetime 15000
+GUI CMD> position startpos moves e2e4 e7e5 g1f3 b8c6 f1c4 f8c5 c2c3 g8f6 d2d3 a7a6 
+No move found!!!
+GUI CMD> go movetime 15000
+GUI CMD> position startpos moves e2e4 e7e5 g1f3 b8c6 f1c4 f8c5 c2c3 g8f6 d2d3 a7a6 d1a4 d7d5 
+No move found!!!
+GUI CMD> go movetime 15000
+GUI CMD> position startpos moves e2e4 e7e5 g1f3 b8c6 f1c4 f8c5 c2c3 g8f6 d2d3 a7a6 d1a4 d7d5 e4d5 f6d5 
+No move found!!!
+GUI CMD> go movetime 15000
+GUI CMD> position startpos moves e2e4 e7e5 g1f3 b8c6 f1c4 f8c5 c2c3 g8f6 d2d3 a7a6 d1a4 d7d5 e4d5 f6d5 c1g5 f7f6 
+No move found!!!
+GUI CMD> go movetime 15000
+GUI CMD> position startpos moves e2e4 e7e5 g1f3 b8c6 f1c4 f8c5 c2c3 g8f6 d2d3 a7a6 d1a4 d7d5 e4d5 f6d5 c1g5 f7f6 f3e5 e8g8 
+No move found!!!
+GUI CMD> go movetime 15000
+GUI CMD> position startpos moves e2e4 e7e5 g1f3 b8c6 f1c4 f8c5 c2c3 g8f6 d2d3 a7a6 d1a4 d7d5 e4d5 f6d5 c1g5 f7f6 f3e5 e8g8 e5c6 d8e8 
+No move found!!!
+GUI CMD> go movetime 15000
+GUI CMD> position startpos moves e2e4 e7e5 g1f3 b8c6 f1c4 f8c5 c2c3 g8f6 d2d3 a7a6 d1a4 d7d5 e4d5 f6d5 c1g5 f7f6 f3e5 e8g8 e5c6 d8e8 g5e3 b7c6 
+No move found!!!
+GUI CMD> go movetime 15000
+GUI CMD> position startpos moves e2e4 e7e5 g1f3 b8c6 f1c4 f8c5 c2c3 g8f6 d2d3 a7a6 d1a4 d7d5 e4d5 f6d5 c1g5 f7f6 f3e5 e8g8 e5c6 d8e8 g5e3 b7c6 d3d4 c5d6 
+No move found!!!
+GUI CMD> go movetime 15000
+GUI CMD> position startpos moves e2e4 e7e5 g1f3 b8c6 f1c4 f8c5 c2c3 g8f6 d2d3 a7a6 d1a4 d7d5 e4d5 f6d5 c1g5 f7f6 f3e5 e8g8 e5c6 d8e8 g5e3 b7c6 d3d4 c5d6 b1d2 c8b7 
+No move found!!!
+GUI CMD> go movetime 15000
+GUI CMD> position startpos moves e2e4 e7e5 g1f3 b8c6 f1c4 f8c5 c2c3 g8f6 d2d3 a7a6 d1a4 d7d5 e4d5 f6d5 c1g5 f7f6 f3e5 e8g8 e5c6 d8e8 g5e3 b7c6 d3d4 c5d6 b1d2 c8b7 d2e4 a8d8 
+No move found!!!
+GUI CMD> go movetime 15000
+GUI CMD> position startpos moves e2e4 e7e5 g1f3 b8c6 f1c4 f8c5 c2c3 g8f6 d2d3 a7a6 d1a4 d7d5 e4d5 f6d5 c1g5 f7f6 f3e5 e8g8 e5c6 d8e8 g5e3 b7c6 d3d4 c5d6 b1d2 c8b7 d2e4 a8d8 c4d5 c6d5 
+No move found!!!
+GUI CMD> go movetime 15000
+GUI CMD> position startpos moves e2e4 e7e5 g1f3 b8c6 f1c4 f8c5 c2c3 g8f6 d2d3 a7a6 d1a4 d7d5 e4d5 f6d5 c1g5 f7f6 f3e5 e8g8 e5c6 d8e8 g5e3 b7c6 d3d4 c5d6 b1d2 c8b7 d2e4 a8d8 c4d5 c6d5 e4f6 f8f6 
+No move found!!!
+GUI CMD> go movetime 15000
+GUI CMD> position startpos moves e2e4 e7e5 g1f3 b8c6 f1c4 f8c5 c2c3 g8f6 d2d3 a7a6 d1a4 d7d5 e4d5 f6d5 c1g5 f7f6 f3e5 e8g8 e5c6 d8e8 g5e3 b7c6 d3d4 c5d6 b1d2 c8b7 d2e4 a8d8 c4d5 c6d5 e4f6 f8f6 a4a6 b7a6 
+No move found!!!
+GUI CMD> go movetime 15000
+GUI CMD> position startpos moves e2e4 e7e5 g1f3 b8c6 f1c4 f8c5 c2c3 g8f6 d2d3 a7a6 d1a4 d7d5 e4d5 f6d5 c1g5 f7f6 f3e5 e8g8 e5c6 d8e8 g5e3 b7c6 d3d4 c5d6 b1d2 c8b7 d2e4 a8d8 c4d5 c6d5 e4f6 f8f6 a4a6 b7a6 a2a3 e8b5 
+No move found!!!
+GUI CMD> go movetime 15000
+GUI CMD> position startpos moves e2e4 e7e5 g1f3 b8c6 f1c4 f8c5 c2c3 g8f6 d2d3 a7a6 d1a4 d7d5 e4d5 f6d5 c1g5 f7f6 f3e5 e8g8 e5c6 d8e8 g5e3 b7c6 d3d4 c5d6 b1d2 c8b7 d2e4 a8d8 c4d5 c6d5 e4f6 f8f6 a4a6 b7a6 a2a3 e8b5 e1c1 d8b8 
+No move found!!!
+GUI CMD> go movetime 15000
+GUI CMD> position startpos moves e2e4 e7e5 g1f3 b8c6 f1c4 f8c5 c2c3 g8f6 d2d3 a7a6 d1a4 d7d5 e4d5 f6d5 c1g5 f7f6 f3e5 e8g8 e5c6 d8e8 g5e3 b7c6 d3d4 c5d6 b1d2 c8b7 d2e4 a8d8 c4d5 c6d5 e4f6 f8f6 a4a6 b7a6 a2a3 e8b5 e1c1 d8b8 b2b3 b5b3 
+No move found!!!
+GUI CMD> go movetime 15000
+GUI CMD> position startpos moves e2e4 e7e5 g1f3 b8c6 f1c4 f8c5 c2c3 g8f6 d2d3 a7a6 d1a4 d7d5 e4d5 f6d5 c1g5 f7f6 f3e5 e8g8 e5c6 d8e8 g5e3 b7c6 d3d4 c5d6 b1d2 c8b7 d2e4 a8d8 c4d5 c6d5 e4f6 f8f6 a4a6 b7a6 a2a3 e8b5 e1c1 d8b8 b2b3 b5b3 c1d2 b3b2 
+No move found!!!
+GUI CMD> go movetime 15000

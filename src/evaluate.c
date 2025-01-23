@@ -65,7 +65,7 @@ int queen_pcsq_mg[64] = {
 	-5,  -5,  -5,  -5,  -5,  -5,  -5,  -5
 };
 
- int evaluateMobility(sboard * pBoard, Color color) {
+ U64 evaluateMobility(sboard * pBoard, Color color) {
 
 	U64 own = pBoard->_allPieces[color];
 	U64 attacks = ZERO;
@@ -118,6 +118,7 @@ int queen_pcsq_mg[64] = {
 		 int to = _popLsb(&knights);
 		 score -= knight_pcsq_mg[to];
 	 }
+	 return score;
 
  }
 
@@ -135,6 +136,7 @@ int queen_pcsq_mg[64] = {
 		 int to = _popLsb(&pawn);
 		 score -= queen_pcsq_mg[to];
 	 }
+	 return score;
  }
 
  int evaluatePawn(sboard* pboard)
@@ -151,6 +153,7 @@ int queen_pcsq_mg[64] = {
 		 int to = _popLsb(&pawn);
 		 score -= pawn_pcsq_mg[to];
 	 }
+	 return score;
  }
 
  int evaluateBishop(sboard* pboard)
@@ -167,6 +170,7 @@ int queen_pcsq_mg[64] = {
 		 int to = _popLsb(&bishop);
 		 score -= bishop_pcsq_mg[to];
 	 }
+	 return score;
  }
 
 
@@ -184,6 +188,7 @@ int queen_pcsq_mg[64] = {
 		 int to = _popLsb(&rook);
 		 score -= rook_pcsq_mg[to];
 	 }
+	 return score;
  }
 
 int evaluate(sboard * pboard) {

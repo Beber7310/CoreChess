@@ -20,12 +20,6 @@
 static smove killerMoves[ORDER_NBR_KILLER_MOVE][ORDER_NBR_KILLER_MOVE_DIM];
 
 void moveOrderClearKiller(void) {
-	/*for (int ii = 0; ii < ORDER_NBR_KILLER_MOVE; ii++) {
-		for (int jj = 0; jj < ORDER_NBR_KILLER_MOVE_DIM; jj++) {
-			killerMoves[ii][jj]._move = 0;
-			killerMoves[ii][jj]._value = 0;
-		}
-	}*/
 	ZeroMemory(killerMoves, sizeof(killerMoves));
 }
 

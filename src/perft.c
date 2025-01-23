@@ -11,6 +11,8 @@
 #include <string.h>
 
 #include "search.h"
+#include "tcpserver.h"
+#include "transposition.h"
 
 #define PRINT_PERFT_MOVE	0
 #define BUZZ_SIZE 512
@@ -21,8 +23,7 @@
 int perft(sboard* pBoard, int* pNodeCnt, int depth, int iteration) {
 	smoveList mList;
 	sboard nextBoard;
-	char res[64];
-	if (depth == 0) {
+	if (depth == (int)0) {
 		(*pNodeCnt)++;
 		return 1;
 	}
@@ -107,8 +108,10 @@ int perftCheckFile(char* fileName, int depth) {
 	int err = 0;
 	FILE *f = fopen(fileName, "r");
 	if (f == NULL)
+	{
 		printf("Error while opening perft file %s\n", fileName);
-
+		exit(-1);
+	}
 	while (fgets(buff, BUZZ_SIZE, f)) {
 
 		pos = strtok(buff, ";");
@@ -116,7 +119,7 @@ int perftCheckFile(char* fileName, int depth) {
 			strD[ii] = strtok(NULL, ";");
 		}
 		for (int ii = 0; ii < 6; ii++) {
-			D[ii] = strtok(strD[ii], " ");
+			D[ii] = strtok(strD[ii], " ");//Fixme this line seems useless :(
 			D[ii] = 0;
 			if (ii < depth)
 				D[ii] = atoi(strtok(NULL, " "));
@@ -193,7 +196,7 @@ int puzzlzCheckFile(char* fileName, int depth) {
 	FILE *f = fopen(fileName, "r");
 	if (f == NULL) {
 		printf("Error while opening puzzle file %s\n", fileName);
-		return;
+		exit (-1);
 	}
 	startTime =(int) time(NULL);
 	while (fgets(buff, BUZZ_SIZE, f) && (err==0)) {

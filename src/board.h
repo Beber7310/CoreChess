@@ -74,6 +74,7 @@ void _movePiece(sboard * pBoard, Color color, PieceType pieceType, int from, int
 void boardCpy(sboard * dst, sboard * src);
 void boardClear(sboard * pBoard);
 void boardPrint(sboard * pBoard);
+void boardPrintToStr(sboard* pBoard,char* str);
 
 void doMove(sboard * pBoard, smove* move);
 void _updateCastlingRightsForMove(sboard * pBoard,smove* move);

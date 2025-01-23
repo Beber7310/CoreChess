@@ -13,6 +13,7 @@
 #include "perft.h"
 #include "uci.h"
 #include "tcpserver.h"
+#include "transposition.h"
 
 sboard uciBoard;
 
@@ -32,8 +33,9 @@ void uciParseGo(char* str) {
 	int btime = 0;
 	int mtime = 0;
 	int movestogo = 0;
-	char res[64];
+	char res[512];
 	char strMove[64];
+	char boardResult[65];
 	//
 	//	go wtime 300000 btime 300000 movestogo 35
 	//
@@ -63,8 +65,13 @@ void uciParseGo(char* str) {
 
 	searchStat stat;
 	smove mv = searchStart(&uciBoard, wtime, btime, mtime, movestogo, &stat);
-	movePrintShort(&mv, &strMove);
-	sprintf(res, "bestmove %s \n", strMove);
+	movePrintShort(&mv, (char*) & strMove);
+	sprintf(res, "bestmove %s:", strMove);
+	
+	uciParseMove(strMove);
+	boardPrintToStr(&uciBoard, boardResult);
+	snprintf(res+strlen(res), 64+9, "board=%s\n", boardResult);
+	
 	printTcp(res);
 	
 }

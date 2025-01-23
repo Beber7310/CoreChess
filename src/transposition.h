@@ -10,6 +10,9 @@
 
 #include "board.h"
 
+void ttPrintStat();
+
+
 typedef enum {
 	 EMPTY=0,EXACT,LOWERBOUND,UPPERBOUND
 }ttFlag;

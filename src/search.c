@@ -17,6 +17,8 @@
 #include "moveOrder.h"
 #include "transposition.h"
 #include "book.h"
+#include "tcpserver.h"
+#include "quiescence.h"
 
 int gStopSearch;			// used to stop digging when time is over
 int gNodeCptCheckTime;		//Used as a counter to choose when to print some info
@@ -44,7 +46,7 @@ void UciInfo(int depth, int node, int score, searchStat* stat) {
 	snprintf(str, sizeof(str) - 1, "info depth %i nodes %i score %i\n", depth, node, score);
 	printTcp(str);
 }
-
+ 
 
 int negamaxTT(sboard* pBoard, int depth, int alpha, int beta, searchStat* statistics, search_state state) {
 	smoveList mliste;

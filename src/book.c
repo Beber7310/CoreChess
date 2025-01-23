@@ -1,4 +1,5 @@
 
+#include <stdlib.h> 
 #include "board.h"
 #include "search.h"
 #include "evaluate.h"
@@ -6,6 +7,7 @@
 #include "moveOrder.h"
 #include "transposition.h"
 #include "book.h"
+#include "uci.h"
 
 #define BOOK_SIZE 36000
 #define EXCLUDED -1
