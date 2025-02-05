@@ -146,10 +146,10 @@ int puzzleMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut, int* n
 	boardPrint(&board);
 #endif
 
-	searchStat stat;
+	negaMaxConf stat;
 
 	printf("%s", posStart);
-	searchStart(&board, 80000, 80000, 80000, 0, &stat);
+	searchStart(&board, 120000, 120000, 1000,1000,1, &stat,NULL);
 
 
 	if ((stat.boardEval != INF) && (stat.boardEval != -INF)) {

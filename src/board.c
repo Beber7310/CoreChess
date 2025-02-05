@@ -178,7 +178,7 @@ void boardCpy(sboard* dst, sboard* src) {
 	memcpy(dst, src, sizeof(sboard));
 }
 
-void _removePiece(sboard* pBoard, Color color, PieceType pieceType, int squareIndex) {
+inline void _removePiece(sboard* pBoard, Color color, PieceType pieceType, int squareIndex) {
 	U64 square = ONE << squareIndex;
 
 	pBoard->_pieces[color][pieceType] ^= square;
@@ -194,7 +194,7 @@ void _removePiece(sboard* pBoard, Color color, PieceType pieceType, int squareIn
 	pBoard->_zobKey = zobFlipPiece(color, pieceType, squareIndex, pBoard->_zobKey);
 }
 
-void _addPiece(sboard* pBoard, Color color, PieceType pieceType, int squareIndex) {
+inline void _addPiece(sboard* pBoard, Color color, PieceType pieceType, int squareIndex) {
 	U64 square = ONE << squareIndex;
 
 	pBoard->_pieces[color][pieceType] |= square;
@@ -216,6 +216,21 @@ void _movePiece(sboard* pBoard, Color color, PieceType pieceType, int from, int 
 
 void doMove(sboard* pBoard, smove* move) {
 	unsigned int flags = MOVE_FLAG(move->_move);
+	/*
+	///////////////////////////   DEBUG   /////////////////////////////
+	///////////////////////////    TBR    /////////////////////////////	 
+	if (zobCompute(pBoard) != pBoard->_zobKey) {
+		boardPrint(pBoard);
+		printf("Error in zob computation\n");
+		printf("0x%X\n", zobCompute(pBoard));
+		printf("0x%X\n", pBoard->_zobKey);
+		printf("0x%X\n", pBoard->_zobKey ^ zobCompute(pBoard));
+		printf(" %i ", MOVE_PIECE(move->_move));
+		//(move);
+		printf("\n");
+		printf("flag %x\n ", MOVE_FLAG(move->_move));
+		printf("\n");
+	}*/
 
 	// En passant always cleared after a move
 	if (pBoard->_enPassant) {
@@ -297,35 +312,29 @@ void doMove(sboard* pBoard, smove* move) {
 		unsigned int enPasIndex = pBoard->_ActivePlayer == WHITE ? MOVE_TO(move->_move) - 8 : MOVE_TO(move->_move) + 8;
 		pBoard->_enPassant = ONE << enPasIndex;
 		pBoard->_zobKey = zobEnPassant(pBoard->_zobKey, pBoard->_enPassant % 8);
-	}
-	/* FIXME TO BE IMPLEMENTED
-	 // Halfmove clock reset on pawn moves or captures, incremented otherwise
-	 if (move.getPieceType() == PAWN || move.getFlags() & Move::CAPTURE) {
-	 _halfmoveClock = 0;
-	 } else {
-	 _halfmoveClock++;
-	 }*/
+	} 
 
 	_updateCastlingRightsForMove(pBoard, move);
 
 	pBoard->_ActivePlayer = !pBoard->_ActivePlayer;
 	pBoard->_zobKey = zobFlipPLayer(pBoard->_zobKey);
-	///////////////////////////   DEBUG   /////////////////////////////
-	///////////////////////////    TBR    /////////////////////////////
+	
 	/*
+	///////////////////////////   DEBUG   /////////////////////////////
+	///////////////////////////    TBR    /////////////////////////////	 
 	if (zobCompute(pBoard) != pBoard->_zobKey) {
 		boardPrint(pBoard);
 		printf("Error in zob computation\n");
-		printf("0x%X\n", zobCompute(pBoard));
-		printf("0x%X\n", pBoard->_zobKey);
-		printf("0x%X\n", pBoard->_zobKey ^ zobCompute(pBoard));
+		printf("0x%llx\n", zobCompute(pBoard));
+		printf("0x%llx\n", pBoard->_zobKey);
+		printf("0x%llx\n", pBoard->_zobKey ^ zobCompute(pBoard));
 		printf(" %i ", MOVE_PIECE(move->_move));
-		movePrintShort(move);
+		//(move);
 		printf("\n");
 		printf("flag %x\n ", MOVE_FLAG(move->_move));
 		printf("\n");
-	}
-	*/
+	}*/
+	
 
 }
 

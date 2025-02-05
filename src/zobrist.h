@@ -11,7 +11,7 @@
 #include "defs.h"
 
 void zobInit(void);
-
+ 
 
 /*
  * zobrist .c
@@ -24,12 +24,13 @@ void zobInit(void);
 #include "zobrist.h"
 #include "bitutils.h"
 
+/*
 U64 PIECE_KEYS[2][6][64];
 U64 EN_PASSANT_KEYS[8];
 U64 KS_CASTLE_KEYS[2];
 U64 QS_CASTLE_KEYS[2];
 U64 WHITE_TO_MOVE_KEY;
-
+*/
 
 U64 zobFlipPiece(Color color, PieceType piece, unsigned int index, U64 key);
 U64 zobFlipKsCastle(Color color, U64 key);

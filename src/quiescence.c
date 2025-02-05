@@ -22,7 +22,7 @@ extern int gStopSearch;			// used to stop digging when time is over
 extern int gNodeCptCheckTime;		//Used as a counter to choose when to print some info
 extern int uciOptionQuiesence;
  
-int Quiessence(sboard* pBoard, int depth, int alpha, int beta, searchStat* statistics, search_state state) {
+int Quiessence(sboard* pBoard, int depth, int alpha, int beta, negaMaxConf* statistics, search_state state) {
 	smoveList mliste;
 	sboard child;
 	 

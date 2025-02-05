@@ -9,12 +9,13 @@
 #define SRC_SEARCH_H_
 
 #include <time.h>
+#include "move.h"
 
 #define INF (99999)
+#define MAX_SEARCH_DEPTH 30
 
 
-
-typedef struct searchStat_t {
+typedef struct negaMaxConf_t {
 	time_t startSearchTIme;
 	int maxSearchTime;
 	int maxDepth;
@@ -23,7 +24,7 @@ typedef struct searchStat_t {
 	int nbrZob;
 	int nbrQuies;
 	int boardEval;
-}searchStat;
+}negaMaxConf;
 
 
 typedef enum search_state_t
@@ -33,9 +34,9 @@ typedef enum search_state_t
 	SEARCH_QUIESSENCE
 }search_state;
 
-typedef int (*AlgoFunc) (sboard* pNode, int depth, Color color, int alpha, int beta, searchStat* stat);
+typedef int (*AlgoFunc) (sboard* pNode, int depth, Color color, int alpha, int beta, negaMaxConf* stat);
 
-void searchCheckTime(searchStat* stat);
-smove searchStart(sboard * pBoard, int wtime, int btime, int mtime, int moveToGo, searchStat* stat);
+void searchCheckTime(negaMaxConf* stat);
+smove searchStart(sboard* pBoard, int wtime, int btime, int winc, int binc,  int moveToGo, negaMaxConf* stat, smoveList* pastMoves);
 
 #endif /* SRC_SEARCH_H_ */

@@ -52,8 +52,8 @@ void moveBuildCastle(smove* pMove, unsigned int from, unsigned int to, int flags
 
 void moveListInit(smoveList* pList) {
 
-	ZeroMemory(pList, sizeof(smoveList));
-
+	//ZeroMemory(pList, sizeof(smoveList));
+	memset(pList, NULL, sizeof(smoveList));
 	/*
 	for (int ii = 0; ii < (sizeof(pList->_sMoveList) / sizeof(smove)); ii++) {
 		pList->_sMoveList[ii]._move = 0;

@@ -4,7 +4,10 @@
  *  Created on: Aug 27, 2018
  *      Author: dosdab
  */
+
+#ifdef _WIN32
 #include <windows.h>
+#endif
 
 #include "board.h"
 #include "search.h"
@@ -20,7 +23,9 @@
 static smove killerMoves[ORDER_NBR_KILLER_MOVE][ORDER_NBR_KILLER_MOVE_DIM];
 
 void moveOrderClearKiller(void) {
-	ZeroMemory(killerMoves, sizeof(killerMoves));
+	//ZeroMemory(killerMoves, sizeof(killerMoves));
+	memset(killerMoves, NULL, sizeof(killerMoves));
+
 }
 
 void moveOrderDebug(smoveList* pMoveList1, smoveList* pMoveList2) {
@@ -40,11 +45,10 @@ void moveOrderDebug(smoveList* pMoveList1, smoveList* pMoveList2) {
 	}
 }
 
-void moveOrder(smoveList* pMoveList, int depth, int filterQuies, searchStat* pStat) {
+void moveOrder(smoveList* pMoveList, int depth, int filterQuies, negaMaxConf* pStat) {
 	//	return;
 
-	int idx = 0;
-	int initialNbrMv = pMoveList->_nbrMove;
+	int idx = 0;	
 	smoveList tmpList;
 	tmpList._nbrMove = 0;
 
@@ -52,6 +56,7 @@ void moveOrder(smoveList* pMoveList, int depth, int filterQuies, searchStat* pSt
 	{
 		for (int ii = 0; ii < pMoveList->_nbrMove; ii++) {
 			for (int dim = 0; dim < ORDER_NBR_KILLER_MOVE_DIM; dim++) {
+				//for (int jj = depth-2; (jj < ORDER_NBR_KILLER_MOVE)&&(jj<depth+2) ; jj++) {
 				for (int jj = 0; jj < ORDER_NBR_KILLER_MOVE; jj++) {
 					if (pMoveList->_sMoveList[ii]._move == killerMoves[jj][dim]._move) {
 						moveCpy(&tmpList._sMoveList[idx], &killerMoves[jj][dim]);
@@ -107,25 +112,8 @@ void moveOrder(smoveList* pMoveList, int depth, int filterQuies, searchStat* pSt
 		moveCpy(&pMoveList->_sMoveList[ii], &tmpList._sMoveList[ii]);
 	}
 
-#ifdef _DEBUG	
-	if (filterQuies == 0)
-	{
-		if (initialNbrMv != idx)
-		{
-			printf("Error in moveOrder: some move are not copied in tmp moves 2\n");
-		}
-		if (initialNbrMv != tmpList._nbrMove)
-		{
-			printf("Error in moveOrder: some move are not copied in tmp moves 2\n");
-		}
-
-		moveOrderDebug(pMoveList, &tmpList);
-		moveOrderDebug(&tmpList, pMoveList);
-	}
-#endif
+ 
 }
-
-
 
 void moveOrderAddKiller(smove* pMove, int depth) {
 	if (depth < ORDER_NBR_KILLER_MOVE) {

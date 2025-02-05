@@ -16,14 +16,14 @@ U64 KS_CASTLE_KEYS[2];
 U64 QS_CASTLE_KEYS[2];
 U64 WHITE_TO_MOVE_KEY;
 
-U64 rand64(void) {
 
+U64 rand64(void) {
 	U64 ret = 0;
 
 	for (int ii = 0; ii < 8; ii++) {
-		ret <<= 8;
-		ret |= rand() % 256;
-	}
+		ret <<= 8;				
+		ret |= rand() % 256;		
+	}	
 	return ret;
 
 }

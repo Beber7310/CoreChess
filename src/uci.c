@@ -16,7 +16,7 @@
 #include "transposition.h"
 
 sboard uciBoard;
-
+smoveList mlisteMove;
 
 int uciOptionHashSize = 128 * 1024 * 1024;
 int uciOptionQuiesence = 0;
@@ -27,11 +27,13 @@ void uciLog(char* s) {
 	fprintf(pFile, "%s\n", s);
 	fclose(pFile);
 }
-
+ 
 void uciParseGo(char* str) {
 	int wtime = 0;
 	int btime = 0;
-	int mtime = 0;
+	int winc = 0;
+	int binc = 0;
+	int mtime = 5000;
 	int movestogo = 0;
 	char res[512];
 	char strMove[64];
@@ -51,28 +53,39 @@ void uciParseGo(char* str) {
 			token = strtok(NULL, " ");
 			btime = atoi(token);
 		}
+		if (strncmp("winc", token, sizeof("winc") - 1) == 0) {
+			token = strtok(NULL, " ");
+			winc = atoi(token);
+		}
+		if (strncmp("binc", token, sizeof("binc") - 1) == 0) {
+			token = strtok(NULL, " ");
+			binc = atoi(token);
+		} 
+
 		if (strncmp("movestogo", token, sizeof("movestogo") - 1) == 0) {
 			token = strtok(NULL, " ");
 			movestogo = atoi(token);
 		}
-		if (strncmp("movetime", token, sizeof("movetime") - 1) == 0) {
-			token = strtok(NULL, " ");
-			mtime = atoi(token);
-		}
+
 
 		token = strtok(NULL, " ");
 	}
 
-	searchStat stat;
-	smove mv = searchStart(&uciBoard, wtime, btime, mtime, movestogo, &stat);
+	negaMaxConf stat;
+	smove mv = searchStart(&uciBoard, wtime, btime, winc,binc, movestogo, &stat, &mlisteMove);
 	movePrintShort(&mv, (char*) & strMove);
-	sprintf(res, "bestmove %s:", strMove);
 	
+	
+#ifdef _WIN32
+	sprintf(res, "bestmove %s:", strMove);
 	uciParseMove(strMove);
 	boardPrintToStr(&uciBoard, boardResult);
 	snprintf(res+strlen(res), 64+9, "board=%s\n", boardResult);
-	
-	printTcp(res);
+#else
+	sprintf(res, "bestmove %s\n", strMove);
+#endif
+
+	printTcp(res);//UCI OK
 	
 }
 
@@ -120,7 +133,7 @@ void uciParseMove(char* str) {
 	char* token;
 	int from, to, prom;
 	int foundMove;
-	smoveList mliste;
+
 	token = strtok(str, " ");
 
 	while (token != NULL) {
@@ -152,12 +165,12 @@ void uciParseMove(char* str) {
 		to = toX + 8 * toY;
 
 		foundMove = 0;
-		moveListInit(&mliste);
-		boardGenerateAllMoves(&uciBoard, &mliste);
-		for (int ii = 0; ii < mliste._nbrMove; ii++) {
-			if ((from == MOVE_FROM(mliste._sMoveList[ii]._move)) && (to == MOVE_TO(mliste._sMoveList[ii]._move))
-				&& (prom == MOVE_PIECE_PROMOTION(mliste._sMoveList[ii]._move))) {
-				doMove(&uciBoard, &mliste._sMoveList[ii]);
+		moveListInit(&mlisteMove);
+		boardGenerateAllMoves(&uciBoard, &mlisteMove);
+		for (int ii = 0; ii < mlisteMove._nbrMove; ii++) {
+			if ((from == MOVE_FROM(mlisteMove._sMoveList[ii]._move)) && (to == MOVE_TO(mlisteMove._sMoveList[ii]._move))
+				&& (prom == MOVE_PIECE_PROMOTION(mlisteMove._sMoveList[ii]._move))) {
+				doMove(&uciBoard, &mlisteMove._sMoveList[ii]);
 				foundMove++;
 			}
 		}
@@ -236,7 +249,7 @@ void uciParseCmd(char* str) {
 		uciParseGo(token);
 	}
 	else if (strncmp("perft", token, sizeof("perft") - 1) == 0) {
-		perftCheckFile("perftcheck.epd", 4);
+		perftCheckFile("perftcheck.epd", 5);
 	}
 	else if (strncmp("puz2", token, sizeof("puz2") - 1) == 0) {
 		puzzlzCheckFile("mat2.epd", 2);
@@ -246,6 +259,9 @@ void uciParseCmd(char* str) {
 	}
 	else if (strncmp("puz4", token, sizeof("puz4") - 1) == 0) {
 		puzzlzCheckFile("mat4.epd", 4);
+	}
+	else if (strncmp("puz_tt", token, sizeof("puz_tt") - 1) == 0) {
+		puzzlzCheckFile("mat_tt.epd", 25);
 	}
 	else if (strncmp("exit", token, sizeof("exit") - 1) == 0) {
 		exit(0);
@@ -281,7 +297,6 @@ void main_UCI() {
 	uciBanner();
 	while (1) {
 		fgets(str, 1024, stdin);
-
 		uciParseCmd(str);
 	}
 }

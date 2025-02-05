@@ -1,7 +1,7 @@
 typedef enum book_conf_t
 {
 	BOOK_NONE,
-	BOOK_NARROW,
+	BOOK_NARROW, 
 	BOOK_BROAD
 }book_conf;
 

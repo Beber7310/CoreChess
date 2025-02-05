@@ -37,7 +37,7 @@ SOCKET ClientSocket=0;
 int ClientSocket=0;
 #endif
 
-#ifdef _MSC_VER
+#ifdef _WIN32
 int main_TCP(void)
 {
     WSADATA wsaData;

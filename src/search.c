@@ -13,7 +13,6 @@
 #include "board.h"
 #include "search.h"
 #include "evaluate.h"
-#include "search.h"
 #include "moveOrder.h"
 #include "transposition.h"
 #include "book.h"
@@ -24,31 +23,28 @@ int gStopSearch;			// used to stop digging when time is over
 int gNodeCptCheckTime;		//Used as a counter to choose when to print some info
 extern int uciOptionQuiesence;
 
-int searchGetTime(searchStat* stat) {
+int searchGetTime(negaMaxConf* stat) {	
 	return (int)(time(NULL) - stat->startSearchTIme);
 }
 
-void searchCheckTime(searchStat* stat) {
-	if (searchGetTime(stat) >= stat->maxSearchTime)
+void searchCheckTime(negaMaxConf* stat) {
+	int time= searchGetTime(stat);
+	if (time >= stat->maxSearchTime)
+	{
+		printf("searchCheckTime Timeout!!! %i\n", time);
 		gStopSearch = 1;
+	}
 }
 
-void UciInfo(int depth, int node, int score, searchStat* stat) {
+void UciInfo(int depth, int node, int score, negaMaxConf* stat) {
 	char str[128];
 
-	/*
-	printf("info depth %i ", depth);
-	printf("nodes %i ", node);
-	printf("score %i ", score);
-	printf("\n");
-	*/
 
-	snprintf(str, sizeof(str) - 1, "info depth %i nodes %i score %i\n", depth, node, score);
+	snprintf(str, sizeof(str) - 1, "info depth %i nodes %9i score cp %5i\n", depth, node, score);
 	printTcp(str);
 }
- 
 
-int negamaxTT(sboard* pBoard, int depth, int alpha, int beta, searchStat* statistics, search_state state) {
+int negamaxTT(sboard* pBoard, int depth, int alpha, int beta, negaMaxConf* statistics, search_state state, smoveList* pastMoves, smoveList* pvMoves) {
 	smoveList mliste;
 	sboard child;
 	ttEntry* tt;
@@ -98,7 +94,7 @@ int negamaxTT(sboard* pBoard, int depth, int alpha, int beta, searchStat* statis
 	if (mliste._nbrMove == 0) {
 		statistics->nbrNode++;
 		if (colorIsInCheck(pBoard, pBoard->_ActivePlayer)) {
-				return -INF;			
+			return -INF;
 		}
 		return 0; // mate
 	}
@@ -141,16 +137,33 @@ int negamaxTT(sboard* pBoard, int depth, int alpha, int beta, searchStat* statis
 
 	}
 
-	moveOrder(&mliste, depth, state == SEARCH_QUIESSENCE, statistics); // devrait rajouter le filtre de move qui capture rien
+	moveOrder(&mliste, depth, state == SEARCH_QUIESSENCE, statistics);
 
 	int value = -INF;
 	for (int ii = 0; ii < mliste._nbrMove; ii++) {
+		int drawCnt = 0;
 
 		boardCpy(&child, pBoard);
 		doMove(&child, &mliste._sMoveList[ii]);
 
-		value = max(value, -negamaxTT(&child, depth - 1, -beta, -alpha, statistics, state));
+		if (pastMoves)
+		{
+			moveCpy(&pastMoves->_sMoveList[depth], &mliste._sMoveList[ii]);
 
+			// We look for draw
+			for (drawCnt = 0; drawCnt < 6; drawCnt++)
+			{
+				if (pastMoves->_sMoveList[depth + drawCnt]._move != pastMoves->_sMoveList[depth + 2 + drawCnt]._move)
+				{
+					break;
+				}
+			}
+		}
+		if (drawCnt == 6) { // it's a draw!
+			value = 0;
+		}else {
+			value = max(value, -negamaxTT(&child, depth - 1, -beta, -alpha, statistics, state, pastMoves, pvMoves));
+		}
 		if (value > alpha) {
 			moveCpy(&pBoard->_bestMove, &mliste._sMoveList[ii]);
 			alpha = value;
@@ -159,11 +172,11 @@ int negamaxTT(sboard* pBoard, int depth, int alpha, int beta, searchStat* statis
 		if (alpha >= beta) {
 			statistics->nbrCut++;
 			mliste._sMoveList[ii]._value = alpha;
-			moveOrderAddKiller(&mliste._sMoveList[ii], depth);
+			moveOrderAddKiller(&mliste._sMoveList[ii], depth);//TBC
 			break;  //break (* cut-off *)
 		}
+
 	}
-	 
 
 	// Save the result in the hash db
 	if (state != SEARCH_QUIESSENCE)
@@ -187,8 +200,37 @@ int negamaxTT(sboard* pBoard, int depth, int alpha, int beta, searchStat* statis
 		moveCpy(&pBoard->_bestMove, &mliste._sMoveList[0]);
 	}
 
-
 	return value;
+}
+
+
+int findPV(sboard* pBoard, int depth, smoveList * pvMove)
+{
+	sboard sBoard, eBoard;
+	negaMaxConf stat; 
+	boardCpy(&sBoard, pBoard);
+	char strMove[10];
+
+	moveListInit(pvMove);
+
+	stat.maxSearchTime = 5;
+	time(&stat.startSearchTIme);
+
+	for (int ii = 0; ii < depth; ii++)
+	{
+		negamaxTT(&sBoard, depth - ii, -INF, INF, &stat, SEARCH_FIRST, 0,0);
+		boardCpy(&eBoard, &sBoard);
+		doMove(&eBoard, &eBoard._bestMove);
+		boardCpy(&sBoard, &eBoard);
+		
+		moveCpy(&pvMove->_sMoveList[pvMove->_nbrMove],&eBoard._bestMove);
+		pvMove->_nbrMove++;
+
+		movePrintShort(&eBoard._bestMove, strMove);
+		printTcp(strMove);
+
+	}
+	printTcp("\n");
 }
 
 
@@ -202,31 +244,40 @@ int negamaxTT(sboard* pBoard, int depth, int alpha, int beta, searchStat* statis
 /// <param name="moveToGo"></param>
 /// <param name="stat"></param>
 /// <returns></returns>
-smove searchStart(sboard* pBoard, int wtime, int btime, int mtime, int moveToGo, searchStat* stat) {
-
+smove searchStart(sboard* pBoard, int wtime, int btime, int winc, int binc, int moveToGo, negaMaxConf* stat, smoveList* pastMoves) {
+	smoveList pvMove;
 	smove bestMove;
-
-
+	int incr = 0;
+	int player_time = 0;
+	
 	bestMove = getBookMove(pBoard, BOOK_NARROW);
 	if (bestMove._move != 0) {
 		return bestMove;
 	}
 
 	if (pBoard->_ActivePlayer == WHITE) {
-		stat->maxSearchTime = wtime;
+		player_time = wtime + (wtime - btime) / 4;
+		incr = winc;
 	}
 	else {
-		stat->maxSearchTime = btime;
+		player_time = btime + (btime - wtime) / 4;
+		incr = binc;
 	}
+ 
+	if (player_time < 100)
+		player_time = 100;
 
-	if (moveToGo > 0) {
-		stat->maxSearchTime = stat->maxSearchTime / moveToGo;
-		stat->maxSearchTime = stat->maxSearchTime / 1000; //milli seconde to seconde
-	}
-	else {
-		stat->maxSearchTime = mtime / 1000;
-	}
+	if (player_time > 100000)
+		player_time = 100000;
 
+ 	if (moveToGo < 1)
+		moveToGo = 10;
+
+	player_time = player_time / moveToGo;
+ 
+	stat->maxSearchTime = (player_time + incr) / 1000;
+
+ 
 	gStopSearch = 0;
 	stat->nbrNode = 0;
 	stat->nbrCut = 0;
@@ -238,14 +289,42 @@ smove searchStart(sboard* pBoard, int wtime, int btime, int mtime, int moveToGo,
 	gNodeCptCheckTime = 0;
 
 	moveOrderClearKiller();
+	 
 
-	for (int depth = 3; depth < 20; depth++) {
+	for (int depth = 3; depth < MAX_SEARCH_DEPTH; depth++) {
+		smoveList pastMovesDraw;
+		moveListInit(&pastMovesDraw);
 		stat->maxDepth = depth;
-		stat->boardEval = negamaxTT(pBoard, depth, -INF, INF, stat, SEARCH_FIRST);
+
+		if (pastMoves)
+			for (int ii = 0; ii < 6; ii++)
+			{
+				moveCpy(&pastMovesDraw._sMoveList[depth + ii], &pastMoves[depth + ii]);
+			}
+
+		if (depth < 5) {
+			stat->boardEval = negamaxTT(pBoard, depth, -INF, INF, stat, SEARCH_FIRST, &pastMovesDraw, &pvMove);
+		}
+		else {
+			int alpha = stat->boardEval - 100;
+			int beta = stat->boardEval + 100;
+			int value = negamaxTT(pBoard, depth, alpha, beta, stat, SEARCH_FIRST, &pastMovesDraw, &pvMove);
+			if (value <= alpha || value >= beta)
+			{
+				value = negamaxTT(pBoard, depth, -INF, INF, stat, SEARCH_FIRST, &pastMovesDraw, &pvMove);
+			}
+			stat->boardEval = value;
+		}
+
 		UciInfo(depth, stat->nbrNode, stat->boardEval, stat);
 
+		findPV(pBoard, depth,&pvMove);
+
 		if (gStopSearch)
+		{
+			//printf("Timeout!!!\n");
 			return bestMove;
+		}
 		moveCpy(&bestMove, &pBoard->_bestMove);
 		if (searchGetTime(stat) > stat->maxSearchTime / 2)
 			return bestMove;
