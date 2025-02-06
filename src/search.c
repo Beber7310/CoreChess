@@ -51,15 +51,16 @@ int negamaxTT(sboard* pBoard, int depth, int alpha, int beta, negaMaxConf* stati
 
 	int alphaOrig = alpha;
 
+//	printf("depth: %i\n", depth);
 	if (gStopSearch)
 		return 0;
 
-	if (depth != 0 && state != SEARCH_FIRST)
+	if (depth != statistics->maxDepth && state != SEARCH_FIRST)
 	{
 		tt = ttGet(pBoard->_zobKey);
 		if (tt) {
 			if (tt->flag != EMPTY) {
-				if (tt->depth >= (depth)) {
+				if (tt->depth >= (statistics->maxDepth-depth)) {
 					statistics->nbrZob++;
 					switch (tt->flag) {
 					case EXACT:
@@ -99,7 +100,7 @@ int negamaxTT(sboard* pBoard, int depth, int alpha, int beta, negaMaxConf* stati
 		return 0; // mate
 	}
 
-	if (depth == 0) { // or node is a terminal node then
+	if (depth == statistics->maxDepth) { // or node is a terminal node then
 		statistics->nbrNode++;
 		gNodeCptCheckTime++;
 		if (gNodeCptCheckTime > 100000) {
@@ -149,6 +150,7 @@ int negamaxTT(sboard* pBoard, int depth, int alpha, int beta, negaMaxConf* stati
 		if (pastMoves)
 		{
 			moveCpy(&pastMoves->_sMoveList[depth], &mliste._sMoveList[ii]);
+		value = max(value, -negamaxTT(&child, depth + 1, -beta, -alpha, statistics, state));
 
 			// We look for draw
 			for (drawCnt = 0; drawCnt < 6; drawCnt++)
@@ -191,7 +193,7 @@ int negamaxTT(sboard* pBoard, int depth, int alpha, int beta, negaMaxConf* stati
 		else {
 			flag = EXACT;
 		}
-		ttSet(pBoard, value, depth, flag);
+		ttSet(pBoard, value, statistics->maxDepth - depth, flag);
 	}
 
 	// alpha is equal to -INF if this pos is always leading to mat. so we peek the first move to avoid leting best move empty
