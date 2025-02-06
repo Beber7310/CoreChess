@@ -150,8 +150,6 @@ int negamaxTT(sboard* pBoard, int depth, int alpha, int beta, negaMaxConf* stati
 		if (pastMoves)
 		{
 			moveCpy(&pastMoves->_sMoveList[depth], &mliste._sMoveList[ii]);
-		value = max(value, -negamaxTT(&child, depth + 1, -beta, -alpha, statistics, state));
-
 			// We look for draw
 			for (drawCnt = 0; drawCnt < 6; drawCnt++)
 			{
@@ -164,7 +162,7 @@ int negamaxTT(sboard* pBoard, int depth, int alpha, int beta, negaMaxConf* stati
 		if (drawCnt == 6) { // it's a draw!
 			value = 0;
 		}else {
-			value = max(value, -negamaxTT(&child, depth - 1, -beta, -alpha, statistics, state, pastMoves, pvMoves));
+			value = max(value, -negamaxTT(&child, depth + 1, -beta, -alpha, statistics, state, pastMoves, pvMoves));			
 		}
 		if (value > alpha) {
 			moveCpy(&pBoard->_bestMove, &mliste._sMoveList[ii]);
@@ -305,22 +303,22 @@ smove searchStart(sboard* pBoard, int wtime, int btime, int winc, int binc, int 
 			}
 
 		if (depth < 5) {
-			stat->boardEval = negamaxTT(pBoard, depth, -INF, INF, stat, SEARCH_FIRST, &pastMovesDraw, &pvMove);
+			stat->boardEval = negamaxTT(pBoard, 1, -INF, INF, stat, SEARCH_FIRST, &pastMovesDraw, &pvMove);
 		}
 		else {
 			int alpha = stat->boardEval - 100;
 			int beta = stat->boardEval + 100;
-			int value = negamaxTT(pBoard, depth, alpha, beta, stat, SEARCH_FIRST, &pastMovesDraw, &pvMove);
+			int value = negamaxTT(pBoard, 1, alpha, beta, stat, SEARCH_FIRST, &pastMovesDraw, &pvMove);
 			if (value <= alpha || value >= beta)
 			{
-				value = negamaxTT(pBoard, depth, -INF, INF, stat, SEARCH_FIRST, &pastMovesDraw, &pvMove);
+				value = negamaxTT(pBoard, 1, -INF, INF, stat, SEARCH_FIRST, &pastMovesDraw, &pvMove);
 			}
 			stat->boardEval = value;
 		}
 
 		UciInfo(depth, stat->nbrNode, stat->boardEval, stat);
 
-		findPV(pBoard, depth,&pvMove);
+		//findPV(pBoard, depth,&pvMove);
 
 		if (gStopSearch)
 		{
