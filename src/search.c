@@ -55,15 +55,16 @@ int negamaxTT(sboard* pBoard, int depth, int alpha, int beta, searchStat* statis
 
 	int alphaOrig = alpha;
 
+//	printf("depth: %i\n", depth);
 	if (gStopSearch)
 		return 0;
 
-	if (depth != 0 && state != SEARCH_FIRST)
+	if (depth != statistics->maxDepth && state != SEARCH_FIRST)
 	{
 		tt = ttGet(pBoard->_zobKey);
 		if (tt) {
 			if (tt->flag != EMPTY) {
-				if (tt->depth >= (depth)) {
+				if (tt->depth >= (statistics->maxDepth-depth)) {
 					statistics->nbrZob++;
 					switch (tt->flag) {
 					case EXACT:
@@ -103,7 +104,7 @@ int negamaxTT(sboard* pBoard, int depth, int alpha, int beta, searchStat* statis
 		return 0; // mate
 	}
 
-	if (depth == 0) { // or node is a terminal node then
+	if (depth == statistics->maxDepth) { // or node is a terminal node then
 		statistics->nbrNode++;
 		gNodeCptCheckTime++;
 		if (gNodeCptCheckTime > 100000) {
@@ -149,7 +150,7 @@ int negamaxTT(sboard* pBoard, int depth, int alpha, int beta, searchStat* statis
 		boardCpy(&child, pBoard);
 		doMove(&child, &mliste._sMoveList[ii]);
 
-		value = max(value, -negamaxTT(&child, depth - 1, -beta, -alpha, statistics, state));
+		value = max(value, -negamaxTT(&child, depth + 1, -beta, -alpha, statistics, state));
 
 		if (value > alpha) {
 			moveCpy(&pBoard->_bestMove, &mliste._sMoveList[ii]);
@@ -178,7 +179,7 @@ int negamaxTT(sboard* pBoard, int depth, int alpha, int beta, searchStat* statis
 		else {
 			flag = EXACT;
 		}
-		ttSet(pBoard, value, depth, flag);
+		ttSet(pBoard, value, statistics->maxDepth - depth, flag);
 	}
 
 	// alpha is equal to -INF if this pos is always leading to mat. so we peek the first move to avoid leting best move empty
@@ -241,7 +242,7 @@ smove searchStart(sboard* pBoard, int wtime, int btime, int mtime, int moveToGo,
 
 	for (int depth = 3; depth < 20; depth++) {
 		stat->maxDepth = depth;
-		stat->boardEval = negamaxTT(pBoard, depth, -INF, INF, stat, SEARCH_FIRST);
+		stat->boardEval = negamaxTT(pBoard, 1, -INF, INF, stat, SEARCH_FIRST);
 		UciInfo(depth, stat->nbrNode, stat->boardEval, stat);
 
 		if (gStopSearch)
