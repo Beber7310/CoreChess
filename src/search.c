@@ -264,13 +264,20 @@ smove searchStart(sboard* pBoard, int wtime, int btime, int winc, int binc, int 
 	smove bestMove;
 	int incr = 0;
 	int player_time = 0;
- 
+	char fen[128]="";
+
 	moveListInit(&pvMove);
+
+
+	boardPrintFen(pBoard, &fen);
+	printf(fen);
+	polyglot_listMove(polyglot_hash(&fen));
 
 	bestMove = getBookMove(pBoard, BOOK_NARROW);
 	if (bestMove._move != 0) {
 		return bestMove;
 	}
+
 
 	if (pBoard->_ActivePlayer == WHITE) {
 		player_time = wtime + (wtime - btime) / 4;

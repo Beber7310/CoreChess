@@ -239,7 +239,7 @@ uint64 *RandomTurn      =Random64+780;
 
 char *piece_names="pPnNbBrRqQkK";
 
-uint64 hash(char *fen){
+uint64 polyglot_hash(char *fen){
     char board_s[72+1];
     char to_move_c;
     char castle_flags_s[4+1];
@@ -324,12 +324,12 @@ uint64 hash(char *fen){
     return key;
 }
 
-int main(int argc, char *argv[]){
+int main_EE(int argc, char *argv[]){
     if(argc==1){
         printf("Usage:  pg_key \"<fen string>\"\n");
     }else{
 #ifdef _MSC_VER
-        printf("%016I64x\n",hash(argv[1]));
+        printf("%016I64x\n",polyglot_hash(argv[1]));
 #else
         printf("%016llx\n",hash(argv[1]));
 #endif

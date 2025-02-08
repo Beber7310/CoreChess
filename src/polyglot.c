@@ -14,15 +14,13 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "polyglot.h"
+
 typedef unsigned char uint8;
 typedef unsigned short uint16;
 typedef unsigned int uint32;
 
-#ifdef _MSC_VER
-  typedef unsigned __int64 uint64;
-#else
-  typedef unsigned long long int uint64;
-#endif
+
 
 typedef struct {
     uint64 key;	
@@ -128,27 +126,19 @@ void move_to_string(char move_s[6], uint16 move){
     }
 }
 
-int main_ee(int argc, char *argv[]){
+int polyglot_listMove(uint64 key){
+    //uint64 key= 0x463b96181691fc9c;
     FILE *f;
     entry_t entry;
     int offset;
-    char *file_name;
-    uint64 key;
+    char *file_name ="gm2001.bin";
+    // uint64 key;
     entry_t entries[MAX_MOVES];
     int count=0;
     int ret, i;
     char move_s[6];
     int total_weight;
-    if(argc<=2){
-        printf("Usage: pg_show <book> <hex key>\n");
-        return 1;
-    }
-    file_name=argv[1];
-#ifdef _MSC_VER
-    sscanf(argv[2],"%16I64x",&key);
-#else
-    sscanf(argv[2],"%16llx",&key);
-#endif
+
     f=fopen(file_name,"rb");
     if(!f){
         perror(file_name);

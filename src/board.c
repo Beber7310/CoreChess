@@ -691,6 +691,7 @@ void boardPrint(sboard* pBoard) {
 
 void boardPrintFen(sboard* pBoard, char* pFEN)
 {
+	char strtmp[5];
 	int whiteSpace = 0;
 	for (int jj = 56; jj >= 0; jj -= 8) {
 		for (int ii = 0; ii < 8; ii++) {
@@ -698,75 +699,81 @@ void boardPrintFen(sboard* pBoard, char* pFEN)
 			if (pBoard->_occupied >> (ii + jj) & ONE) {
 				if (whiteSpace > 0)
 				{
-					printf("%i", whiteSpace);
+					sprintf(strtmp, "%i", whiteSpace);
+					strcat(pFEN, strtmp);
 					whiteSpace = 0;
 				}
 				if (pBoard->_pieces[WHITE][PAWN] >> (ii + jj) & ONE)
-					printf("P");
+					strcat(pFEN, "P");
 				if (pBoard->_pieces[BLACK][PAWN] >> (ii + jj) & ONE)
-					printf("p");
+					strcat(pFEN, "p");
 
 				if (pBoard->_pieces[WHITE][ROOK] >> (ii + jj) & ONE)
-					printf("R");
+					strcat(pFEN, "R");
 				if (pBoard->_pieces[BLACK][ROOK] >> (ii + jj) & ONE)
-					printf("r");
+					strcat(pFEN, "r");
 
 				if (pBoard->_pieces[WHITE][KNIGHT] >> (ii + jj) & ONE)
-					printf("N");
+					strcat(pFEN, "N");
 				if (pBoard->_pieces[BLACK][KNIGHT] >> (ii + jj) & ONE)
-					printf("n");
+					strcat(pFEN, "n");
 
 				if (pBoard->_pieces[WHITE][BISHOP] >> (ii + jj) & ONE)
-					printf("B");
+					strcat(pFEN, "B");
 				if (pBoard->_pieces[BLACK][BISHOP] >> (ii + jj) & ONE)
-					printf("b");
+					strcat(pFEN, "b");
 
 				if (pBoard->_pieces[WHITE][QUEEN] >> (ii + jj) & ONE)
-					printf("Q");
+					strcat(pFEN, "Q");
 				if (pBoard->_pieces[BLACK][QUEEN] >> (ii + jj) & ONE)
-					printf("q");
+					strcat(pFEN, "q");
 
 				if (pBoard->_pieces[WHITE][KING] >> (ii + jj) & ONE)
-					printf("K");
+					strcat(pFEN, "K");
 				if (pBoard->_pieces[BLACK][KING] >> (ii + jj) & ONE)
-					printf("k");
+					strcat(pFEN, "k");
 			}
 			else
 				whiteSpace++;
 		}
 		if (whiteSpace > 0)
 		{
-			printf("%i", whiteSpace);
+			sprintf(strtmp, "%i", whiteSpace);
+			strcat(pFEN, strtmp);
 			whiteSpace = 0;
 		}
 		if (jj > 0)
-			printf("/");
+			strcat(pFEN, "/");
 	}
-	
+
 	if (pBoard->_ActivePlayer == WHITE) {
-		printf(" w ");
-	}	else {
-		printf(" b ");
+		strcat(pFEN, " w ");
+	}
+	else {
+		strcat(pFEN, " b ");
 	}
 
 	if (pBoard->_castlingRights == 0)
 	{
-		printf("-");
+		strcat(pFEN, "-");
 	}
 	else
 	{
-		if (pBoard->_castlingRights == CASTLING_WHITE_KING)  printf("K");
-		if (pBoard->_castlingRights == CASTLING_WHITE_QUEEN) printf("Q");
-		if (pBoard->_castlingRights == CASTLING_BLACK_KING)  printf("k");
-		if (pBoard->_castlingRights == CASTLING_BLACK_QUEEN) printf("q");
+		if (pBoard->_castlingRights & CASTLING_WHITE_KING == CASTLING_WHITE_KING)  strcat(pFEN, "K");
+		if (pBoard->_castlingRights & CASTLING_WHITE_QUEEN == CASTLING_WHITE_QUEEN) strcat(pFEN, "Q");
+		if (pBoard->_castlingRights & CASTLING_BLACK_KING == CASTLING_BLACK_KING)  strcat(pFEN, "k");
+		if (pBoard->_castlingRights & CASTLING_BLACK_QUEEN == CASTLING_BLACK_QUEEN) strcat(pFEN, "q");
 	}
-	printf(" ");
-	
-	if(pBoard->_enPassant)
-		printf("%i", pBoard->_enPassant);
+	strcat(pFEN, " ");
+
+	if (pBoard->_enPassant)
+	{
+		sprintf(strtmp, "%i", pBoard->_enPassant);
+		strcat(pFEN, strtmp);
+	}
 	else
-		printf("-");
-	printf("\n");
+		strcat(pFEN, "-");
+	strcat(pFEN, "\n");
 }
 
 int whiteCanCastleKs(sboard* pBoard) {
