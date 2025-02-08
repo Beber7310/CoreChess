@@ -61,7 +61,7 @@ int perft(sboard* pBoard, int* pNodeCnt, int depth, int iteration) {
 int perftRun(char* posStart, int depth, int expected) {
 	sboard board;
 	int cnt = 0;
-	boardInitFen(&board, posStart);
+	boardInitFromFen(&board, posStart);
 #if PRINT_PERFT_MOVE > 0
 	boardPrint(&board);
 #endif
@@ -139,7 +139,7 @@ int perftCheckFile(char* fileName, int depth) {
 
 int puzzleMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut, int* nbrZob,int* nbrQuies) {
 	sboard board;
-	boardInitFen(&board, posStart);
+	boardInitFromFen(&board, posStart);
 	boardPrint(&board);
 	char res[64];
 #if PRINT_PERFT_MOVE > 0
@@ -149,6 +149,7 @@ int puzzleMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut, int* n
 	negaMaxConf stat;
 
 	printf("%s", posStart);
+	boardPrintFen(&board, NULL);
 	searchStart(&board, 120000, 120000, 1000,1000,1, &stat,NULL);
 
 

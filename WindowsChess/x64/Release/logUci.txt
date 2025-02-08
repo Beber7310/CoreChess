@@ -1,0 +1,11 @@
+ --- Core Chess --- 
+C:\Users\bdosd\source\repos\CoreChess\WindowsChess\x64\Release\WindowsChess.exe
+>UCI Start 
+GUI RSP> ------------------------------------------------------------
+GUI RSP> -                                                          -
+GUI RSP> -                    CoreChess                             -
+GUI RSP> -                                                          -
+GUI RSP> ------------------------------------------------------------
+GUI RSP> 
+GUI RSP> Compiled on Jan 29 2025 at 21:52:59
+GUI RSP> 

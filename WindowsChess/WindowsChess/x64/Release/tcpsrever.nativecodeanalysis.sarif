@@ -1,0 +1,752 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "C6386",
+          "message": {
+            "text": "Buffer overrun while writing to 'recvbuf'."
+          },
+          "analysisTarget": {
+            "uri": "file:///c:/users/bdosd/source/repos/corechess/src/tcpsrever.c"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                },
+                "region": {
+                  "startLine": 135,
+                  "startColumn": 17,
+                  "endLine": 135,
+                  "endColumn": 36
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "main_TCP",
+                  "decoratedName": "main_TCP",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 43,
+                            "startColumn": 13
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "startColumn": 12
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 49,
+                            "startColumn": 22
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 50,
+                            "startColumn": 21
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 52,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 53,
+                            "startColumn": 10
+                          }
+                        },
+                        "message": {
+                          "text": "'recvbuf' is an array of 2048 elements (2048 bytes)"
+                        }
+                      },
+                      "kinds": [
+                        "declaration"
+                      ],
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 54,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 58,
+                            "startColumn": 5
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 59,
+                            "startColumn": 5
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 60,
+                            "startColumn": 5
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 61,
+                            "startColumn": 5
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 64,
+                            "startColumn": 13
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 65,
+                            "startColumn": 17
+                          }
+                        },
+                        "message": {
+                          "text": "Skip this branch, (assume 'iResult!=0' is false)"
+                        }
+                      },
+                      "kinds": [
+                        "branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 70,
+                            "startColumn": 5
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 71,
+                            "startColumn": 21
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 72,
+                            "startColumn": 23
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 73,
+                            "startColumn": 23
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 74,
+                            "startColumn": 20
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 77,
+                            "startColumn": 13
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 78,
+                            "startColumn": 17
+                          }
+                        },
+                        "message": {
+                          "text": "Skip this branch, (assume 'iResult!=0' is false)"
+                        }
+                      },
+                      "kinds": [
+                        "branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 85,
+                            "startColumn": 18
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 86,
+                            "startColumn": 22
+                          }
+                        },
+                        "message": {
+                          "text": "Skip this branch, (assume 'ListenSocket==(SOCKET)(~0)' is false)"
+                        }
+                      },
+                      "kinds": [
+                        "branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 94,
+                            "startColumn": 13
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 95,
+                            "startColumn": 17
+                          }
+                        },
+                        "message": {
+                          "text": "Skip this branch, (assume 'iResult==((-1))' is false)"
+                        }
+                      },
+                      "kinds": [
+                        "branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 103,
+                            "startColumn": 5
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 105,
+                            "startColumn": 13
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 106,
+                            "startColumn": 17
+                          }
+                        },
+                        "message": {
+                          "text": "Skip this branch, (assume 'iResult==((-1))' is false)"
+                        }
+                      },
+                      "kinds": [
+                        "branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 113,
+                            "startColumn": 12
+                          }
+                        },
+                        "message": {
+                          "text": "Enter this loop, (assume '1')"
+                        }
+                      },
+                      "kinds": [
+                        "branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 116,
+                            "startColumn": 22
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 117,
+                            "startColumn": 26
+                          }
+                        },
+                        "message": {
+                          "text": "Skip this branch, (assume 'ClientSocket==(SOCKET)(~0)' is false)"
+                        }
+                      },
+                      "kinds": [
+                        "branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 125,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 131,
+                            "startColumn": 21
+                          }
+                        },
+                        "message": {
+                          "text": "'recvbuf' is an Output from 'recv' (declared at c:\\program files (x86)\\windows kits\\10\\include\\10.0.22621.0\\um\\winsock2.h:2008)"
+                        }
+                      },
+                      "kinds": [
+                        "declaration"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 131,
+                            "startColumn": 21
+                          }
+                        },
+                        "message": {
+                          "text": "'iResult' may be NULL"
+                        }
+                      },
+                      "kinds": [
+                        "declaration"
+                      ],
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 133,
+                            "startColumn": 25
+                          }
+                        },
+                        "message": {
+                          "text": "Enter this branch, (assume 'iResult>0')"
+                        }
+                      },
+                      "kinds": [
+                        "branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 134,
+                            "startColumn": 17
+                          }
+                        },
+                        "message": {
+                          "text": "'iResult' is an In/Out argument to 'printf' (declared at c:\\program files (x86)\\windows kits\\10\\include\\10.0.22621.0\\ucrt\\stdio.h:950)"
+                        }
+                      },
+                      "kinds": [
+                        "declaration"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bdosd/source/repos/CoreChess/src/tcpsrever.c"
+                          },
+                          "region": {
+                            "startLine": 135,
+                            "startColumn": 34
+                          }
+                        },
+                        "message": {
+                          "text": "Invalid write to 'recvbuf[2048]', (writable range is 0 to 2047)"
+                        }
+                      },
+                      "kinds": [
+                        "usage"
+                      ],
+                      "importance": "essential"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.42.34436.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/users/bdosd/source/repos/corechess/src/tcpsrever.c"
+          },
+          "roles": [
+            "analysisTarget",
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "79717cc6fe4e02725da1ec064399a3b6d10eec21ed41bfbfbc4d50c2a03402e1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/bdosd/source/repos/corechess/src/board.h"
+          },
+          "hashes": {
+            "sha-256": "a120358feb0ef97408cee6b91597096224518fcaeb1a197e8fef6094a0e3e16c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/bdosd/source/repos/corechess/src/defs.h"
+          },
+          "hashes": {
+            "sha-256": "c78897e029feba9ea2ca491266fd709c267e42098f65426b77f92f37f945fdb9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/bdosd/source/repos/corechess/src/move.h"
+          },
+          "hashes": {
+            "sha-256": "2f333105d8532134d3d4750c29f52f4236ff0604acbb07bc26617191ebd2c402"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/bdosd/source/repos/corechess/src/movegen.h"
+          },
+          "hashes": {
+            "sha-256": "08754f4f600a804252f10815e5bf10ac3552a36578235fe324b253d797bd98be"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/bdosd/source/repos/corechess/src/perft.h"
+          },
+          "hashes": {
+            "sha-256": "69de26984f917b55845fe680cca5a3856102101c45f945adf46b2f1e4583e374"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/bdosd/source/repos/corechess/src/uci.h"
+          },
+          "hashes": {
+            "sha-256": "8b232bb266b2622caa135625771addbb314799a2eed1dbe53ef057c1fe6de37f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/bdosd/source/repos/corechess/src/search.h"
+          },
+          "hashes": {
+            "sha-256": "2e7ba6f95109b57676285eda1d7ce5670ba9e8d2efc2f1acf045a649ba1df257"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/bdosd/source/repos/corechess/src/moveorder.h"
+          },
+          "hashes": {
+            "sha-256": "53dae5f4644956ab80169310b5f406dc12e205069ba8365045a6a89a1d8234de"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/bdosd/source/repos/corechess/src/zobrist.h"
+          },
+          "hashes": {
+            "sha-256": "b9feb44b5babc6a09734bb64f8c0ba4fdf9bb01510da71c15f2de6dce9ad4da0"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/bdosd/source/repos/corechess/src/bitutils.h"
+          },
+          "hashes": {
+            "sha-256": "a704a134edfff92d9dff2905d19abe01e3dc42f24763477f290432f2a23d9948"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/bdosd/source/repos/corechess/src/transposition.h"
+          },
+          "hashes": {
+            "sha-256": "85c8691c78f08fe20fc557bd3d1b553f8a0c24e301484fa0fe7b3e4eb57670ca"
+          }
+        }
+      ]
+    }
+  ]
+}

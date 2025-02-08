@@ -1,0 +1,107 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.42.34436.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/users/bdosd/source/repos/corechess/src/book.c"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "55bb78956692e755b2174fdb21f20b3073df6f81c3a0932e8bde1715a4f290d2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/bdosd/source/repos/corechess/src/board.h"
+          },
+          "hashes": {
+            "sha-256": "a120358feb0ef97408cee6b91597096224518fcaeb1a197e8fef6094a0e3e16c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/bdosd/source/repos/corechess/src/defs.h"
+          },
+          "hashes": {
+            "sha-256": "c78897e029feba9ea2ca491266fd709c267e42098f65426b77f92f37f945fdb9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/bdosd/source/repos/corechess/src/move.h"
+          },
+          "hashes": {
+            "sha-256": "2f333105d8532134d3d4750c29f52f4236ff0604acbb07bc26617191ebd2c402"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/bdosd/source/repos/corechess/src/search.h"
+          },
+          "hashes": {
+            "sha-256": "2e7ba6f95109b57676285eda1d7ce5670ba9e8d2efc2f1acf045a649ba1df257"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/bdosd/source/repos/corechess/src/evaluate.h"
+          },
+          "hashes": {
+            "sha-256": "98f01f228b48efe3cc0b008356a7c818d03ff84f63d583122529591b196dd37a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/bdosd/source/repos/corechess/src/moveorder.h"
+          },
+          "hashes": {
+            "sha-256": "53dae5f4644956ab80169310b5f406dc12e205069ba8365045a6a89a1d8234de"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/bdosd/source/repos/corechess/src/transposition.h"
+          },
+          "hashes": {
+            "sha-256": "85c8691c78f08fe20fc557bd3d1b553f8a0c24e301484fa0fe7b3e4eb57670ca"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/bdosd/source/repos/corechess/src/book.h"
+          },
+          "hashes": {
+            "sha-256": "51ebf1dbcee27a29b69cec1137a5e7fd016f673ad63b8776333e85a3c0d5f2c2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/bdosd/source/repos/corechess/src/uci.h"
+          },
+          "hashes": {
+            "sha-256": "8b232bb266b2622caa135625771addbb314799a2eed1dbe53ef057c1fe6de37f"
+          }
+        }
+      ]
+    }
+  ]
+}

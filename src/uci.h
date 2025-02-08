@@ -27,7 +27,7 @@ extern "C" {
 void main_UCI();
 void uciParseCmd(char* str);
 void uciLog(char* s);
-void uciParseMove(char* str);
+void uciParseMove(char* str, smoveList* pPastMove);
 
 
 #ifdef __cplusplus

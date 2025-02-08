@@ -1,0 +1,77 @@
+[
+  {
+    "directory": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\WindowsChess",
+    "command": "\"C:\\WINDOWS\\system32\\CL.exe\" \/c \/I\"C:\\Program Files (x86)\\Visual Leak Detector\\include\" \/nologo \/W3 \/WX- \/diagnostics:column \/O2 \/Ob2 \/Oi \/Ot \/Oy \/D CODE_ANALYSIS \/D NDEBUG \/D _CONSOLE \/D _UNICODE \/D UNICODE \/MD \/Zp16 \/GS- \/Gy- \/arch:AVX512 \/fp:precise \/permissive- \/Fo\"WindowsChess\\x64\\Release\\\\\" \/Gd \/TC --target=amd64-pc-windows-msvc; \/wd4996  \"C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\bitutils.c\"",
+    "file": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\bitutils.c"
+  },
+  {
+    "directory": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\WindowsChess",
+    "command": "\"C:\\WINDOWS\\system32\\CL.exe\" \/c \/I\"C:\\Program Files (x86)\\Visual Leak Detector\\include\" \/nologo \/W3 \/WX- \/diagnostics:column \/O2 \/Ob2 \/Oi \/Ot \/Oy \/D CODE_ANALYSIS \/D NDEBUG \/D _CONSOLE \/D _UNICODE \/D UNICODE \/MD \/Zp16 \/GS- \/Gy- \/arch:AVX512 \/fp:precise \/permissive- \/Fo\"WindowsChess\\x64\\Release\\\\\" \/Gd \/TC --target=amd64-pc-windows-msvc; \/wd4996  \"C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\board.c\"",
+    "file": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\board.c"
+  },
+  {
+    "directory": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\WindowsChess",
+    "command": "\"C:\\WINDOWS\\system32\\CL.exe\" \/c \/I\"C:\\Program Files (x86)\\Visual Leak Detector\\include\" \/nologo \/W3 \/WX- \/diagnostics:column \/O2 \/Ob2 \/Oi \/Ot \/Oy \/D CODE_ANALYSIS \/D NDEBUG \/D _CONSOLE \/D _UNICODE \/D UNICODE \/MD \/Zp16 \/GS- \/Gy- \/arch:AVX512 \/fp:precise \/permissive- \/Fo\"WindowsChess\\x64\\Release\\\\\" \/Gd \/TC --target=amd64-pc-windows-msvc; \/wd4996  \"C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\book.c\"",
+    "file": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\book.c"
+  },
+  {
+    "directory": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\WindowsChess",
+    "command": "\"C:\\WINDOWS\\system32\\CL.exe\" \/c \/I\"C:\\Program Files (x86)\\Visual Leak Detector\\include\" \/nologo \/W3 \/WX- \/diagnostics:column \/O2 \/Ob2 \/Oi \/Ot \/Oy \/D CODE_ANALYSIS \/D NDEBUG \/D _CONSOLE \/D _UNICODE \/D UNICODE \/MD \/Zp16 \/GS- \/Gy- \/arch:AVX512 \/fp:precise \/permissive- \/Fo\"WindowsChess\\x64\\Release\\\\\" \/Gd \/TC --target=amd64-pc-windows-msvc; \/wd4996  \"C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\evaluate.c\"",
+    "file": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\evaluate.c"
+  },
+  {
+    "directory": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\WindowsChess",
+    "command": "\"C:\\WINDOWS\\system32\\CL.exe\" \/c \/I\"C:\\Program Files (x86)\\Visual Leak Detector\\include\" \/nologo \/W3 \/WX- \/diagnostics:column \/O2 \/Ob2 \/Oi \/Ot \/Oy \/D CODE_ANALYSIS \/D NDEBUG \/D _CONSOLE \/D _UNICODE \/D UNICODE \/MD \/Zp16 \/GS- \/Gy- \/arch:AVX512 \/fp:precise \/permissive- \/Fo\"WindowsChess\\x64\\Release\\\\\" \/Gd \/TC --target=amd64-pc-windows-msvc; \/wd4996  \"C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\main.c\"",
+    "file": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\main.c"
+  },
+  {
+    "directory": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\WindowsChess",
+    "command": "\"C:\\WINDOWS\\system32\\CL.exe\" \/c \/I\"C:\\Program Files (x86)\\Visual Leak Detector\\include\" \/nologo \/W3 \/WX- \/diagnostics:column \/O2 \/Ob2 \/Oi \/Ot \/Oy \/D CODE_ANALYSIS \/D NDEBUG \/D _CONSOLE \/D _UNICODE \/D UNICODE \/MD \/Zp16 \/GS- \/Gy- \/arch:AVX512 \/fp:precise \/permissive- \/Fo\"WindowsChess\\x64\\Release\\\\\" \/Gd \/TC --target=amd64-pc-windows-msvc; \/wd4996  \"C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\move.c\"",
+    "file": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\move.c"
+  },
+  {
+    "directory": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\WindowsChess",
+    "command": "\"C:\\WINDOWS\\system32\\CL.exe\" \/c \/I\"C:\\Program Files (x86)\\Visual Leak Detector\\include\" \/nologo \/W3 \/WX- \/diagnostics:column \/O2 \/Ob2 \/Oi \/Ot \/Oy \/D CODE_ANALYSIS \/D NDEBUG \/D _CONSOLE \/D _UNICODE \/D UNICODE \/MD \/Zp16 \/GS- \/Gy- \/arch:AVX512 \/fp:precise \/permissive- \/Fo\"WindowsChess\\x64\\Release\\\\\" \/Gd \/TC --target=amd64-pc-windows-msvc; \/wd4996  \"C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\movegen.c\"",
+    "file": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\movegen.c"
+  },
+  {
+    "directory": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\WindowsChess",
+    "command": "\"C:\\WINDOWS\\system32\\CL.exe\" \/c \/I\"C:\\Program Files (x86)\\Visual Leak Detector\\include\" \/nologo \/W3 \/WX- \/diagnostics:column \/O2 \/Ob2 \/Oi \/Ot \/Oy \/D CODE_ANALYSIS \/D NDEBUG \/D _CONSOLE \/D _UNICODE \/D UNICODE \/MD \/Zp16 \/GS- \/Gy- \/arch:AVX512 \/fp:precise \/permissive- \/Fo\"WindowsChess\\x64\\Release\\\\\" \/Gd \/TC --target=amd64-pc-windows-msvc; \/wd4996  \"C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\moveOrder.c\"",
+    "file": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\moveOrder.c"
+  },
+  {
+    "directory": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\WindowsChess",
+    "command": "\"C:\\WINDOWS\\system32\\CL.exe\" \/c \/I\"C:\\Program Files (x86)\\Visual Leak Detector\\include\" \/nologo \/W3 \/WX- \/diagnostics:column \/O2 \/Ob2 \/Oi \/Ot \/Oy \/D CODE_ANALYSIS \/D NDEBUG \/D _CONSOLE \/D _UNICODE \/D UNICODE \/MD \/Zp16 \/GS- \/Gy- \/arch:AVX512 \/fp:precise \/permissive- \/Fo\"WindowsChess\\x64\\Release\\\\\" \/Gd \/TC --target=amd64-pc-windows-msvc; \/wd4996  \"C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\perft.c\"",
+    "file": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\perft.c"
+  },
+  {
+    "directory": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\WindowsChess",
+    "command": "\"C:\\WINDOWS\\system32\\CL.exe\" \/c \/I\"C:\\Program Files (x86)\\Visual Leak Detector\\include\" \/nologo \/W3 \/WX- \/diagnostics:column \/O2 \/Ob2 \/Oi \/Ot \/Oy \/D CODE_ANALYSIS \/D NDEBUG \/D _CONSOLE \/D _UNICODE \/D UNICODE \/MD \/Zp16 \/GS- \/Gy- \/arch:AVX512 \/fp:precise \/permissive- \/Fo\"WindowsChess\\x64\\Release\\\\\" \/Gd \/TC --target=amd64-pc-windows-msvc; \/wd4996  \"C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\quiescence.c\"",
+    "file": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\quiescence.c"
+  },
+  {
+    "directory": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\WindowsChess",
+    "command": "\"C:\\WINDOWS\\system32\\CL.exe\" \/c \/I\"C:\\Program Files (x86)\\Visual Leak Detector\\include\" \/nologo \/W3 \/WX- \/diagnostics:column \/O2 \/Ob2 \/Oi \/Ot \/Oy \/D CODE_ANALYSIS \/D NDEBUG \/D _CONSOLE \/D _UNICODE \/D UNICODE \/MD \/Zp16 \/GS- \/Gy- \/arch:AVX512 \/fp:precise \/permissive- \/Fo\"WindowsChess\\x64\\Release\\\\\" \/Gd \/TC --target=amd64-pc-windows-msvc; \/wd4996  \"C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\search.c\"",
+    "file": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\search.c"
+  },
+  {
+    "directory": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\WindowsChess",
+    "command": "\"C:\\WINDOWS\\system32\\CL.exe\" \/c \/I\"C:\\Program Files (x86)\\Visual Leak Detector\\include\" \/nologo \/W3 \/WX- \/diagnostics:column \/O2 \/Ob2 \/Oi \/Ot \/Oy \/D CODE_ANALYSIS \/D NDEBUG \/D _CONSOLE \/D _UNICODE \/D UNICODE \/MD \/Zp16 \/GS- \/Gy- \/arch:AVX512 \/fp:precise \/permissive- \/Fo\"WindowsChess\\x64\\Release\\\\\" \/Gd \/TC --target=amd64-pc-windows-msvc; \/wd4996  \"C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\tcpsrever.c\"",
+    "file": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\tcpsrever.c"
+  },
+  {
+    "directory": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\WindowsChess",
+    "command": "\"C:\\WINDOWS\\system32\\CL.exe\" \/c \/I\"C:\\Program Files (x86)\\Visual Leak Detector\\include\" \/nologo \/W3 \/WX- \/diagnostics:column \/O2 \/Ob2 \/Oi \/Ot \/Oy \/D CODE_ANALYSIS \/D NDEBUG \/D _CONSOLE \/D _UNICODE \/D UNICODE \/MD \/Zp16 \/GS- \/Gy- \/arch:AVX512 \/fp:precise \/permissive- \/Fo\"WindowsChess\\x64\\Release\\\\\" \/Gd \/TC --target=amd64-pc-windows-msvc; \/wd4996  \"C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\transposition.c\"",
+    "file": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\transposition.c"
+  },
+  {
+    "directory": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\WindowsChess",
+    "command": "\"C:\\WINDOWS\\system32\\CL.exe\" \/c \/I\"C:\\Program Files (x86)\\Visual Leak Detector\\include\" \/nologo \/W3 \/WX- \/diagnostics:column \/O2 \/Ob2 \/Oi \/Ot \/Oy \/D CODE_ANALYSIS \/D NDEBUG \/D _CONSOLE \/D _UNICODE \/D UNICODE \/MD \/Zp16 \/GS- \/Gy- \/arch:AVX512 \/fp:precise \/permissive- \/Fo\"WindowsChess\\x64\\Release\\\\\" \/Gd \/TC --target=amd64-pc-windows-msvc; \/wd4996  \"C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\uci.c\"",
+    "file": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\uci.c"
+  },
+  {
+    "directory": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\WindowsChess",
+    "command": "\"C:\\WINDOWS\\system32\\CL.exe\" \/c \/I\"C:\\Program Files (x86)\\Visual Leak Detector\\include\" \/nologo \/W3 \/WX- \/diagnostics:column \/O2 \/Ob2 \/Oi \/Ot \/Oy \/D CODE_ANALYSIS \/D NDEBUG \/D _CONSOLE \/D _UNICODE \/D UNICODE \/MD \/Zp16 \/GS- \/Gy- \/arch:AVX512 \/fp:precise \/permissive- \/Fo\"WindowsChess\\x64\\Release\\\\\" \/Gd \/TC --target=amd64-pc-windows-msvc; \/wd4996  \"C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\zobrist.c\"",
+    "file": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\zobrist.c"
+  }
+]

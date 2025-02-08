@@ -1,9 +1,6 @@
-﻿cl : ligne de commande  warning D9025: substitution de '/sdl' par '/GS-'
-  book.c
+﻿cl : command line  warning D9025: overriding '/sdl' with '/GS-'
   main.c
-  tcpsrever.c
-  uci.c
-  Génération de code en cours
+  Generating code
   Not all modules are compiled with -Gy (function comdat), build without incremental LTCG.
-  Fin de la génération du code
+  Finished generating code
   WindowsChess.vcxproj -> C:\Users\bdosd\Source\Repos\CoreChess\WindowsChess\x64\Release\WindowsChess.exe

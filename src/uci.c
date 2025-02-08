@@ -15,8 +15,9 @@
 #include "tcpserver.h"
 #include "transposition.h"
 
+
 sboard uciBoard;
-smoveList mlisteMove;
+smoveList PastMove;
 
 int uciOptionHashSize = 128 * 1024 * 1024;
 int uciOptionQuiesence = 0;
@@ -72,11 +73,11 @@ void uciParseGo(char* str) {
 	}
 
 	negaMaxConf stat;
-	smove mv = searchStart(&uciBoard, wtime, btime, winc,binc, movestogo, &stat, &mlisteMove);
+	smove mv = searchStart(&uciBoard, wtime, btime, winc,binc, movestogo, &stat, &PastMove);
 	movePrintShort(&mv, (char*) & strMove);
 	
 	
-#ifdef _WIN32
+#ifdef _CHESS_COM
 	sprintf(res, "bestmove %s:", strMove);
 	uciParseMove(strMove);
 	boardPrintToStr(&uciBoard, boardResult);
@@ -128,11 +129,12 @@ void uciParseOption(char* str) {
 	}
 
 }
-void uciParseMove(char* str) {
+void uciParseMove(char* str, smoveList* pPastMove) {
 
 	char* token;
 	int from, to, prom;
 	int foundMove;
+	smoveList mlisteMove;
 
 	token = strtok(str, " ");
 
@@ -171,6 +173,8 @@ void uciParseMove(char* str) {
 			if ((from == MOVE_FROM(mlisteMove._sMoveList[ii]._move)) && (to == MOVE_TO(mlisteMove._sMoveList[ii]._move))
 				&& (prom == MOVE_PIECE_PROMOTION(mlisteMove._sMoveList[ii]._move))) {
 				doMove(&uciBoard, &mlisteMove._sMoveList[ii]);
+				moveCpy(&pPastMove->_sMoveList[pPastMove->_nbrMove], &mlisteMove._sMoveList[ii]);
+				pPastMove->_nbrMove++;
 				foundMove++;
 			}
 		}
@@ -189,10 +193,11 @@ void uciParsePosition(char* str) {
 	while (token != NULL) {
 		if (strncmp("startpos", token, sizeof("startpos") - 1) == 0) {
 			boardInit(&uciBoard);
+			moveListInit(&PastMove);
 		}
 		if (strncmp("moves", token, sizeof("moves") - 1) == 0) {
 			token = strtok(NULL, "");
-			uciParseMove(token);
+			uciParseMove(token,&PastMove);
 		}
 		token = strtok(NULL, " ");
 	}

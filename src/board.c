@@ -74,7 +74,7 @@ void boardInit(sboard* pBoard) {
 	pBoard->_zobKey = zobCompute(pBoard);
 }
 
-void boardInitFen(sboard* pBoard, char* pFEN) {
+void boardInitFromFen(sboard* pBoard, char* pFEN) {
 	char tmp[512];
 	sprintf(tmp, "%s", pFEN);
 	char* token = strtok(tmp, " ");
@@ -174,6 +174,8 @@ void boardInitFen(sboard* pBoard, char* pFEN) {
 
 }
 
+
+
 void boardCpy(sboard* dst, sboard* src) {
 	memcpy(dst, src, sizeof(sboard));
 }
@@ -218,7 +220,7 @@ void doMove(sboard* pBoard, smove* move) {
 	unsigned int flags = MOVE_FLAG(move->_move);
 	/*
 	///////////////////////////   DEBUG   /////////////////////////////
-	///////////////////////////    TBR    /////////////////////////////	 
+	///////////////////////////    TBR    /////////////////////////////
 	if (zobCompute(pBoard) != pBoard->_zobKey) {
 		boardPrint(pBoard);
 		printf("Error in zob computation\n");
@@ -312,16 +314,16 @@ void doMove(sboard* pBoard, smove* move) {
 		unsigned int enPasIndex = pBoard->_ActivePlayer == WHITE ? MOVE_TO(move->_move) - 8 : MOVE_TO(move->_move) + 8;
 		pBoard->_enPassant = ONE << enPasIndex;
 		pBoard->_zobKey = zobEnPassant(pBoard->_zobKey, pBoard->_enPassant % 8);
-	} 
+	}
 
 	_updateCastlingRightsForMove(pBoard, move);
 
 	pBoard->_ActivePlayer = !pBoard->_ActivePlayer;
 	pBoard->_zobKey = zobFlipPLayer(pBoard->_zobKey);
-	
+
 	/*
 	///////////////////////////   DEBUG   /////////////////////////////
-	///////////////////////////    TBR    /////////////////////////////	 
+	///////////////////////////    TBR    /////////////////////////////
 	if (zobCompute(pBoard) != pBoard->_zobKey) {
 		boardPrint(pBoard);
 		printf("Error in zob computation\n");
@@ -334,7 +336,7 @@ void doMove(sboard* pBoard, smove* move) {
 		printf("flag %x\n ", MOVE_FLAG(move->_move));
 		printf("\n");
 	}*/
-	
+
 
 }
 
@@ -434,6 +436,9 @@ void boardGenerateAllLegalMoves(sboard* board, smoveList* moveList) {
 	sboard tmpBoard;
 	moveListInit(&tmpList);
 	moveListInit(moveList);
+
+	// boardGenerateAllMoves(board, moveList);
+
 
 	boardGenerateAllMoves(board, &tmpList);
 
@@ -684,6 +689,85 @@ void boardPrint(sboard* pBoard) {
 }
 
 
+void boardPrintFen(sboard* pBoard, char* pFEN)
+{
+	int whiteSpace = 0;
+	for (int jj = 56; jj >= 0; jj -= 8) {
+		for (int ii = 0; ii < 8; ii++) {
+
+			if (pBoard->_occupied >> (ii + jj) & ONE) {
+				if (whiteSpace > 0)
+				{
+					printf("%i", whiteSpace);
+					whiteSpace = 0;
+				}
+				if (pBoard->_pieces[WHITE][PAWN] >> (ii + jj) & ONE)
+					printf("P");
+				if (pBoard->_pieces[BLACK][PAWN] >> (ii + jj) & ONE)
+					printf("p");
+
+				if (pBoard->_pieces[WHITE][ROOK] >> (ii + jj) & ONE)
+					printf("R");
+				if (pBoard->_pieces[BLACK][ROOK] >> (ii + jj) & ONE)
+					printf("r");
+
+				if (pBoard->_pieces[WHITE][KNIGHT] >> (ii + jj) & ONE)
+					printf("N");
+				if (pBoard->_pieces[BLACK][KNIGHT] >> (ii + jj) & ONE)
+					printf("n");
+
+				if (pBoard->_pieces[WHITE][BISHOP] >> (ii + jj) & ONE)
+					printf("B");
+				if (pBoard->_pieces[BLACK][BISHOP] >> (ii + jj) & ONE)
+					printf("b");
+
+				if (pBoard->_pieces[WHITE][QUEEN] >> (ii + jj) & ONE)
+					printf("Q");
+				if (pBoard->_pieces[BLACK][QUEEN] >> (ii + jj) & ONE)
+					printf("q");
+
+				if (pBoard->_pieces[WHITE][KING] >> (ii + jj) & ONE)
+					printf("K");
+				if (pBoard->_pieces[BLACK][KING] >> (ii + jj) & ONE)
+					printf("k");
+			}
+			else
+				whiteSpace++;
+		}
+		if (whiteSpace > 0)
+		{
+			printf("%i", whiteSpace);
+			whiteSpace = 0;
+		}
+		if (jj > 0)
+			printf("/");
+	}
+	
+	if (pBoard->_ActivePlayer == WHITE) {
+		printf(" w ");
+	}	else {
+		printf(" b ");
+	}
+
+	if (pBoard->_castlingRights == 0)
+	{
+		printf("-");
+	}
+	else
+	{
+		if (pBoard->_castlingRights == CASTLING_WHITE_KING)  printf("K");
+		if (pBoard->_castlingRights == CASTLING_WHITE_QUEEN) printf("Q");
+		if (pBoard->_castlingRights == CASTLING_BLACK_KING)  printf("k");
+		if (pBoard->_castlingRights == CASTLING_BLACK_QUEEN) printf("q");
+	}
+	printf(" ");
+	
+	if(pBoard->_enPassant)
+		printf("%i", pBoard->_enPassant);
+	else
+		printf("-");
+	printf("\n");
+}
 
 int whiteCanCastleKs(sboard* pBoard) {
 	if (!(pBoard->_castlingRights & CASTLING_WHITE_KING)) {

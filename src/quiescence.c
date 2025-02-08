@@ -97,7 +97,7 @@ int Quiessence(sboard* pBoard, int depth, int alpha, int beta, negaMaxConf* stat
 	}
 	*/
 
-	moveOrder(&mliste, 0, 1, statistics); 
+	moveOrder(&mliste, 0, 1,NULL, statistics); 
 
 	int value = -INF;
 	for (int ii = 0; ii < mliste._nbrMove; ii++) {

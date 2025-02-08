@@ -56,7 +56,7 @@ typedef struct sboard_t {
 } sboard;
 
 void boardInit(sboard * pBoard);
-void boardInitFen(sboard * pBoard, char* pFEN);
+void boardInitFromFen(sboard * pBoard, char* pFEN);
 
 void boardPrintMove(U64 m);
 U64 getMovesForSquare(sboard * pBoard, smoveList* moveList, PieceType pieceType, Color color, int square);
@@ -85,4 +85,7 @@ int blackCanCastleQs(sboard * pBoard);
 int blackCanCastleKs(sboard * pBoard);
 int whiteCanCastleQs(sboard * pBoard);
 int whiteCanCastleKs(sboard * pBoard);
+
+void boardPrintFen(sboard* pBoard, char* pFEN);
+
 #endif /* SRC_BOARD_H_ */

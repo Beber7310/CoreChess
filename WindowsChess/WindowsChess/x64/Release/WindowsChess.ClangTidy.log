@@ -1,0 +1,247 @@
+[1/15] Processing file C:\Users\bdosd\source\repos\CoreChess\src\bitutils.c.
+[2/15] Processing file C:\Users\bdosd\source\repos\CoreChess\src\board.c.
+[3/15] Processing file C:\Users\bdosd\source\repos\CoreChess\src\book.c.
+[4/15] Processing file C:\Users\bdosd\source\repos\CoreChess\src\evaluate.c.
+[5/15] Processing file C:\Users\bdosd\source\repos\CoreChess\src\main.c.
+[6/15] Processing file C:\Users\bdosd\source\repos\CoreChess\src\move.c.
+[7/15] Processing file C:\Users\bdosd\source\repos\CoreChess\src\movegen.c.
+[8/15] Processing file C:\Users\bdosd\source\repos\CoreChess\src\moveOrder.c.
+[9/15] Processing file C:\Users\bdosd\source\repos\CoreChess\src\perft.c.
+Error while processing C:\Users\bdosd\source\repos\CoreChess\src\perft.c.
+[10/15] Processing file C:\Users\bdosd\source\repos\CoreChess\src\quiescence.c.
+Error while processing C:\Users\bdosd\source\repos\CoreChess\src\quiescence.c.
+[11/15] Processing file C:\Users\bdosd\source\repos\CoreChess\src\search.c.
+Error while processing C:\Users\bdosd\source\repos\CoreChess\src\search.c.
+[12/15] Processing file C:\Users\bdosd\source\repos\CoreChess\src\tcpsrever.c.
+Error while processing C:\Users\bdosd\source\repos\CoreChess\src\tcpsrever.c.
+[13/15] Processing file C:\Users\bdosd\source\repos\CoreChess\src\transposition.c.
+Error while processing C:\Users\bdosd\source\repos\CoreChess\src\transposition.c.
+[14/15] Processing file C:\Users\bdosd\source\repos\CoreChess\src\uci.c.
+Error while processing C:\Users\bdosd\source\repos\CoreChess\src\uci.c.
+[15/15] Processing file C:\Users\bdosd\source\repos\CoreChess\src\zobrist.c.
+Error while processing C:\Users\bdosd\source\repos\CoreChess\src\zobrist.c.
+C:\Users\bdosd\source\repos\CoreChess\src\board.c:79:2: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+   79 |         sprintf(tmp, "%s", pFEN);
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\board.c:79:2: note: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11
+   79 |         sprintf(tmp, "%s", pFEN);
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\board.c:178:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  178 |         memcpy(dst, src, sizeof(sboard));
+      |         ^~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\board.c:178:2: note: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11
+  178 |         memcpy(dst, src, sizeof(sboard));
+      |         ^~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\book.c:216:6: warning: variable 'result' set but not used [clang-diagnostic-unused-but-set-variable]
+  216 |         int result = 0;
+      |             ^
+C:\Users\bdosd\source\repos\CoreChess\src\book.c:255:5: warning: Value stored to 'result' is never read [clang-analyzer-deadcode.DeadStores]
+  255 |                                 result = 1;
+      |                                 ^        ~
+C:\Users\bdosd\source\repos\CoreChess\src\book.c:255:5: note: Value stored to 'result' is never read
+  255 |                                 result = 1;
+      |                                 ^        ~
+C:\Users\bdosd\source\repos\CoreChess\src\main.c:35:2: warning: Call to function 'fprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'fprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+   35 |         fprintf(pFile, " --- Core Chess --- \n");
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\main.c:35:2: note: Call to function 'fprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'fprintf_s' in case of C11
+   35 |         fprintf(pFile, " --- Core Chess --- \n");
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\main.c:37:3: warning: Call to function 'fprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'fprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+   37 |                 fprintf(pFile, "%s\n", argv[ii]);
+      |                 ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\main.c:37:3: note: Call to function 'fprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'fprintf_s' in case of C11
+   37 |                 fprintf(pFile, "%s\n", argv[ii]);
+      |                 ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\main.c:38:2: warning: Call to function 'fprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'fprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+   38 |         fprintf(pFile, ">UCI Start \n");
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\main.c:38:2: note: Call to function 'fprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'fprintf_s' in case of C11
+   38 |         fprintf(pFile, ">UCI Start \n");
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\move.c:81:2: warning: Call to function 'sprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+   81 |         sprintf(str, "%c%i%c%i", 'a' + (from & 0x7), (from >> 3) + 1, 'a' + (to & 0x07), (to >> 3) + 1);
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\move.c:81:2: note: Call to function 'sprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11
+   81 |         sprintf(str, "%c%i%c%i", 'a' + (from & 0x7), (from >> 3) + 1, 'a' + (to & 0x07), (to >> 3) + 1);
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\move.c:86:14: warning: Call to function 'strcat' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcat'. CWE-119 [clang-analyzer-security.insecureAPI.strcpy]
+   86 |                 case QUEEN:strcat(str,"q");
+      |                            ^~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\move.c:86:14: note: Call to function 'strcat' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcat'. CWE-119
+   86 |                 case QUEEN:strcat(str,"q");
+      |                            ^~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\move.c:88:14: warning: Call to function 'strcat' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcat'. CWE-119 [clang-analyzer-security.insecureAPI.strcpy]
+   88 |                 case ROOK: strcat(str, "r");
+      |                            ^~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\move.c:88:14: note: Call to function 'strcat' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcat'. CWE-119
+   88 |                 case ROOK: strcat(str, "r");
+      |                            ^~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\move.c:90:16: warning: Call to function 'strcat' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcat'. CWE-119 [clang-analyzer-security.insecureAPI.strcpy]
+   90 |                 case KNIGHT: strcat(str, "n");
+      |                              ^~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\move.c:90:16: note: Call to function 'strcat' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcat'. CWE-119
+   90 |                 case KNIGHT: strcat(str, "n");
+      |                              ^~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\move.c:92:16: warning: Call to function 'strcat' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcat'. CWE-119 [clang-analyzer-security.insecureAPI.strcpy]
+   92 |                 case BISHOP: strcat(str, "b");
+      |                              ^~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\move.c:92:16: note: Call to function 'strcat' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcat'. CWE-119
+   92 |                 case BISHOP: strcat(str, "b");
+      |                              ^~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\move.c:98:2: warning: Call to function 'strcat' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcat'. CWE-119 [clang-analyzer-security.insecureAPI.strcpy]
+   98 |         strcat(str, " ");
+      |         ^~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\move.c:98:2: note: Call to function 'strcat' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcat'. CWE-119
+   98 |         strcat(str, " ");
+      |         ^~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\move.c:110:2: warning: Call to function 'sprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  110 |         sprintf(str, "%c%i%c%i", 'a' + (from & 0x7), (from >> 3) + 1, 'a' + (to & 0x07), (to >> 3) + 1);
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\move.c:110:2: note: Call to function 'sprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11
+  110 |         sprintf(str, "%c%i%c%i", 'a' + (from & 0x7), (from >> 3) + 1, 'a' + (to & 0x07), (to >> 3) + 1);
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\move.c:120:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  120 |         memcpy((char*)dst, (char*)src, sizeof(smove));
+      |         ^~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\move.c:120:2: note: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11
+  120 |         memcpy((char*)dst, (char*)src, sizeof(smove));
+      |         ^~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\moveOrder.c:47:6: warning: Value stored to 'initialNbrMv' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
+   47 |         int initialNbrMv = pMoveList->_nbrMove;
+      |             ^~~~~~~~~~~~   ~~~~~~~~~~~~~~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\moveOrder.c:47:6: note: Value stored to 'initialNbrMv' during its initialization is never read
+   47 |         int initialNbrMv = pMoveList->_nbrMove;
+      |             ^~~~~~~~~~~~   ~~~~~~~~~~~~~~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\moveOrder.c:47:6: warning: unused variable 'initialNbrMv' [clang-diagnostic-unused-variable]
+   47 |         int initialNbrMv = pMoveList->_nbrMove;
+      |             ^~~~~~~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\perft.c:122:10: error: incompatible pointer to integer conversion assigning to 'int' from 'char *' [clang-diagnostic-int-conversion]
+  122 |                         D[ii] = strtok(strD[ii], " ");//Fixme this line seems useless :(
+      |                               ^ ~~~~~~~~~~~~~~~~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\quiescence.c:41:6: warning: Value stored to 'stand_pat' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
+   41 |         int stand_pat = val;
+      |             ^~~~~~~~~   ~~~
+C:\Users\bdosd\source\repos\CoreChess\src\quiescence.c:41:6: note: Value stored to 'stand_pat' during its initialization is never read
+   41 |         int stand_pat = val;
+      |             ^~~~~~~~~   ~~~
+C:\Users\bdosd\source\repos\CoreChess\src\quiescence.c:41:6: warning: unused variable 'stand_pat' [clang-diagnostic-unused-variable]
+   41 |         int stand_pat = val;
+      |             ^~~~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\search.c:40:2: warning: Call to function 'snprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'snprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+   40 |         snprintf(str, sizeof(str) - 1, "info depth %i nodes %9i score %5i zob %5i\n", depth, node, score, stat->nbrZob);
+      |         ^~~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\search.c:40:2: note: Call to function 'snprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'snprintf_s' in case of C11
+   40 |         snprintf(str, sizeof(str) - 1, "info depth %i nodes %9i score %5i zob %5i\n", depth, node, score, stat->nbrZob);
+      |         ^~~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\search.c:192:10: warning: incompatible pointer types passing 'sboard *' (aka 'struct sboard_t *') to parameter of type 'smove *' (aka 'struct smove_t *') [clang-diagnostic-incompatible-pointer-types]
+  192 |         moveCpy(&Board, &pBoard->_bestMove);
+      |                 ^~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\move.h:73:22: note: passing argument to parameter 'dst' here
+   73 | void moveCpy(smove * dst, smove * src);
+      |                      ^
+C:\Users\bdosd\source\repos\CoreChess\src\search.c:194:28: warning: relational comparison result unused [clang-diagnostic-unused-comparison]
+  194 |         for (int ii = 0; ii++; ii < depth)
+      |                                ~~~^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\search.c:199:1: warning: non-void function does not return a value [clang-diagnostic-return-type]
+  199 | }
+      | ^
+C:\Users\bdosd\source\repos\CoreChess\src\tcpsrever.c:87:51: warning: format specifies type 'long' but the argument has type 'int' [clang-diagnostic-format]
+   87 |         printf("socket failed with error: %ld\n", WSAGetLastError());
+      |                                           ~~~     ^~~~~~~~~~~~~~~~~
+      |                                           %d
+C:\Users\bdosd\source\repos\CoreChess\src\tcpsrever.c:200:16: warning: format string is not a string literal (potentially insecure) [clang-diagnostic-format-security]
+  200 |         printf(str);
+      |                ^~~
+C:\Users\bdosd\source\repos\CoreChess\src\tcpsrever.c:200:16: note: treat the string as an argument to avoid this
+  200 |         printf(str);
+      |                ^
+      |                "%s", 
+C:\Users\bdosd\source\repos\CoreChess\src\tcpsrever.c:202:9: warning: Call to function 'fprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'fprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  202 |         fprintf(pFile, "GUI RSP> %s", str);
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\tcpsrever.c:202:9: note: Call to function 'fprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'fprintf_s' in case of C11
+  202 |         fprintf(pFile, "GUI RSP> %s", str);
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\tcpsrever.c:209:9: warning: Call to function 'fprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'fprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  209 |         fprintf(pFile, "GUI RSP> %s", str);
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\tcpsrever.c:209:9: note: Call to function 'fprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'fprintf_s' in case of C11
+  209 |         fprintf(pFile, "GUI RSP> %s", str);
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\tcpsrever.c:212:16: warning: format string is not a string literal (potentially insecure) [clang-diagnostic-format-security]
+  212 |         printf(str);
+      |                ^~~
+C:\Users\bdosd\source\repos\CoreChess\src\tcpsrever.c:212:16: note: treat the string as an argument to avoid this
+  212 |         printf(str);
+      |                ^
+      |                "%s", 
+C:\Users\bdosd\source\repos\CoreChess\src\transposition.c:30:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+   30 |         memset(ttTable, 0, size);
+      |         ^~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\transposition.c:30:2: note: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11
+   30 |         memset(ttTable, 0, size);
+      |         ^~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\transposition.c:107:2: warning: Call to function 'sprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  107 |         sprintf(str, "transpo stat: Nbr req %i req hit %i set hit %i set miss %i`\n", stat.reqNbr, stat.reqHit, stat.setHit, stat.setMis);
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\transposition.c:107:2: note: Call to function 'sprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11
+  107 |         sprintf(str, "transpo stat: Nbr req %i req hit %i set hit %i set miss %i`\n", stat.reqNbr, stat.reqHit, stat.setHit, stat.setMis);
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\uci.c:27:2: warning: Call to function 'fprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'fprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+   27 |         fprintf(pFile, "%s\n", s);
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\uci.c:27:2: note: Call to function 'fprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'fprintf_s' in case of C11
+   27 |         fprintf(pFile, "%s\n", s);
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\uci.c:69:2: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+   69 |         sprintf(res, "bestmove %s:", strMove);
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\uci.c:69:2: note: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11
+   69 |         sprintf(res, "bestmove %s:", strMove);
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\uci.c:73:2: warning: Call to function 'snprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'snprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+   73 |         snprintf(res+strlen(res), 64+9, "board=%s\n", boardResult);
+      |         ^~~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\uci.c:73:2: note: Call to function 'snprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'snprintf_s' in case of C11
+   73 |         snprintf(res+strlen(res), 64+9, "board=%s\n", boardResult);
+      |         ^~~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\uci.c:90:3: warning: Call to function 'strncpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'strncpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+   90 |                 strncpy(optionName, token, sizeof(optionName) - 1);             
+      |                 ^~~~~~~
+Suppressed 3 warnings (3 in non-user code).
+Use -header-filter=.* to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
+Found compiler error(s).
+C:\Users\bdosd\source\repos\CoreChess\src\uci.c:90:3: note: Call to function 'strncpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'strncpy_s' in case of C11
+   90 |                 strncpy(optionName, token, sizeof(optionName) - 1);             
+      |                 ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\uci.c:96:3: warning: Call to function 'strncpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'strncpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+   96 |                 strncpy(optionValue, token, sizeof(optionValue) - 1);
+      |                 ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\uci.c:96:3: note: Call to function 'strncpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'strncpy_s' in case of C11
+   96 |                 strncpy(optionValue, token, sizeof(optionValue) - 1);
+      |                 ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\uci.c:192:2: warning: Call to function 'fprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'fprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  192 |         fprintf(pFile, "GUI CMD> %s", str);
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\uci.c:192:2: note: Call to function 'fprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'fprintf_s' in case of C11
+  192 |         fprintf(pFile, "GUI CMD> %s", str);
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\uci.c:264:2: warning: Call to function 'sprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  264 |         sprintf(str, "\n");
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\uci.c:264:2: note: Call to function 'sprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11
+  264 |         sprintf(str, "\n");
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\uci.c:266:2: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  266 |         sprintf(str, "Compiled on %s at %s\n", __DATE__, __TIME__);
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\uci.c:266:2: note: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11
+  266 |         sprintf(str, "Compiled on %s at %s\n", __DATE__, __TIME__);
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\uci.c:268:2: warning: Call to function 'sprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  268 |         sprintf(str, "\n");
+      |         ^~~~~~~
+C:\Users\bdosd\source\repos\CoreChess\src\uci.c:268:2: note: Call to function 'sprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11
+  268 |         sprintf(str, "\n");
+      |         ^~~~~~~

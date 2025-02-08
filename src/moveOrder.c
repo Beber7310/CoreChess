@@ -18,7 +18,7 @@
 #include <string.h>
 
 #define ORDER_NBR_KILLER_MOVE		20
-#define ORDER_NBR_KILLER_MOVE_DIM	5
+#define ORDER_NBR_KILLER_MOVE_DIM	2
 
 static smove killerMoves[ORDER_NBR_KILLER_MOVE][ORDER_NBR_KILLER_MOVE_DIM];
 
@@ -45,19 +45,34 @@ void moveOrderDebug(smoveList* pMoveList1, smoveList* pMoveList2) {
 	}
 }
 
-void moveOrder(smoveList* pMoveList, int depth, int filterQuies, negaMaxConf* pStat) {
+void moveOrder(smoveList* pMoveList, int depth, int filterQuies, smoveList* pvMoves, negaMaxConf* pStat) {
 	//	return;
 
 	int idx = 0;	
 	smoveList tmpList;
 	tmpList._nbrMove = 0;
 
+	if (pvMoves)
+	{
+		for (int ii = 0; ii < pMoveList->_nbrMove; ii++) {
+			if (pMoveList->_sMoveList[ii]._move == pvMoves->_sMoveList[depth-1]._move) {
+				moveCpy(&tmpList._sMoveList[idx], &pvMoves->_sMoveList[depth-1]);
+				tmpList._nbrMove++;
+				idx++;
+				// Remove the move from the original move to avoid to get it 2 times
+				moveCpy(&pMoveList->_sMoveList[ii], &pMoveList->_sMoveList[pMoveList->_nbrMove - 1]);
+				pMoveList->_nbrMove--;
+				break;
+			}
+		}
+	}
+
 	if (filterQuies == 0)
 	{
 		for (int ii = 0; ii < pMoveList->_nbrMove; ii++) {
 			for (int dim = 0; dim < ORDER_NBR_KILLER_MOVE_DIM; dim++) {
-				//for (int jj = depth-2; (jj < ORDER_NBR_KILLER_MOVE)&&(jj<depth+2) ; jj++) {
-				for (int jj = 0; jj < ORDER_NBR_KILLER_MOVE; jj++) {
+				for (int jj = depth-1; (jj < ORDER_NBR_KILLER_MOVE)&&(jj<depth+1) ; jj++) {
+				//for (int jj = 0; jj < ORDER_NBR_KILLER_MOVE; jj++) {
 					if (pMoveList->_sMoveList[ii]._move == killerMoves[jj][dim]._move) {
 						moveCpy(&tmpList._sMoveList[idx], &killerMoves[jj][dim]);
 						tmpList._nbrMove++;

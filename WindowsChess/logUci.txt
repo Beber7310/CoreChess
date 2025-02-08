@@ -1,544 +1,712 @@
  --- Core Chess --- 
 C:\Users\bdosd\Source\Repos\CoreChess\WindowsChess\x64\Release\WindowsChess.exe
 >UCI Start 
-GUI CMD> position startpos
-GUI CMD> position startpos
-GUI CMD> position startpos
-GUI CMD> go movetime 15000
-GUI RSP> bestmove e2e4 :board=rnbqkbnrpppppppp                    P           PPPP PPPRNBQKBNR
-GUI CMD> position startpos moves e2e4 c7c5 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> bestmove g1f3 :board=rnbqkbnrpp ppppp          p         P        N  PPPP PPPRNBQKB R
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> bestmove d2d4 :board=rnbqkbnrpp  pppp   p      p        PP        N  PPP  PPPRNBQKB R
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> bestmove f3d4 :board=rnbqkbnrpp  pppp   p               NP           PPP  PPPRNBQKB R
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> bestmove b1c3 :board=rnbqkb rpp  pppp   p n             NP     N     PPP  PPPR BQKB R
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> bestmove f1e2 :board=rnbqkb r p  ppppp  p n             NP     N     PPP BPPPR BQK  R
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 3385 score 383
-GUI RSP> info depth 4 nodes 17040 score 25
-GUI RSP> info depth 5 nodes 194405 score 180
-GUI RSP> info depth 6 nodes 378406 score -67
-GUI RSP> info depth 7 nodes 8057500 score 169
-GUI RSP> bestmove c1e3 :board=rnbqkb r p   pppp  ppn             NP     N B   PPP BPPPR  QK  R
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 1007 score 199
-GUI RSP> info depth 4 nodes 12665 score 168
-GUI RSP> info depth 5 nodes 98978 score 179
-GUI RSP> info depth 6 nodes 1192675 score -91
-GUI RSP> info depth 7 nodes 12592069 score 157
-GUI RSP> bestmove d4b3 :board=rnb kb r pq  pppp  ppn              P    NN B   PPP BPPPR  QK  R
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 716 score 173
-GUI RSP> info depth 4 nodes 5615 score 165
-GUI RSP> info depth 5 nodes 191142 score 226
-GUI RSP> info depth 6 nodes 1695505 score -91
-GUI RSP> info depth 7 nodes 11300633 score 155
-GUI RSP> bestmove d1d4 :board=rn  kb r pqb pppp  ppn             QP    NN B   PPP BPPPR   K  R
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 898 score 171
-GUI RSP> info depth 4 nodes 6973 score -90
-GUI RSP> info depth 5 nodes 139496 score 138
-GUI RSP> info depth 6 nodes 1017707 score -99
-GUI RSP> info depth 7 nodes 11201664 score 135
-GUI RSP> bestmove d4b6 :board=r   kb r pqb ppppQnppn              P    NN B   PPP BPPPR   K  R
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 175 score 116
-GUI RSP> info depth 4 nodes 2927 score 116
-GUI RSP> info depth 5 nodes 31629 score 116
-GUI RSP> info depth 6 nodes 363912 score -116
-GUI RSP> info depth 7 nodes 2872653 score 93
-GUI RSP> info depth 8 nodes 10201110 score 0
-GUI RSP> bestmove e3b6 :board=r   kb r p b ppppBnppn              P    NN     PPP BPPPR   K  R
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 568 score 88
-GUI RSP> info depth 4 nodes 2420 score -5
-GUI RSP> info depth 5 nodes 34126 score 96
-GUI RSP> info depth 6 nodes 188780 score -76
-GUI RSP> info depth 7 nodes 2192024 score 104
-GUI RSP> info depth 8 nodes 8111257 score -74
-GUI RSP> bestmove e4d5 :board=r   kb r p b ppppBn pn     P             NN     PPP BPPPR   K  R
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 645 score 88
-GUI RSP> info depth 4 nodes 3515 score -12
-GUI RSP> info depth 5 nodes 56511 score 65
-GUI RSP> info depth 6 nodes 185136 score -10
-GUI RSP> info depth 7 nodes 1947643 score 92
-GUI RSP> info depth 8 nodes 6057786 score -30
-GUI RSP> bestmove c3d5 :board=r   kb r p b ppppBn p      N             N      PPP BPPPR   K  R
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 10 score -30
-GUI RSP> info depth 4 nodes 10 score -30
-GUI RSP> info depth 5 nodes 560 score -30
-GUI RSP> info depth 6 nodes 77181 score -30
-GUI RSP> info depth 7 nodes 3701837 score 113
-GUI RSP> info depth 8 nodes 11200444 score 0
-GUI RSP> bestmove e1c1 :board=r   kb r p b ppppBn        p             N      PPP BPPP  KR   R
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 380 score 87
-GUI RSP> info depth 4 nodes 2893 score 26
-GUI RSP> info depth 5 nodes 30419 score 199
-GUI RSP> info depth 6 nodes 171724 score -2
-GUI RSP> info depth 7 nodes 924966 score 274
-GUI RSP> info depth 8 nodes 3847078 score 10
-GUI RSP> info depth 9 nodes 11910637 score 262
-GUI RSP> bestmove a2a3 :board=r   kb r p b ppppB         p     n      PN       PP BPPP  KR   R
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 43 score 262
-GUI RSP> info depth 4 nodes 43 score 262
-GUI RSP> info depth 5 nodes 43 score 262
-GUI RSP> info depth 6 nodes 43 score 262
-GUI RSP> info depth 7 nodes 194252 score 262
-GUI RSP> info depth 8 nodes 10001056 score 29
-GUI RSP> bestmove h1e1 :board=r   kb r p b ppppBn        p            PN       PP BPPP  KRR   
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 1342 score 252
-GUI RSP> info depth 4 nodes 9600 score 2
-GUI RSP> info depth 5 nodes 60213 score 251
-GUI RSP> info depth 6 nodes 317659 score 20
-GUI RSP> info depth 7 nodes 3055994 score 271
-GUI RSP> info depth 8 nodes 10004696 score 12
-GUI RSP> bestmove e2f3 :board=r   kb r p   ppppBn b      p            PN   B   PP  PPP  KRR   
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 712 score 66
-GUI RSP> info depth 4 nodes 2196 score 13
-GUI RSP> info depth 5 nodes 46416 score 167
-GUI RSP> info depth 6 nodes 166169 score 13
-GUI RSP> info depth 7 nodes 2046996 score 366
-GUI RSP> info depth 8 nodes 6154711 score 83
-GUI RSP> bestmove f3d5 :board=r   k  r p   ppppBnbb      B            PN       PP  PPP  KRR   
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 463 score 356
-GUI RSP> info depth 4 nodes 1442 score 153
-GUI RSP> info depth 5 nodes 85398 score 366
-GUI RSP> info depth 6 nodes 186395 score 110
-GUI RSP> info depth 7 nodes 2820672 score 337
-GUI RSP> info depth 8 nodes 5025841 score 113
-GUI RSP> info depth 9 nodes 13315029 score 337
-GUI RSP> bestmove d5e6 :board=r   k  r p   ppppBn B                   PN       PP  PPb  KRR   
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 140 score 460
-GUI RSP> info depth 4 nodes 1661 score 460
-GUI RSP> info depth 5 nodes 3655 score 460
-GUI RSP> info depth 6 nodes 13733 score 460
-GUI RSP> info depth 7 nodes 103335 score 460
-GUI RSP> info depth 8 nodes 1457027 score 127
-GUI RSP> info depth 9 nodes 8793975 score 356
-GUI RSP> bestmove c1b1 :board=r   k  r p   ppppBn B                b  PN       PP  PP  K RR   
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 38 score 356
-GUI RSP> info depth 4 nodes 66 score 356
-GUI RSP> info depth 5 nodes 1945 score 356
-GUI RSP> info depth 6 nodes 2792 score 356
-GUI RSP> info depth 7 nodes 24539 score 356
-GUI RSP> info depth 8 nodes 2674929 score 122
-GUI RSP> info depth 9 nodes 13204076 score 300
-GUI RSP> bestmove e1e6 :board=r   k  r p    pppBn R                b  PN       PP  PP  K R    
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 220 score 300
-GUI RSP> info depth 4 nodes 711 score 300
-GUI RSP> info depth 5 nodes 2372 score 300
-GUI RSP> info depth 6 nodes 2378 score 300
-GUI RSP> info depth 7 nodes 2423 score 300
-GUI RSP> info depth 8 nodes 9255412 score 137
-GUI RSP> bestmove b3c5 :board=r      r p   kpppBn R     N          b  P        PP  PP  K R    
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 2942 score 457
-GUI RSP> info depth 4 nodes 15870 score 149
-GUI RSP> info depth 5 nodes 158493 score 468
-GUI RSP> info depth 6 nodes 589500 score 177
-GUI RSP> info depth 7 nodes 5071454 score 471
-GUI RSP> info depth 8 nodes 12004136 score 126
-GUI RSP> bestmove g2g3 :board=rr       p   kpppBn R     N          b  P     P  PP  P   K R    
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 1692 score 476
-GUI RSP> info depth 4 nodes 9302 score 476
-GUI RSP> info depth 5 nodes 122635 score 476
-GUI RSP> info depth 6 nodes 361165 score 122
-GUI RSP> info depth 7 nodes 3360609 score 461
-GUI RSP> info depth 8 nodes 10771979 score 120
-GUI RSP> bestmove d1d7 :board=rr       p R kpppBn R     N   b         P     P  PP  P   K      
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 165 score 123
-GUI RSP> info depth 4 nodes 473 score 123
-GUI RSP> info depth 5 nodes 6529 score 193
-GUI RSP> info depth 6 nodes 11074 score 123
-GUI RSP> info depth 7 nodes 4698365 score 467
-GUI RSP> info depth 8 nodes 12401892 score 135
-GUI RSP> bestmove c2c4 :board=rr       p RbkpppBn R     N       P     P     P  P   P   K      
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 1132 score 477
-GUI RSP> info depth 4 nodes 6288 score 130
-GUI RSP> info depth 5 nodes 122595 score 475
-GUI RSP> info depth 6 nodes 440416 score 129
-GUI RSP> info depth 7 nodes 5680059 score 474
-GUI RSP> info depth 8 nodes 13103351 score 136
-GUI RSP> bestmove f2f4 :board=rr       p Rbk ppBn R p   N       P  P  P     P  P       K      
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 1057 score 476
-GUI RSP> info depth 4 nodes 5221 score 476
-GUI RSP> info depth 5 nodes 54249 score 476
-GUI RSP> info depth 6 nodes 275099 score 130
-GUI RSP> info depth 7 nodes 2832275 score 474
-GUI RSP> info depth 8 nodes 9274319 score 135
-GUI RSP> bestmove e6e3 :board=rr       p Rbk p Bn   p p N       P  P  P   R P  P       K      
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 130 score 232
-GUI RSP> info depth 4 nodes 1326 score 137
-GUI RSP> info depth 5 nodes 15928 score 230
-GUI RSP> info depth 6 nodes 127593 score 135
-GUI RSP> info depth 7 nodes 2348834 score 457
-GUI RSP> info depth 8 nodes 6034523 score 201
-GUI RSP> info depth 9 nodes 13704331 score 242
-GUI RSP> bestmove c5b7 :board=rr       N Rbk p Bn   p         p P  P  P   R P  P       K      
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 396 score 255
-GUI RSP> info depth 4 nodes 573 score 201
-GUI RSP> info depth 5 nodes 4589 score 226
-GUI RSP> info depth 6 nodes 36073 score 201
-GUI RSP> info depth 7 nodes 989010 score 495
-GUI RSP> info depth 8 nodes 1886422 score 239
-GUI RSP> info depth 9 nodes 10812058 score 557
-GUI RSP> bestmove d7c7 :board=rr  k    NR b  p Bn   p         p P  P  P   R P  P       K      
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 163 score 561
-GUI RSP> info depth 4 nodes 209 score 561
-GUI RSP> info depth 5 nodes 2223 score 561
-GUI RSP> info depth 6 nodes 13288 score 561
-GUI RSP> info depth 7 nodes 218473 score 561
-GUI RSP> info depth 8 nodes 1164052 score 339
-GUI RSP> info depth 9 nodes 10939872 score 560
-GUI RSP> bestmove b7c5 :board=rr   k    R b  p Bn   p   N     p P  P  P   R P  P       K      
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 34 score 571
-GUI RSP> info depth 4 nodes 98 score 571
-GUI RSP> info depth 5 nodes 3032 score 571
-GUI RSP> info depth 6 nodes 3992 score 571
-GUI RSP> info depth 7 nodes 17953 score 571
-GUI RSP> info depth 8 nodes 1259073 score 211
-GUI RSP> info depth 9 nodes 9224517 score 484
-GUI RSP> bestmove c5d7 :board=r r  k    RNb  p Bn   p         p P  P  P   R P  P       K      
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 c5d7 f8g8 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 12 score 488
-GUI RSP> info depth 4 nodes 252 score 488
-GUI RSP> info depth 5 nodes 4442 score 488
-GUI RSP> info depth 6 nodes 12893 score 488
-GUI RSP> info depth 7 nodes 159195 score 488
-GUI RSP> info depth 8 nodes 964152 score 198
-GUI RSP> info depth 9 nodes 7241548 score 539
-GUI RSP> info depth 10 nodes 13211596 score 269
-GUI RSP> bestmove e3e6 :board=r r   k   RNb  p Bn R p         p P  P  P     P  P       K      
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 c5d7 f8g8 e3e6 c8c7 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 186 score 539
-GUI RSP> info depth 4 nodes 262 score 539
-GUI RSP> info depth 5 nodes 3794 score 539
-GUI RSP> info depth 6 nodes 17287 score 539
-GUI RSP> info depth 7 nodes 38236 score 539
-GUI RSP> info depth 8 nodes 2224909 score 276
-GUI RSP> info depth 9 nodes 13268437 score 530
-GUI RSP> bestmove b6c7 :board=r     k   BNb  p  n R p         p P  P  P     P  P       K      
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 c5d7 f8g8 e3e6 c8c7 b6c7 a8a6 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 356 score 471
-GUI RSP> info depth 4 nodes 1725 score 459
-GUI RSP> info depth 5 nodes 12263 score 540
-GUI RSP> info depth 6 nodes 44288 score 438
-GUI RSP> info depth 7 nodes 961277 score 557
-GUI RSP> info depth 8 nodes 2544446 score 381
-GUI RSP> info depth 9 nodes 15697159 score 534
-GUI RSP> bestmove b1c1 :board=      k   BNb  pr n R p         p P  P  P     P  P        K     
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 c5d7 f8g8 e3e6 c8c7 b6c7 a8a6 b1c1 g8f7 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 0 score 534
-GUI RSP> info depth 4 nodes 0 score 534
-GUI RSP> info depth 5 nodes 0 score 534
-GUI RSP> info depth 6 nodes 52 score 534
-GUI RSP> info depth 7 nodes 852 score 534
-GUI RSP> info depth 8 nodes 509534 score 448
-GUI RSP> info depth 9 nodes 8233829 score 538
-GUI RSP> bestmove e6c6 :board=          BNbk pr R   p         p P  P  P     P  P        K     
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 c5d7 f8g8 e3e6 c8c7 b6c7 a8a6 b1c1 g8f7 e6c6 a6c6 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 91 score 538
-GUI RSP> info depth 4 nodes 1198 score 538
-GUI RSP> info depth 5 nodes 3061 score 538
-GUI RSP> info depth 6 nodes 15710 score 538
-GUI RSP> info depth 7 nodes 44833 score 538
-GUI RSP> info depth 8 nodes 87368 score 442
-GUI RSP> info depth 9 nodes 315031 score 538
-GUI RSP> info depth 10 nodes 11819589 score 446
-GUI RSP> bestmove d7e5 :board=          B bk p  r   p     N   p P  P  P     P  P        K     
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 c5d7 f8g8 e3e6 c8c7 b6c7 a8a6 b1c1 g8f7 e6c6 a6c6 d7e5 f7e6 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 0 score 446
-GUI RSP> info depth 4 nodes 0 score 446
-GUI RSP> info depth 5 nodes 0 score 446
-GUI RSP> info depth 6 nodes 0 score 446
-GUI RSP> info depth 7 nodes 0 score 446
-GUI RSP> info depth 8 nodes 0 score 446
-GUI RSP> info depth 9 nodes 1518057 score 542
-GUI RSP> info depth 10 nodes 3570111 score 451
-GUI RSP> info depth 11 nodes 19700564 score 539
-GUI RSP> bestmove e5c6 :board=          B b  p  N k p         p P  P  P     P  P        K     
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 c5d7 f8g8 e3e6 c8c7 b6c7 a8a6 b1c1 g8f7 e6c6 a6c6 d7e5 f7e6 e5c6 e6d7 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 142 score 558
-GUI RSP> info depth 4 nodes 723 score 546
-GUI RSP> info depth 5 nodes 3832 score 562
-GUI RSP> info depth 6 nodes 18374 score 546
-GUI RSP> info depth 7 nodes 245262 score 565
-GUI RSP> info depth 8 nodes 512103 score 539
-GUI RSP> info depth 9 nodes 2707444 score 550
-GUI RSP> info depth 10 nodes 7272910 score 544
-GUI RSP> info depth 11 nodes 21600288 score 208
-GUI RSP> bestmove c6e7 :board=          BkN  p      p         p P  P  P     P  P        K     
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 c5d7 f8g8 e3e6 c8c7 b6c7 a8a6 b1c1 g8f7 e6c6 a6c6 d7e5 f7e6 e5c6 e6d7 c6e7 d7c7 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 128 score 625
-GUI RSP> info depth 4 nodes 477 score 544
-GUI RSP> info depth 5 nodes 2229 score 544
-GUI RSP> info depth 6 nodes 3064 score 544
-GUI RSP> info depth 7 nodes 17846 score 544
-GUI RSP> info depth 8 nodes 37438 score 544
-GUI RSP> info depth 9 nodes 658721 score 620
-GUI RSP> info depth 10 nodes 1209690 score 548
-GUI RSP> info depth 11 nodes 6347256 score 624
-GUI RSP> info depth 12 nodes 12149974 score 549
-GUI RSP> bestmove c1d2 :board=          k N  p      p         p P  P  P     P  P K            
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 c5d7 f8g8 e3e6 c8c7 b6c7 a8a6 b1c1 g8f7 e6c6 a6c6 d7e5 f7e6 e5c6 e6d7 c6e7 d7c7 c1d2 c7d6 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 157 score 549
-GUI RSP> info depth 4 nodes 387 score 549
-GUI RSP> info depth 5 nodes 1169 score 549
-GUI RSP> info depth 6 nodes 2633 score 549
-GUI RSP> info depth 7 nodes 9234 score 549
-GUI RSP> info depth 8 nodes 40450 score 549
-GUI RSP> info depth 9 nodes 257519 score 549
-GUI RSP> info depth 10 nodes 861789 score 549
-GUI RSP> info depth 11 nodes 9847314 score 637
-GUI RSP> info depth 12 nodes 17005391 score 627
-GUI RSP> bestmove e7d5 :board=               p   k  p    N    p P  P  P     P  P K            
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 c5d7 f8g8 e3e6 c8c7 b6c7 a8a6 b1c1 g8f7 e6c6 a6c6 d7e5 f7e6 e5c6 e6d7 c6e7 d7c7 c1d2 c7d6 e7d5 d6c5 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 140 score 629
-GUI RSP> info depth 4 nodes 279 score 627
-GUI RSP> info depth 5 nodes 1295 score 637
-GUI RSP> info depth 6 nodes 2504 score 627
-GUI RSP> info depth 7 nodes 20566 score 635
-GUI RSP> info depth 8 nodes 39541 score 634
-GUI RSP> info depth 9 nodes 332001 score 636
-GUI RSP> info depth 10 nodes 761531 score 627
-GUI RSP> info depth 11 nodes 6832561 score 640
-GUI RSP> info depth 12 nodes 11467827 score 635
-GUI RSP> info depth 13 nodes 27202382 score 537
-GUI RSP> bestmove d2d3 :board=               p      p   kN    p P  P  P  K  P  P              
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 c5d7 f8g8 e3e6 c8c7 b6c7 a8a6 b1c1 g8f7 e6c6 a6c6 d7e5 f7e6 e5c6 e6d7 c6e7 d7c7 c1d2 c7d6 e7d5 d6c5 d2d3 h7h5 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 319 score 622
-GUI RSP> info depth 4 nodes 750 score 627
-GUI RSP> info depth 5 nodes 5081 score 640
-GUI RSP> info depth 6 nodes 12531 score 637
-GUI RSP> info depth 7 nodes 95153 score 644
-GUI RSP> info depth 8 nodes 169736 score 644
-GUI RSP> info depth 9 nodes 801801 score 646
-GUI RSP> info depth 10 nodes 1290191 score 646
-GUI RSP> info depth 11 nodes 5181472 score 716
-GUI RSP> info depth 12 nodes 8674394 score 716
-GUI RSP> info depth 13 nodes 27105365 score 651
-GUI RSP> bestmove d5e7 :board=            N         p   k    pp P  P  P  K  P  P              
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 c5d7 f8g8 e3e6 c8c7 b6c7 a8a6 b1c1 g8f7 e6c6 a6c6 d7e5 f7e6 e5c6 e6d7 c6e7 d7c7 c1d2 c7d6 e7d5 d6c5 d2d3 h7h5 d5e7 c5d6 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 104 score 639
-GUI RSP> info depth 4 nodes 292 score 716
-GUI RSP> info depth 5 nodes 729 score 716
-GUI RSP> info depth 6 nodes 2677 score 716
-GUI RSP> info depth 7 nodes 11690 score 716
-GUI RSP> info depth 8 nodes 27800 score 716
-GUI RSP> info depth 9 nodes 264944 score 716
-GUI RSP> info depth 10 nodes 456624 score 716
-GUI RSP> info depth 11 nodes 2013947 score 716
-GUI RSP> info depth 12 nodes 5682691 score 731
-GUI RSP> info depth 13 nodes 27601724 score 707
-GUI RSP> bestmove e7g6 :board=                   k  N        pp P  P  P  K  P  P              
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 c5d7 f8g8 e3e6 c8c7 b6c7 a8a6 b1c1 g8f7 e6c6 a6c6 d7e5 f7e6 e5c6 e6d7 c6e7 d7c7 c1d2 c7d6 e7d5 d6c5 d2d3 h7h5 d5e7 c5d6 e7g6 d6e6 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 33 score 700
-GUI RSP> info depth 4 nodes 263 score 700
-GUI RSP> info depth 5 nodes 1807 score 700
-GUI RSP> info depth 6 nodes 3844 score 700
-GUI RSP> info depth 7 nodes 18714 score 716
-GUI RSP> info depth 8 nodes 41244 score 716
-GUI RSP> info depth 9 nodes 284326 score 731
-GUI RSP> info depth 10 nodes 504329 score 731
-GUI RSP> info depth 11 nodes 1999074 score 1132
-GUI RSP> info depth 12 nodes 3747126 score 802
-GUI RSP> info depth 13 nodes 11269765 score 1355
-GUI RSP> info depth 14 nodes 16190681 score 1239
-GUI RSP> bestmove c4c5 :board=                    k N   P    pp    P  P  K  P  P              
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 c5d7 f8g8 e3e6 c8c7 b6c7 a8a6 b1c1 g8f7 e6c6 a6c6 d7e5 f7e6 e5c6 e6d7 c6e7 d7c7 c1d2 c7d6 e7d5 d6c5 d2d3 h7h5 d5e7 c5d6 e7g6 d6e6 c4c5 e6d5 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 274 score 1361
-GUI RSP> info depth 4 nodes 700 score 1361
-GUI RSP> info depth 5 nodes 3922 score 1361
-GUI RSP> info depth 6 nodes 8087 score 1361
-GUI RSP> info depth 7 nodes 30643 score 1361
-GUI RSP> info depth 8 nodes 34794 score 1361
-GUI RSP> info depth 9 nodes 517689 score 1376
-GUI RSP> info depth 10 nodes 967443 score 1370
-GUI RSP> info depth 11 nodes 3510476 score 1454
-GUI RSP> info depth 12 nodes 5333091 score 1454
-GUI RSP> info depth 13 nodes 17980287 score 1464
-GUI RSP> bestmove f4f5 :board=                      N   Pk P pp       P  K  P  P              
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 c5d7 f8g8 e3e6 c8c7 b6c7 a8a6 b1c1 g8f7 e6c6 a6c6 d7e5 f7e6 e5c6 e6d7 c6e7 d7c7 c1d2 c7d6 e7d5 d6c5 d2d3 h7h5 d5e7 c5d6 e7g6 d6e6 c4c5 e6d5 f4f5 d5c5 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 41 score 1464
-GUI RSP> info depth 4 nodes 45 score 1464
-GUI RSP> info depth 5 nodes 83 score 1464
-GUI RSP> info depth 6 nodes 103 score 1464
-GUI RSP> info depth 7 nodes 222 score 1464
-GUI RSP> info depth 8 nodes 276 score 1464
-GUI RSP> info depth 9 nodes 851 score 1464
-GUI RSP> info depth 10 nodes 7629 score 1464
-GUI RSP> info depth 11 nodes 177384 score 1464
-GUI RSP> info depth 12 nodes 3095802 score 1464
-GUI RSP> info depth 13 nodes 8040190 score 1543
-GUI RSP> info depth 14 nodes 18207741 score 724
-GUI RSP> bestmove f5f6 :board=                     PN   k    pp       P  K  P  P              
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 c5d7 f8g8 e3e6 c8c7 b6c7 a8a6 b1c1 g8f7 e6c6 a6c6 d7e5 f7e6 e5c6 e6d7 c6e7 d7c7 c1d2 c7d6 e7d5 d6c5 d2d3 h7h5 d5e7 c5d6 e7g6 d6e6 c4c5 e6d5 f4f5 d5c5 f5f6 c5d5 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 231 score 1364
-GUI RSP> info depth 4 nodes 635 score 1364
-GUI RSP> info depth 5 nodes 4002 score 1381
-GUI RSP> info depth 6 nodes 4738 score 1543
-GUI RSP> info depth 7 nodes 22740 score 1462
-GUI RSP> info depth 8 nodes 26324 score 1542
-GUI RSP> info depth 9 nodes 335645 score 1542
-GUI RSP> info depth 10 nodes 947550 score 1543
-GUI RSP> info depth 11 nodes 3080670 score 1543
-GUI RSP> info depth 12 nodes 6170077 score 1548
-GUI RSP> info depth 13 nodes 25328993 score 949
-GUI RSP> bestmove f6f7 :board=             P        N    k   pp       P  K  P  P              
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 c5d7 f8g8 e3e6 c8c7 b6c7 a8a6 b1c1 g8f7 e6c6 a6c6 d7e5 f7e6 e5c6 e6d7 c6e7 d7c7 c1d2 c7d6 e7d5 d6c5 d2d3 h7h5 d5e7 c5d6 e7g6 d6e6 c4c5 e6d5 f4f5 d5c5 f5f6 c5d5 f6f7 h5h4 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 0 score 1550
-GUI RSP> info depth 4 nodes 8 score 1550
-GUI RSP> info depth 5 nodes 97 score 1550
-GUI RSP> info depth 6 nodes 163 score 1550
-GUI RSP> info depth 7 nodes 710 score 1550
-GUI RSP> info depth 8 nodes 8140 score 1550
-GUI RSP> info depth 9 nodes 207843 score 1550
-GUI RSP> info depth 10 nodes 410019 score 1550
-GUI RSP> info depth 11 nodes 8419771 score 2270
-GUI RSP> info depth 12 nodes 11794617 score 99999
-GUI RSP> bestmove f7f8q :board=     Q                N    k    p      pP  K  P  P              
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 c5d7 f8g8 e3e6 c8c7 b6c7 a8a6 b1c1 g8f7 e6c6 a6c6 d7e5 f7e6 e5c6 e6d7 c6e7 d7c7 c1d2 c7d6 e7d5 d6c5 d2d3 h7h5 d5e7 c5d6 e7g6 d6e6 c4c5 e6d5 f4f5 d5c5 f5f6 c5d5 f6f7 h5h4 f7f8q h4g3 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 402 score 99999
-GUI RSP> bestmove f8f6 :board=                     QN    k    p       P  K  p  P              
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 c5d7 f8g8 e3e6 c8c7 b6c7 a8a6 b1c1 g8f7 e6c6 a6c6 d7e5 f7e6 e5c6 e6d7 c6e7 d7c7 c1d2 c7d6 e7d5 d6c5 d2d3 h7h5 d5e7 c5d6 e7g6 d6e6 c4c5 e6d5 f4f5 d5c5 f5f6 c5d5 f6f7 h5h4 f7f8q h4g3 f8f6 d5c5 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 670 score 99999
-GUI RSP> bestmove f6e6 :board=                    Q N   k     p       P  K  p  P              
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 c5d7 f8g8 e3e6 c8c7 b6c7 a8a6 b1c1 g8f7 e6c6 a6c6 d7e5 f7e6 e5c6 e6d7 c6e7 d7c7 c1d2 c7d6 e7d5 d6c5 d2d3 h7h5 d5e7 c5d6 e7g6 d6e6 c4c5 e6d5 f4f5 d5c5 f5f6 c5d5 f6f7 h5h4 f7f8q h4g3 f8f6 d5c5 f6e6 c5b5 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 1466 score 99999
-GUI RSP> bestmove g6e5 :board=                    Q    k  N   p       P  K  p  P              
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 c5d7 f8g8 e3e6 c8c7 b6c7 a8a6 b1c1 g8f7 e6c6 a6c6 d7e5 f7e6 e5c6 e6d7 c6e7 d7c7 c1d2 c7d6 e7d5 d6c5 d2d3 h7h5 d5e7 c5d6 e7g6 d6e6 c4c5 e6d5 f4f5 d5c5 f5f6 c5d5 f6f7 h5h4 f7f8q h4g3 f8f6 d5c5 f6e6 c5b5 g6e5 b5a5 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 177 score 99999
-GUI RSP> bestmove e6c6 :board=                  Q     k   N   p       P  K  p  P              
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 c5d7 f8g8 e3e6 c8c7 b6c7 a8a6 b1c1 g8f7 e6c6 a6c6 d7e5 f7e6 e5c6 e6d7 c6e7 d7c7 c1d2 c7d6 e7d5 d6c5 d2d3 h7h5 d5e7 c5d6 e7g6 d6e6 c4c5 e6d5 f4f5 d5c5 f5f6 c5d5 f6f7 h5h4 f7f8q h4g3 f8f6 d5c5 f6e6 c5b5 g6e5 b5a5 e6c6 g3g2 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 69 score 99999
-GUI RSP> bestmove b2b3 :board=                  Q     k   N   p       PP K          p         
-GUI CMD> position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 f1e2 e7e6 c1e3 d8c7 d4b3 c8d7 d1d4 b8c6 d4b6 c7b6 e3b6 d6d5 e4d5 f6d5 c3d5 e6d5 e1c1 c6b4 a2a3 b4c6 h1e1 d7e6 e2f3 f8d6 f3d5 d6h2 d5e6 h2f4 c1b1 f7e6 e1e6 e8f7 b3c5 h8b8 g2g3 f4g5 d1d7 g5e7 c2c4 g7g6 f2f4 a6a5 e6e3 a5a4 c5b7 f7e8 d7c7 e8f8 b7c5 b8c8 c5d7 f8g8 e3e6 c8c7 b6c7 a8a6 b1c1 g8f7 e6c6 a6c6 d7e5 f7e6 e5c6 e6d7 c6e7 d7c7 c1d2 c7d6 e7d5 d6c5 d2d3 h7h5 d5e7 c5d6 e7g6 d6e6 c4c5 e6d5 f4f5 d5c5 f5f6 c5d5 f6f7 h5h4 f7f8q h4g3 f8f6 d5c5 f6e6 c5b5 g6e5 b5a5 e6c6 g3g2 b2b3 g2g1q 
-No move found!!!
-GUI CMD> go movetime 15000
-GUI RSP> info depth 3 nodes 1621 score 99999
-GUI RSP> bestmove e5c4 :board=                  Q     k       p N     PP K                  q 
+GUI RSP> ------------------------------------------------------------
+GUI RSP> -                                                          -
+GUI RSP> -                    CoreChess                             -
+GUI RSP> -                                                          -
+GUI RSP> ------------------------------------------------------------
+GUI RSP> 
+GUI RSP> Compiled on Feb  6 2025 at 20:18:36
+GUI RSP> 
+GUI CMD> puz4
+GUI RSP> info depth 3 nodes 95 score -383
+GUI RSP> info depth 4 nodes 2492 score 150
+GUI RSP> info depth 5 nodes 6022 score -298
+GUI RSP> info depth 6 nodes 52191 score 217
+GUI RSP> info depth 7 nodes 150282 score -249
+GUI RSP> info depth 8 nodes 150888 score 99999
+GUI RSP> h6g7 GUI RSP> transpo stat: Nbr req 124581 req hit 49676 set hit 42192 set miss 347`
+GUI RSP> info depth 3 nodes 231 score -1215
+GUI RSP> info depth 4 nodes 698 score -802
+GUI RSP> info depth 5 nodes 3347 score -1308
+GUI RSP> info depth 6 nodes 4756 score -661
+GUI RSP> info depth 7 nodes 45972 score -1175
+GUI RSP> info depth 8 nodes 50359 score 99999
+GUI RSP> a4d7 GUI RSP> transpo stat: Nbr req 142718 req hit 54924 set hit 49429 set miss 382`
+GUI RSP> info depth 3 nodes 108 score 179
+GUI RSP> info depth 4 nodes 2236 score 742
+GUI RSP> info depth 5 nodes 5034 score 523
+GUI RSP> info depth 6 nodes 53357 score 1090
+GUI RSP> info depth 7 nodes 116953 score 761
+GUI RSP> info depth 8 nodes 207809 score 99999
+GUI RSP> h3g2 GUI RSP> transpo stat: Nbr req 254985 req hit 92694 set hit 90913 set miss 402`
+GUI RSP> info depth 3 nodes 140 score -437
+GUI RSP> info depth 4 nodes 1738 score 455
+GUI RSP> info depth 5 nodes 5760 score -79
+GUI RSP> info depth 6 nodes 33491 score 449
+GUI RSP> info depth 7 nodes 145896 score 449
+GUI RSP> info depth 8 nodes 349020 score 99999
+GUI RSP> e4e5 GUI RSP> transpo stat: Nbr req 479697 req hit 176835 set hit 174830 set miss 1293`
+GUI RSP> info depth 3 nodes 129 score -36
+GUI RSP> info depth 4 nodes 1930 score 926
+GUI RSP> info depth 5 nodes 5565 score -22
+GUI RSP> info depth 6 nodes 29818 score 913
+GUI RSP> info depth 7 nodes 159773 score 742
+GUI RSP> info depth 8 nodes 160525 score 99999
+GUI RSP> e7g7 GUI RSP> transpo stat: Nbr req 635057 req hit 219898 set hit 234290 set miss 1676`
+GUI RSP> info depth 3 nodes 171 score -271
+GUI RSP> info depth 4 nodes 2384 score 246
+GUI RSP> info depth 5 nodes 7372 score -259
+GUI RSP> info depth 6 nodes 47256 score 760
+GUI RSP> info depth 7 nodes 99654 score 753
+GUI RSP> info depth 8 nodes 345872 score 99999
+GUI RSP> a6a8 GUI RSP> transpo stat: Nbr req 783803 req hit 270345 set hit 290987 set miss 2514`
+GUI RSP> info depth 3 nodes 253 score 19
+GUI RSP> info depth 4 nodes 3326 score 136
+GUI RSP> info depth 5 nodes 22843 score 7
+GUI RSP> info depth 6 nodes 130117 score 138
+GUI RSP> info depth 7 nodes 302284 score 19
+GUI RSP> info depth 8 nodes 2057988 score 99999
+GUI RSP> f5f6 GUI RSP> transpo stat: Nbr req 1497057 req hit 534445 set hit 555829 set miss 5912`
+GUI RSP> info depth 3 nodes 160 score -771
+GUI RSP> info depth 4 nodes 4543 score -446
+GUI RSP> info depth 5 nodes 8562 score -469
+GUI RSP> info depth 6 nodes 63433 score -169
+GUI RSP> info depth 7 nodes 142108 score -179
+GUI RSP> info depth 8 nodes 148986 score 99999
+GUI RSP> e5f7 GUI RSP> transpo stat: Nbr req 1617654 req hit 568717 set hit 603820 set miss 5937`
+GUI RSP> info depth 3 nodes 120 score -65
+GUI RSP> info depth 4 nodes 2455 score 270
+GUI RSP> info depth 5 nodes 8830 score -66
+GUI RSP> info depth 6 nodes 75915 score 360
+GUI RSP> info depth 7 nodes 220114 score 32
+GUI RSP> info depth 8 nodes 262673 score 99999
+GUI RSP> h6g7 GUI RSP> transpo stat: Nbr req 1811935 req hit 622107 set hit 682010 set miss 6254`
+GUI RSP> info depth 3 nodes 108 score -374
+GUI RSP> info depth 4 nodes 2083 score 305
+GUI RSP> info depth 5 nodes 5141 score -267
+GUI RSP> info depth 6 nodes 42950 score 247
+GUI RSP> info depth 7 nodes 104495 score -104
+GUI RSP> info depth 8 nodes 163616 score 99999
+GUI RSP> d3g6 GUI RSP> transpo stat: Nbr req 1917839 req hit 656776 set hit 723773 set miss 6286`
+GUI RSP> info depth 3 nodes 131 score -795
+GUI RSP> info depth 4 nodes 808 score -283
+GUI RSP> info depth 5 nodes 2452 score -793
+GUI RSP> info depth 6 nodes 11259 score 70
+GUI RSP> info depth 7 nodes 28281 score 43
+GUI RSP> info depth 8 nodes 37691 score 99999
+GUI RSP> f3f8 GUI RSP> transpo stat: Nbr req 1944175 req hit 664103 set hit 734623 set miss 6325`
+GUI RSP> info depth 3 nodes 186 score -693
+GUI RSP> info depth 4 nodes 3637 score -462
+GUI RSP> info depth 5 nodes 15141 score -705
+GUI RSP> info depth 6 nodes 238215 score -460
+GUI RSP> info depth 7 nodes 562915 score -629
+GUI RSP> info depth 8 nodes 703403 score 99999
+GUI RSP> a6f1 GUI RSP> transpo stat: Nbr req 2311837 req hit 777150 set hit 875986 set miss 7186`
+GUI RSP> info depth 3 nodes 148 score -555
+GUI RSP> info depth 4 nodes 2168 score -129
+GUI RSP> info depth 5 nodes 5197 score -634
+GUI RSP> info depth 6 nodes 31675 score -121
+GUI RSP> info depth 7 nodes 88877 score -531
+GUI RSP> info depth 8 nodes 96463 score 99999
+GUI RSP> h4h7 GUI RSP> transpo stat: Nbr req 2371428 req hit 798040 set hit 899334 set miss 7242`
+GUI RSP> info depth 3 nodes 134 score -368
+GUI RSP> info depth 4 nodes 6038 score 46
+GUI RSP> info depth 5 nodes 18436 score 42
+GUI RSP> info depth 6 nodes 68916 score 1417
+GUI RSP> info depth 7 nodes 173824 score 1395
+GUI RSP> info depth 8 nodes 392697 score 99999
+GUI RSP> f7g8 GUI RSP> transpo stat: Nbr req 2613097 req hit 868496 set hit 996026 set miss 7754`
+GUI RSP> info depth 3 nodes 207 score -232
+GUI RSP> info depth 4 nodes 1916 score 129
+GUI RSP> info depth 5 nodes 19509 score -340
+GUI RSP> info depth 6 nodes 100949 score 577
+GUI RSP> info depth 7 nodes 133417 score 550
+GUI RSP> info depth 8 nodes 135152 score 99999
+GUI RSP> e4f6 GUI RSP> transpo stat: Nbr req 2688015 req hit 887985 set hit 1027453 set miss 7888`
+GUI RSP> info depth 3 nodes 147 score -163
+GUI RSP> info depth 4 nodes 1261 score 349
+GUI RSP> info depth 5 nodes 4523 score 40
+GUI RSP> info depth 6 nodes 34242 score 469
+GUI RSP> info depth 7 nodes 140074 score 3
+GUI RSP> info depth 8 nodes 469675 score 99999
+GUI RSP> f3g3 GUI RSP> transpo stat: Nbr req 2925128 req hit 973635 set hit 1117954 set miss 9060`
+GUI RSP> info depth 3 nodes 129 score 38
+GUI RSP> info depth 4 nodes 2743 score 403
+GUI RSP> info depth 5 nodes 6608 score 45
+GUI RSP> info depth 6 nodes 55489 score 976
+GUI RSP> info depth 7 nodes 168849 score 967
+GUI RSP> info depth 8 nodes 1481620 score 99999
+GUI RSP> e5e2 GUI RSP> transpo stat: Nbr req 3380506 req hit 1142401 set hit 1291939 set miss 10656`
+GUI RSP> info depth 3 nodes 211 score 25
+GUI RSP> info depth 4 nodes 1540 score 38
+GUI RSP> info depth 5 nodes 9341 score 22
+GUI RSP> info depth 6 nodes 40522 score 126
+GUI RSP> info depth 7 nodes 92231 score 10
+GUI RSP> info depth 8 nodes 109695 score 99999
+GUI RSP> f4f6 GUI RSP> transpo stat: Nbr req 3452784 req hit 1169668 set hit 1318301 set miss 10892`
+GUI RSP> info depth 3 nodes 169 score 154
+GUI RSP> info depth 4 nodes 3381 score 643
+GUI RSP> info depth 5 nodes 7851 score 153
+GUI RSP> info depth 6 nodes 124428 score 638
+GUI RSP> info depth 7 nodes 215617 score 479
+GUI RSP> info depth 8 nodes 361349 score 99999
+GUI RSP> e5f7 GUI RSP> transpo stat: Nbr req 3626557 req hit 1231626 set hit 1380762 set miss 11163`
+GUI RSP> info depth 3 nodes 74 score 472
+GUI RSP> info depth 4 nodes 853 score 980
+GUI RSP> info depth 5 nodes 2427 score 474
+GUI RSP> info depth 6 nodes 14912 score 980
+GUI RSP> info depth 7 nodes 31587 score 479
+GUI RSP> info depth 8 nodes 44900 score 99999
+GUI RSP> b4b8 GUI RSP> transpo stat: Nbr req 3665047 req hit 1248016 set hit 1393404 set miss 11381`
+GUI RSP> info depth 3 nodes 116 score -162
+GUI RSP> info depth 4 nodes 1754 score 448
+GUI RSP> info depth 5 nodes 6239 score -55
+GUI RSP> info depth 6 nodes 47082 score 383
+GUI RSP> info depth 7 nodes 99722 score 45
+GUI RSP> info depth 8 nodes 219778 score 99999
+GUI RSP> g4g6 GUI RSP> transpo stat: Nbr req 3780608 req hit 1286226 set hit 1437456 set miss 11775`
+GUI RSP> info depth 3 nodes 100 score 170
+GUI RSP> info depth 4 nodes 2282 score 670
+GUI RSP> info depth 5 nodes 5647 score 250
+GUI RSP> info depth 6 nodes 52779 score 751
+GUI RSP> info depth 7 nodes 155191 score 264
+GUI RSP> info depth 8 nodes 329465 score 99999
+GUI RSP> f5g6 GUI RSP> transpo stat: Nbr req 3990201 req hit 1364288 set hit 1514329 set miss 12739`
+GUI RSP> info depth 3 nodes 170 score 292
+GUI RSP> info depth 4 nodes 3533 score 383
+GUI RSP> info depth 5 nodes 15574 score 297
+GUI RSP> info depth 6 nodes 164344 score 469
+GUI RSP> info depth 7 nodes 403040 score 469
+GUI RSP> info depth 8 nodes 1707811 score 99999
+GUI RSP> g6f6 GUI RSP> transpo stat: Nbr req 4724399 req hit 1597283 set hit 1802461 set miss 17382`
+GUI RSP> info depth 3 nodes 143 score -428
+GUI RSP> info depth 4 nodes 4498 score 148
+GUI RSP> info depth 5 nodes 27844 score -487
+GUI RSP> info depth 6 nodes 165151 score 64
+GUI RSP> info depth 7 nodes 858977 score -422
+GUI RSP> info depth 8 nodes 4988228 score 99999
+GUI RSP> e4f6 GUI RSP> transpo stat: Nbr req 6687661 req hit 2162458 set hit 2565605 set miss 26005`
+GUI RSP> info depth 3 nodes 73 score -626
+GUI RSP> info depth 4 nodes 2734 score -212
+GUI RSP> info depth 5 nodes 6681 score -566
+GUI RSP> info depth 6 nodes 71043 score -108
+GUI RSP> info depth 7 nodes 269351 score -632
+GUI RSP> info depth 8 nodes 2179097 score 99999
+GUI RSP> h3g5 GUI RSP> transpo stat: Nbr req 7454847 req hit 2419663 set hit 2853332 set miss 29517`
+GUI RSP> info depth 3 nodes 143 score 13
+GUI RSP> info depth 4 nodes 3621 score 529
+GUI RSP> info depth 5 nodes 17509 score 24
+GUI RSP> info depth 6 nodes 170896 score 473
+GUI RSP> info depth 7 nodes 908391 score 29
+GUI RSP> info depth 8 nodes 1094821 score 99999
+GUI RSP> h6h7 GUI RSP> transpo stat: Nbr req 8062053 req hit 2567957 set hit 3094787 set miss 31354`
+GUI RSP> info depth 3 nodes 244 score 127
+GUI RSP> info depth 4 nodes 2611 score 255
+GUI RSP> info depth 5 nodes 5877 score 146
+GUI RSP> info depth 6 nodes 47753 score 954
+GUI RSP> info depth 7 nodes 94148 score 626
+GUI RSP> info depth 8 nodes 649656 score 99999
+GUI RSP> e1e8 GUI RSP> transpo stat: Nbr req 8273351 req hit 2674438 set hit 3166764 set miss 31509`
+GUI RSP> info depth 3 nodes 301 score 477
+GUI RSP> info depth 4 nodes 3114 score 1008
+GUI RSP> info depth 5 nodes 13400 score 500
+GUI RSP> info depth 6 nodes 85506 score 1319
+GUI RSP> info depth 7 nodes 241663 score 591
+GUI RSP> info depth 8 nodes 1322074 score 99999
+GUI RSP> g3f5 GUI RSP> transpo stat: Nbr req 8691725 req hit 2842529 set hit 3314612 set miss 35281`
+GUI RSP> info depth 3 nodes 165 score -242
+GUI RSP> info depth 4 nodes 4974 score -123
+GUI RSP> info depth 5 nodes 9453 score -235
+GUI RSP> info depth 6 nodes 105797 score 268
+GUI RSP> info depth 7 nodes 228660 score 241
+GUI RSP> info depth 8 nodes 1336534 score 99999
+GUI RSP> b5c4 GUI RSP> transpo stat: Nbr req 9128721 req hit 3059481 set hit 3467594 set miss 36045`
+GUI RSP> info depth 3 nodes 176 score -364
+GUI RSP> info depth 4 nodes 2874 score 524
+GUI RSP> info depth 5 nodes 6083 score -381
+GUI RSP> info depth 6 nodes 92204 score -29
+GUI RSP> info depth 7 nodes 169432 score -55
+GUI RSP> info depth 8 nodes 349344 score 99999
+GUI RSP> d3f5 GUI RSP> transpo stat: Nbr req 9290891 req hit 3120158 set hit 3527505 set miss 36376`
+GUI RSP> info depth 3 nodes 133 score 17
+GUI RSP> info depth 4 nodes 2495 score 372
+GUI RSP> info depth 5 nodes 9991 score 128
+GUI RSP> info depth 6 nodes 45492 score 454
+GUI RSP> info depth 7 nodes 156042 score 347
+GUI RSP> info depth 8 nodes 936715 score 99999
+GUI RSP> c7d5 GUI RSP> transpo stat: Nbr req 9629614 req hit 3245766 set hit 3655199 set miss 38899`
+GUI RSP> info depth 3 nodes 110 score -116
+GUI RSP> info depth 4 nodes 1270 score 209
+GUI RSP> info depth 5 nodes 3882 score -118
+GUI RSP> info depth 6 nodes 37414 score 370
+GUI RSP> info depth 7 nodes 68291 score -52
+GUI RSP> info depth 8 nodes 69544 score 99999
+GUI RSP> c5b7 GUI RSP> transpo stat: Nbr req 9674338 req hit 3260911 set hit 3672279 set miss 39179`
+GUI RSP> info depth 3 nodes 117 score 111
+GUI RSP> info depth 4 nodes 1847 score 1056
+GUI RSP> info depth 5 nodes 4326 score 191
+GUI RSP> info depth 6 nodes 35069 score 218
+GUI RSP> info depth 7 nodes 57754 score 202
+GUI RSP> info depth 8 nodes 82707 score 99999
+GUI RSP> d5g8 GUI RSP> transpo stat: Nbr req 9730410 req hit 3285256 set hit 3691049 set miss 39605`
+GUI RSP> info depth 3 nodes 123 score 124
+GUI RSP> info depth 4 nodes 2487 score 1043
+GUI RSP> info depth 5 nodes 8261 score 116
+GUI RSP> info depth 6 nodes 100204 score 961
+GUI RSP> info depth 7 nodes 220069 score 379
+GUI RSP> info depth 8 nodes 220876 score 99999
+GUI RSP> g3h2 GUI RSP> transpo stat: Nbr req 9905155 req hit 3342758 set hit 3755183 set miss 39719`
+GUI RSP> info depth 3 nodes 214 score -128
+GUI RSP> info depth 4 nodes 2454 score 362
+GUI RSP> info depth 5 nodes 10075 score -96
+GUI RSP> info depth 6 nodes 65233 score 370
+GUI RSP> info depth 7 nodes 104248 score 251
+GUI RSP> info depth 8 nodes 131402 score 99999
+GUI RSP> d1h5 GUI RSP> transpo stat: Nbr req 9979750 req hit 3368406 set hit 3783086 set miss 39760`
+GUI RSP> info depth 3 nodes 113 score 403
+GUI RSP> info depth 4 nodes 2986 score 524
+GUI RSP> info depth 5 nodes 9379 score 409
+GUI RSP> info depth 6 nodes 65663 score 938
+GUI RSP> info depth 7 nodes 170695 score 423
+GUI RSP> info depth 8 nodes 381637 score 99999
+GUI RSP> g6h6 GUI RSP> transpo stat: Nbr req 10171972 req hit 3437219 set hit 3851818 set miss 40728`
+GUI RSP> info depth 3 nodes 70 score 268
+GUI RSP> info depth 4 nodes 803 score 773
+GUI RSP> info depth 5 nodes 1920 score 268
+GUI RSP> info depth 6 nodes 10086 score 777
+GUI RSP> info depth 7 nodes 26649 score 271
+GUI RSP> info depth 8 nodes 156593 score 99999
+GUI RSP> g5f6 GUI RSP> transpo stat: Nbr req 10235810 req hit 3456484 set hit 3876857 set miss 40881`
+GUI RSP> info depth 3 nodes 162 score -252
+GUI RSP> info depth 4 nodes 3125 score 92
+GUI RSP> info depth 5 nodes 9460 score -428
+GUI RSP> info depth 6 nodes 85706 score 80
+GUI RSP> info depth 7 nodes 170805 score -150
+GUI RSP> info depth 8 nodes 192082 score 99999
+GUI RSP> g5f7 GUI RSP> transpo stat: Nbr req 10369861 req hit 3500706 set hit 3926364 set miss 41033`
+GUI RSP> info depth 3 nodes 127 score -75
+GUI RSP> info depth 4 nodes 2699 score 101
+GUI RSP> info depth 5 nodes 9156 score -85
+GUI RSP> info depth 6 nodes 73345 score 271
+GUI RSP> info depth 7 nodes 197803 score 271
+GUI RSP> info depth 8 nodes 993987 score 99999
+GUI RSP> d6h2 GUI RSP> transpo stat: Nbr req 10695328 req hit 3639847 set hit 4050795 set miss 41943`
+GUI RSP> info depth 3 nodes 200 score -98
+GUI RSP> info depth 4 nodes 2271 score 125
+GUI RSP> info depth 5 nodes 7686 score -79
+GUI RSP> info depth 6 nodes 59414 score 461
+GUI RSP> info depth 7 nodes 145396 score 18
+GUI RSP> info depth 8 nodes 527037 score 99999
+GUI RSP> g5f6 GUI RSP> transpo stat: Nbr req 10948131 req hit 3731905 set hit 4145791 set miss 42738`
+GUI RSP> info depth 3 nodes 304 score 12
+GUI RSP> info depth 4 nodes 2604 score 357
+GUI RSP> info depth 5 nodes 10219 score -52
+GUI RSP> info depth 6 nodes 64108 score 156
+GUI RSP> info depth 7 nodes 241025 score -52
+GUI RSP> info depth 8 nodes 449651 score 99999
+GUI RSP> h4h6 GUI RSP> transpo stat: Nbr req 11166541 req hit 3795094 set hit 4232073 set miss 43175`
+GUI RSP> info depth 3 nodes 155 score 171
+GUI RSP> info depth 4 nodes 2278 score 361
+GUI RSP> info depth 5 nodes 19693 score 175
+GUI RSP> info depth 6 nodes 128501 score 350
+GUI RSP> info depth 7 nodes 345536 score 196
+GUI RSP> info depth 8 nodes 347286 score 99999
+GUI RSP> d7d1 GUI RSP> transpo stat: Nbr req 11383796 req hit 3860550 set hit 4318482 set miss 43916`
+GUI RSP> info depth 3 nodes 187 score -820
+GUI RSP> info depth 4 nodes 4006 score 426
+GUI RSP> info depth 5 nodes 12589 score 83
+GUI RSP> info depth 6 nodes 136142 score 756
+GUI RSP> info depth 7 nodes 199098 score 440
+GUI RSP> info depth 8 nodes 204930 score 99999
+GUI RSP> f4h6 GUI RSP> transpo stat: Nbr req 11508031 req hit 3894598 set hit 4370046 set miss 43946`
+GUI RSP> info depth 3 nodes 135 score -423
+GUI RSP> info depth 4 nodes 2767 score 82
+GUI RSP> info depth 5 nodes 10659 score -550
+GUI RSP> info depth 6 nodes 101782 score 109
+GUI RSP> info depth 7 nodes 262273 score -417
+GUI RSP> info depth 8 nodes 534997 score 99999
+GUI RSP> g2g4 GUI RSP> transpo stat: Nbr req 11818623 req hit 3985798 set hit 4489496 set miss 45186`
+GUI RSP> info depth 3 nodes 200 score -309
+GUI RSP> info depth 4 nodes 1998 score 561
+GUI RSP> info depth 5 nodes 9171 score -284
+GUI RSP> info depth 6 nodes 40609 score 1065
+GUI RSP> info depth 7 nodes 69791 score 820
+GUI RSP> info depth 8 nodes 171760 score 99999
+GUI RSP> e1e5 GUI RSP> transpo stat: Nbr req 11896014 req hit 4010418 set hit 4520868 set miss 45303`
+GUI RSP> info depth 3 nodes 130 score -223
+GUI RSP> info depth 4 nodes 6075 score 118
+GUI RSP> info depth 5 nodes 12745 score -250
+GUI RSP> info depth 6 nodes 58159 score 713
+GUI RSP> info depth 7 nodes 123800 score 627
+GUI RSP> info depth 8 nodes 163347 score 99999
+GUI RSP> d1d5 GUI RSP> transpo stat: Nbr req 12012260 req hit 4046829 set hit 4567395 set miss 45325`
+GUI RSP> info depth 3 nodes 242 score -645
+GUI RSP> info depth 4 nodes 6169 score -189
+GUI RSP> info depth 5 nodes 18768 score -562
+GUI RSP> info depth 6 nodes 153392 score -146
+GUI RSP> info depth 7 nodes 428905 score -577
+GUI RSP> info depth 8 nodes 432639 score 99999
+GUI RSP> h1h8 GUI RSP> transpo stat: Nbr req 12305535 req hit 4125073 set hit 4683056 set miss 46173`
+GUI RSP> info depth 3 nodes 230 score -427
+GUI RSP> info depth 4 nodes 2671 score 28
+GUI RSP> info depth 5 nodes 8626 score -55
+GUI RSP> info depth 6 nodes 83411 score 284
+GUI RSP> info depth 7 nodes 237171 score -75
+GUI RSP> info depth 8 nodes 587983 score 99999
+GUI RSP> d3a6 GUI RSP> transpo stat: Nbr req 12592867 req hit 4218570 set hit 4794168 set miss 47032`
+GUI RSP> info depth 3 nodes 118 score -192
+GUI RSP> info depth 4 nodes 2831 score -72
+GUI RSP> info depth 5 nodes 6208 score -262
+GUI RSP> info depth 6 nodes 26207 score 255
+GUI RSP> info depth 7 nodes 49396 score 151
+GUI RSP> info depth 8 nodes 86915 score 99999
+GUI RSP> h7g7 GUI RSP> transpo stat: Nbr req 12648474 req hit 4239514 set hit 4814362 set miss 47193`
+GUI RSP> info depth 3 nodes 249 score -179
+GUI RSP> info depth 4 nodes 3875 score 35
+GUI RSP> info depth 5 nodes 19255 score -185
+GUI RSP> info depth 6 nodes 208586 score 26
+GUI RSP> info depth 7 nodes 884682 score -185
+GUI RSP> info depth 8 nodes 6619962 score 99999
+GUI RSP> h4h5 GUI RSP> transpo stat: Nbr req 15299369 req hit 5062471 set hit 5839766 set miss 67226`
+GUI RSP> info depth 3 nodes 143 score -153
+GUI RSP> info depth 4 nodes 2637 score -128
+GUI RSP> info depth 5 nodes 11932 score -160
+GUI RSP> info depth 6 nodes 129650 score -136
+GUI RSP> info depth 7 nodes 362553 score -136
+GUI RSP> info depth 8 nodes 1601004 score 99999
+GUI RSP> e5f6 GUI RSP> transpo stat: Nbr req 16110838 req hit 5366897 set hit 6139348 set miss 74250`
+GUI RSP> info depth 3 nodes 137 score -208
+GUI RSP> info depth 4 nodes 1815 score -20
+GUI RSP> info depth 5 nodes 8368 score -135
+GUI RSP> info depth 6 nodes 89401 score 235
+GUI RSP> info depth 7 nodes 228128 score 46
+GUI RSP> info depth 8 nodes 644568 score 99999
+GUI RSP> f3d4 GUI RSP> transpo stat: Nbr req 16362917 req hit 5438145 set hit 6239662 set miss 75087`
+GUI RSP> info depth 3 nodes 83 score 72
+GUI RSP> info depth 4 nodes 2335 score 1008
+GUI RSP> info depth 5 nodes 9581 score 160
+GUI RSP> info depth 6 nodes 56872 score 1096
+GUI RSP> info depth 7 nodes 94088 score 164
+GUI RSP> info depth 8 nodes 336016 score 99999
+GUI RSP> e3h6 GUI RSP> transpo stat: Nbr req 16488158 req hit 5481415 set hit 6288159 set miss 75496`
+GUI RSP> info depth 3 nodes 128 score -280
+GUI RSP> info depth 4 nodes 929 score 244
+GUI RSP> info depth 5 nodes 4999 score -104
+GUI RSP> info depth 6 nodes 33345 score 305
+GUI RSP> info depth 7 nodes 63128 score 241
+GUI RSP> info depth 8 nodes 150733 score 99999
+GUI RSP> h1d1 GUI RSP> transpo stat: Nbr req 16564781 req hit 5513064 set hit 6317008 set miss 75827`
+GUI RSP> info depth 3 nodes 226 score -78
+GUI RSP> info depth 4 nodes 2805 score 854
+GUI RSP> info depth 5 nodes 6869 score 240
+GUI RSP> info depth 6 nodes 68359 score 1166
+GUI RSP> info depth 7 nodes 152647 score 925
+GUI RSP> info depth 8 nodes 1017370 score 99999
+GUI RSP> e1e8 GUI RSP> transpo stat: Nbr req 16861100 req hit 5665644 set hit 6420886 set miss 76102`
+GUI RSP> info depth 3 nodes 245 score -62
+GUI RSP> info depth 4 nodes 2949 score 256
+GUI RSP> info depth 5 nodes 28978 score -90
+GUI RSP> info depth 6 nodes 171792 score 256
+GUI RSP> info depth 7 nodes 1007087 score -94
+GUI RSP> info depth 8 nodes 1470754 score 99999
+GUI RSP> h5h7 GUI RSP> transpo stat: Nbr req 17559581 req hit 5851426 set hit 6703440 set miss 81463`
+GUI RSP> info depth 3 nodes 153 score -322
+GUI RSP> info depth 4 nodes 5019 score 20
+GUI RSP> info depth 5 nodes 18574 score -326
+GUI RSP> info depth 6 nodes 105493 score 581
+GUI RSP> info depth 7 nodes 273105 score 340
+GUI RSP> info depth 8 nodes 422598 score 99999
+GUI RSP> e1e6 GUI RSP> transpo stat: Nbr req 17782513 req hit 5908749 set hit 6796626 set miss 81684`
+GUI RSP> info depth 3 nodes 120 score -480
+GUI RSP> info depth 4 nodes 2476 score -154
+GUI RSP> info depth 5 nodes 10139 score -492
+GUI RSP> info depth 6 nodes 79732 score -29
+GUI RSP> info depth 7 nodes 239679 score -260
+GUI RSP> info depth 8 nodes 455171 score 99999
+GUI RSP> f7f4 GUI RSP> transpo stat: Nbr req 17999701 req hit 5971900 set hit 6882385 set miss 82378`
+GUI RSP> info depth 3 nodes 113 score -364
+GUI RSP> info depth 4 nodes 2634 score -272
+GUI RSP> info depth 5 nodes 7310 score -369
+GUI RSP> info depth 6 nodes 50999 score 162
+GUI RSP> info depth 7 nodes 124312 score 157
+GUI RSP> info depth 8 nodes 143696 score 99999
+GUI RSP> g7g8 GUI RSP> transpo stat: Nbr req 18110849 req hit 6007161 set hit 6925901 set miss 82683`
+GUI RSP> info depth 3 nodes 153 score -180
+GUI RSP> info depth 4 nodes 2112 score 629
+GUI RSP> info depth 5 nodes 3806 score 232
+GUI RSP> info depth 6 nodes 16912 score 717
+GUI RSP> info depth 7 nodes 35549 score 224
+GUI RSP> info depth 8 nodes 36566 score 99999
+GUI RSP> c1c8 GUI RSP> transpo stat: Nbr req 18147601 req hit 6021936 set hit 6939396 set miss 82683`
+GUI RSP> info depth 3 nodes 126 score -417
+GUI RSP> info depth 4 nodes 1770 score 110
+GUI RSP> info depth 5 nodes 6112 score -828
+GUI RSP> info depth 6 nodes 46236 score -250
+GUI RSP> info depth 7 nodes 98049 score -848
+GUI RSP> info depth 8 nodes 166242 score 99999
+GUI RSP> h6h7 GUI RSP> transpo stat: Nbr req 18258959 req hit 6063861 set hit 6980145 set miss 83022`
+GUI RSP> info depth 3 nodes 127 score 120
+GUI RSP> info depth 4 nodes 1941 score 453
+GUI RSP> info depth 5 nodes 5224 score 121
+GUI RSP> info depth 6 nodes 43563 score 753
+GUI RSP> info depth 7 nodes 100718 score 127
+GUI RSP> info depth 8 nodes 104100 score 99999
+GUI RSP> a2a4 GUI RSP> transpo stat: Nbr req 18342013 req hit 6088114 set hit 7013316 set miss 83024`
+GUI RSP> info depth 3 nodes 116 score 20
+GUI RSP> info depth 4 nodes 2555 score 364
+GUI RSP> info depth 5 nodes 5525 score 139
+GUI RSP> info depth 6 nodes 49767 score 1065
+GUI RSP> info depth 7 nodes 160496 score 1077
+GUI RSP> info depth 8 nodes 1073685 score 99999
+GUI RSP> f5c8 GUI RSP> transpo stat: Nbr req 18693005 req hit 6212561 set hit 7138089 set miss 86208`
+GUI RSP> info depth 3 nodes 169 score -196
+GUI RSP> info depth 4 nodes 3071 score 312
+GUI RSP> info depth 5 nodes 6937 score -105
+GUI RSP> info depth 6 nodes 76528 score 824
+GUI RSP> info depth 7 nodes 170724 score -6
+GUI RSP> info depth 8 nodes 684280 score 99999
+GUI RSP> g5f6 GUI RSP> transpo stat: Nbr req 18926564 req hit 6303117 set hit 7224180 set miss 86435`
+GUI RSP> info depth 3 nodes 223 score -158
+GUI RSP> info depth 4 nodes 2313 score -2
+GUI RSP> info depth 5 nodes 11426 score -156
+GUI RSP> info depth 6 nodes 67114 score 181
+GUI RSP> info depth 7 nodes 209709 score -119
+GUI RSP> info depth 8 nodes 825566 score 99999
+GUI RSP> d1d5 GUI RSP> transpo stat: Nbr req 19278613 req hit 6432149 set hit 7354148 set miss 89906`
+GUI RSP> info depth 3 nodes 137 score -192
+GUI RSP> info depth 4 nodes 1759 score 718
+GUI RSP> info depth 5 nodes 4172 score -92
+GUI RSP> info depth 6 nodes 24274 score 732
+GUI RSP> info depth 7 nodes 72218 score 1
+GUI RSP> info depth 8 nodes 398398 score 99999
+GUI RSP> h4h1 GUI RSP> transpo stat: Nbr req 19466009 req hit 6489124 set hit 7424372 set miss 90631`
+GUI RSP> info depth 3 nodes 170 score -272
+GUI RSP> info depth 4 nodes 4153 score -4
+GUI RSP> info depth 5 nodes 15183 score -279
+GUI RSP> info depth 6 nodes 114498 score 46
+GUI RSP> info depth 7 nodes 390216 score -269
+GUI RSP> info depth 8 nodes 1203381 score 99999
+GUI RSP> h2h8 GUI RSP> transpo stat: Nbr req 20106784 req hit 6710390 set hit 7673609 set miss 96314`
+GUI RSP> info depth 3 nodes 104 score -3
+GUI RSP> info depth 4 nodes 1654 score 433
+GUI RSP> info depth 5 nodes 4273 score -5
+GUI RSP> info depth 6 nodes 51562 score 428
+GUI RSP> info depth 7 nodes 133501 score -41
+GUI RSP> info depth 8 nodes 238311 score 99999
+GUI RSP> e2e5 GUI RSP> transpo stat: Nbr req 20249298 req hit 6760973 set hit 7726443 set miss 96487`
+GUI RSP> info depth 3 nodes 148 score 307
+GUI RSP> info depth 4 nodes 2321 score 579
+GUI RSP> info depth 5 nodes 5340 score 304
+GUI RSP> info depth 6 nodes 46813 score 573
+GUI RSP> info depth 7 nodes 147221 score 301
+GUI RSP> info depth 8 nodes 226117 score 99999
+GUI RSP> e4h4 GUI RSP> transpo stat: Nbr req 20409948 req hit 6811844 set hit 7786983 set miss 96966`
+GUI RSP> info depth 3 nodes 125 score 66
+GUI RSP> info depth 4 nodes 2610 score 522
+GUI RSP> info depth 5 nodes 15653 score 62
+GUI RSP> info depth 6 nodes 138041 score 526
+GUI RSP> info depth 7 nodes 629259 score 13
+GUI RSP> info depth 8 nodes 1128553 score 99999
+GUI RSP> g5g7 GUI RSP> transpo stat: Nbr req 20873366 req hit 6967849 set hit 7955742 set miss 98852`
+GUI RSP> info depth 3 nodes 120 score -18
+GUI RSP> info depth 4 nodes 3397 score 399
+GUI RSP> info depth 5 nodes 8450 score -114
+GUI RSP> info depth 6 nodes 191780 score 403
+GUI RSP> info depth 7 nodes 304180 score -95
+GUI RSP> info depth 8 nodes 310025 score 99999
+GUI RSP> f8f3 GUI RSP> transpo stat: Nbr req 21049614 req hit 7018756 set hit 8024769 set miss 99258`
+GUI RSP> info depth 3 nodes 132 score 26
+GUI RSP> info depth 4 nodes 1733 score 935
+GUI RSP> info depth 5 nodes 3459 score 88
+GUI RSP> info depth 6 nodes 22972 score 411
+GUI RSP> info depth 7 nodes 45040 score 104
+GUI RSP> info depth 8 nodes 60699 score 99999
+GUI RSP> f3a8 GUI RSP> transpo stat: Nbr req 21097053 req hit 7040136 set hit 8040791 set miss 99390`
+GUI RSP> info depth 3 nodes 139 score -104
+GUI RSP> info depth 4 nodes 2175 score 115
+GUI RSP> info depth 5 nodes 9694 score -102
+GUI RSP> info depth 6 nodes 68803 score 199
+GUI RSP> info depth 7 nodes 218478 score -13
+GUI RSP> info depth 8 nodes 256869 score 99999
+GUI RSP> h3h6 GUI RSP> transpo stat: Nbr req 21253383 req hit 7093307 set hit 8100101 set miss 100015`
+GUI RSP> info depth 3 nodes 225 score -275
+GUI RSP> info depth 4 nodes 4873 score 154
+GUI RSP> info depth 5 nodes 16345 score 42
+GUI RSP> info depth 6 nodes 155498 score 451
+GUI RSP> info depth 7 nodes 336740 score 115
+GUI RSP> info depth 8 nodes 402250 score 99999
+GUI RSP> g7g2 GUI RSP> transpo stat: Nbr req 21488645 req hit 7168726 set hit 8190521 set miss 100509`
+GUI RSP> info depth 3 nodes 175 score 90
+GUI RSP> info depth 4 nodes 2038 score 432
+GUI RSP> info depth 5 nodes 7486 score 104
+GUI RSP> info depth 6 nodes 45557 score 1036
+GUI RSP> info depth 7 nodes 157550 score 108
+GUI RSP> info depth 8 nodes 322809 score 99999
+GUI RSP> a7f7 GUI RSP> transpo stat: Nbr req 21684107 req hit 7245377 set hit 8261093 set miss 102685`
+GUI RSP> info depth 3 nodes 120 score -5
+GUI RSP> info depth 4 nodes 1526 score 331
+GUI RSP> info depth 5 nodes 5859 score 105
+GUI RSP> info depth 6 nodes 15043 score 570
+GUI RSP> info depth 7 nodes 31568 score 426
+GUI RSP> info depth 8 nodes 77240 score 99999
+GUI RSP> h4h6 GUI RSP> transpo stat: Nbr req 21723008 req hit 7260247 set hit 8276097 set miss 103323`
+GUI RSP> info depth 3 nodes 196 score -92
+GUI RSP> info depth 4 nodes 5923 score 230
+GUI RSP> info depth 5 nodes 13897 score -66
+GUI RSP> info depth 6 nodes 138086 score 1137
+GUI RSP> info depth 7 nodes 282546 score 1017
+GUI RSP> info depth 8 nodes 1586165 score 99999
+GUI RSP> f6h7 GUI RSP> transpo stat: Nbr req 22207637 req hit 7449367 set hit 8458566 set miss 106232`
+GUI RSP> info depth 3 nodes 206 score 163
+GUI RSP> info depth 4 nodes 3551 score 368
+GUI RSP> info depth 5 nodes 21557 score 162
+GUI RSP> info depth 6 nodes 174378 score 378
+GUI RSP> info depth 7 nodes 576158 score 166
+GUI RSP> info depth 8 nodes 587292 score 99999
+GUI RSP> h1h7 GUI RSP> transpo stat: Nbr req 22501229 req hit 7555410 set hit 8564861 set miss 108513`
+GUI RSP> info depth 3 nodes 120 score 538
+GUI RSP> info depth 4 nodes 1737 score 1028
+GUI RSP> info depth 5 nodes 5712 score 506
+GUI RSP> info depth 6 nodes 165312 score 761
+GUI RSP> info depth 7 nodes 310856 score 556
+GUI RSP> info depth 8 nodes 1379412 score 99999
+GUI RSP> h8d8 GUI RSP> transpo stat: Nbr req 23102779 req hit 7819814 set hit 8768754 set miss 113350`
+GUI RSP> info depth 3 nodes 114 score -101
+GUI RSP> info depth 4 nodes 1864 score 444
+GUI RSP> info depth 5 nodes 5385 score -86
+GUI RSP> info depth 6 nodes 27017 score 466
+GUI RSP> info depth 7 nodes 74133 score -75
+GUI RSP> info depth 8 nodes 91489 score 99999
+GUI RSP> h4h8 GUI RSP> transpo stat: Nbr req 23169791 req hit 7845607 set hit 8793645 set miss 113438`
+GUI RSP> info depth 3 nodes 75 score 65
+GUI RSP> info depth 4 nodes 2197 score 407
+GUI RSP> info depth 5 nodes 6454 score -19
+GUI RSP> info depth 6 nodes 99565 score 437
+GUI RSP> info depth 7 nodes 231877 score 104
+GUI RSP> info depth 8 nodes 3236630 score 99999
+GUI RSP> f1c1 GUI RSP> transpo stat: Nbr req 24020887 req hit 8129868 set hit 9102720 set miss 117632`
+GUI RSP> info depth 3 nodes 91 score -68
+GUI RSP> info depth 4 nodes 838 score 439
+GUI RSP> info depth 5 nodes 3158 score -50
+GUI RSP> info depth 6 nodes 22184 score 928
+GUI RSP> info depth 7 nodes 32254 score 445
+GUI RSP> info depth 8 nodes 87016 score 99999
+GUI RSP> g4d7 GUI RSP> transpo stat: Nbr req 24056315 req hit 8144293 set hit 9115643 set miss 117777`
+GUI RSP> info depth 3 nodes 232 score 402
+GUI RSP> info depth 4 nodes 3859 score 831
+GUI RSP> info depth 5 nodes 25294 score 383
+GUI RSP> info depth 6 nodes 163344 score 998
+GUI RSP> info depth 7 nodes 305265 score 995
+GUI RSP> info depth 8 nodes 984964 score 99999
+GUI RSP> d4c6 GUI RSP> transpo stat: Nbr req 24359347 req hit 8240444 set hit 9226467 set miss 119842`
+GUI RSP> info depth 3 nodes 164 score 157
+GUI RSP> info depth 4 nodes 4204 score 394
+GUI RSP> info depth 5 nodes 9930 score 271
+GUI RSP> info depth 6 nodes 94371 score 616
+GUI RSP> info depth 7 nodes 184494 score 270
+GUI RSP> info depth 8 nodes 374501 score 99999
+GUI RSP> e3g5 GUI RSP> transpo stat: Nbr req 24528785 req hit 8303949 set hit 9286599 set miss 120517`
+GUI RSP> info depth 3 nodes 194 score 206
+GUI RSP> info depth 4 nodes 2593 score 705
+GUI RSP> info depth 5 nodes 7883 score 205
+GUI RSP> info depth 6 nodes 47058 score 1136
+GUI RSP> info depth 7 nodes 133145 score 512
+GUI RSP> info depth 8 nodes 699921 score 99999
+GUI RSP> b2e5 GUI RSP> transpo stat: Nbr req 24826836 req hit 8402989 set hit 9403685 set miss 121695`
+GUI RSP> info depth 3 nodes 284 score -116
+GUI RSP> info depth 4 nodes 5969 score 96
+GUI RSP> info depth 5 nodes 33074 score -113
+GUI RSP> info depth 6 nodes 78291 score 895
+GUI RSP> info depth 7 nodes 143678 score 582
+GUI RSP> info depth 8 nodes 217469 score 99999
+GUI RSP> d5f4 GUI RSP> transpo stat: Nbr req 24964797 req hit 8453891 set hit 9455461 set miss 121792`
+GUI RSP> info depth 3 nodes 99 score 24
+GUI RSP> info depth 4 nodes 805 score 362
+GUI RSP> info depth 5 nodes 3878 score 23
+GUI RSP> info depth 6 nodes 18024 score 356
+GUI RSP> info depth 7 nodes 96503 score 356
+GUI RSP> info depth 8 nodes 476196 score 99999
+GUI RSP> d7d6 GUI RSP> transpo stat: Nbr req 25222200 req hit 8546352 set hit 9553892 set miss 124275`
+GUI RSP> info depth 3 nodes 122 score -238
+GUI RSP> info depth 4 nodes 3299 score 557
+GUI RSP> info depth 5 nodes 5392 score 547
+GUI RSP> info depth 6 nodes 34540 score 1373
+GUI RSP> info depth 7 nodes 69487 score 1373
+GUI RSP> info depth 8 nodes 172679 score 99999
+GUI RSP> e5g6 GUI RSP> transpo stat: Nbr req 25307970 req hit 8579875 set hit 9583975 set miss 124294`
+GUI RSP> info depth 3 nodes 113 score 162
+GUI RSP> info depth 4 nodes 1876 score 674
+GUI RSP> info depth 5 nodes 4731 score 168
+GUI RSP> info depth 6 nodes 23153 score 671
+GUI RSP> info depth 7 nodes 72875 score 143
+GUI RSP> info depth 8 nodes 103595 score 99999
+GUI RSP> h1h7 GUI RSP> transpo stat: Nbr req 25385420 req hit 8603860 set hit 9614265 set miss 124340`
+GUI RSP> info depth 3 nodes 95 score 31
+GUI RSP> info depth 4 nodes 1956 score 927
+GUI RSP> info depth 5 nodes 4887 score 20
+GUI RSP> info depth 6 nodes 88397 score 369
+GUI RSP> info depth 7 nodes 174019 score 34
+GUI RSP> info depth 8 nodes 286427 score 99999
+GUI RSP> h5h2 GUI RSP> transpo stat: Nbr req 25543055 req hit 8664190 set hit 9669637 set miss 124810`
+GUI RSP> info depth 3 nodes 231 score 48
+GUI RSP> info depth 4 nodes 2036 score 411
+GUI RSP> info depth 5 nodes 6230 score 60
+GUI RSP> info depth 6 nodes 27570 score 402
+GUI RSP> info depth 7 nodes 80211 score 59
+GUI RSP> info depth 8 nodes 81565 score 99999
+GUI RSP> e5f3 GUI RSP> transpo stat: Nbr req 25601116 req hit 8683494 set hit 9692143 set miss 125142`
+GUI RSP> info depth 3 nodes 199 score -189
+GUI RSP> info depth 4 nodes 4370 score 158
+GUI RSP> info depth 5 nodes 10581 score -144
+GUI RSP> info depth 6 nodes 66935 score 263
+GUI RSP> info depth 7 nodes 224836 score -178
+GUI RSP> info depth 8 nodes 253958 score 99999
+GUI RSP> g7h7 GUI RSP> transpo stat: Nbr req 25771623 req hit 8734348 set hit 9759614 set miss 126329`
+GUI RSP> info depth 3 nodes 251 score -109
+GUI RSP> info depth 4 nodes 1468 score 633
+GUI RSP> info depth 5 nodes 8911 score 130
+GUI RSP> info depth 6 nodes 38527 score 772
+GUI RSP> info depth 7 nodes 145891 score 654
+GUI RSP> info depth 8 nodes 301720 score 99999
+GUI RSP> f5c5 GUI RSP> transpo stat: Nbr req 25930567 req hit 8787829 set hit 9820912 set miss 127981`
+GUI RSP> info depth 3 nodes 121 score 224
+GUI RSP> info depth 4 nodes 3703 score 715
+GUI RSP> info depth 5 nodes 9293 score 214
+GUI RSP> info depth 6 nodes 106976 score 1044
+GUI RSP> info depth 7 nodes 161947 score 434
+GUI RSP> info depth 8 nodes 182009 score 99999
+GUI RSP> e8e1 GUI RSP> transpo stat: Nbr req 26039749 req hit 8829174 set hit 9859466 set miss 128383`
+GUI RSP> info depth 3 nodes 86 score -11
+GUI RSP> info depth 4 nodes 1310 score 308
+GUI RSP> info depth 5 nodes 3686 score -7
+GUI RSP> info depth 6 nodes 15686 score 564
+GUI RSP> info depth 7 nodes 31261 score 493
+GUI RSP> info depth 8 nodes 50425 score 99999
+GUI RSP> f3h5 GUI RSP> transpo stat: Nbr req 26078358 req hit 8843228 set hit 9873794 set miss 128547`
+GUI RSP> info depth 3 nodes 103 score 100
+GUI RSP> info depth 4 nodes 4299 score 444
+GUI RSP> info depth 5 nodes 10730 score 115
+GUI RSP> info depth 6 nodes 124422 score 451
+GUI RSP> info depth 7 nodes 292599 score 157
+GUI RSP> info depth 8 nodes 317972 score 99999
+GUI RSP> b8f8 GUI RSP> transpo stat: Nbr req 26306695 req hit 8915654 set hit 9960136 set miss 129075`
+GUI RSP> info depth 3 nodes 147 score -349
+GUI RSP> info depth 4 nodes 3325 score 571
+GUI RSP> info depth 5 nodes 10538 score -355
+GUI RSP> info depth 6 nodes 144300 score 338
+GUI RSP> info depth 7 nodes 206902 score -83
+GUI RSP> info depth 8 nodes 1361026 score 99999
+GUI RSP> d5e7 GUI RSP> transpo stat: Nbr req 26700786 req hit 9070538 set hit 10102845 set miss 130532`
+GUI RSP> info depth 3 nodes 125 score -306
+GUI RSP> info depth 4 nodes 2235 score -193
+GUI RSP> info depth 5 nodes 6011 score -298
+GUI RSP> info depth 6 nodes 33149 score 610
+GUI RSP> info depth 7 nodes 95069 score 106
+GUI RSP> info depth 8 nodes 237021 score 99999
+GUI RSP> d3h7 GUI RSP> transpo stat: Nbr req 26847743 req hit 9120008 set hit 10158455 set miss 130904`
+GUI RSP> info depth 3 nodes 147 score 17
+GUI RSP> info depth 4 nodes 2530 score 126
+GUI RSP> info depth 5 nodes 7078 score 23
+GUI RSP> info depth 6 nodes 59796 score 188
+GUI RSP> info depth 7 nodes 203697 score 25
+GUI RSP> info depth 8 nodes 799538 score 99999
+GUI RSP> c5f8 GUI RSP> transpo stat: Nbr req 27173714 req hit 9242732 set hit 10279352 set miss 133790`
+GUI RSP> info depth 3 nodes 127 score 21
+GUI RSP> info depth 4 nodes 2272 score 351
+GUI RSP> info depth 5 nodes 5492 score 10
+GUI RSP> info depth 6 nodes 44073 score 347
+GUI RSP> info depth 7 nodes 144313 score -80
+GUI RSP> info depth 8 nodes 520294 score 99999
+GUI RSP> f3g5 GUI RSP> transpo stat: Nbr req 27411731 req hit 9335820 set hit 10370119 set miss 134156`

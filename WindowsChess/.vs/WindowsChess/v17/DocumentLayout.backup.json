@@ -3,6 +3,9 @@
   "WorkspaceRootPath": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\WindowsChess\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{23B03341-6406-4012-9D14-64D52F80325E}|WindowsChess.vcxproj|C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{23B03341-6406-4012-9D14-64D52F80325E}|WindowsChess.vcxproj|C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\uci.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
@@ -16,11 +19,48 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 6,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
+              "Title": "main.c",
+              "DocumentMoniker": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\main.c",
+              "RelativeDocumentMoniker": "..\\src\\main.c",
+              "ToolTip": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\main.c",
+              "RelativeToolTip": "..\\src\\main.c",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACoAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-02-06T19:18:48.899Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "uci.h",
               "DocumentMoniker": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\uci.h",
               "RelativeDocumentMoniker": "..\\src\\uci.h",
@@ -28,18 +68,17 @@
               "RelativeToolTip": "..\\src\\uci.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-23T20:32:56.483Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-23T20:32:56.483Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "uci.c",
               "DocumentMoniker": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\uci.c",
               "RelativeDocumentMoniker": "..\\src\\uci.c",
               "ToolTip": "C:\\Users\\bdosd\\source\\repos\\CoreChess\\src\\uci.c",
               "RelativeToolTip": "..\\src\\uci.c",
-              "ViewState": "AgIAADsAAAAAAAAAAAAIwKgAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAACUAAAAAAAAAAAAmwKgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2025-01-16T20:13:28.077Z",
               "EditorCaption": ""
