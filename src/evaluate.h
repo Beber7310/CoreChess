@@ -13,7 +13,7 @@
 #define BISHOP_VALUE 330
 #define ROOK_VALUE   500
 #define QUEEN_VALUE  900
-
+#define INF (99999)
 
 #define BISHOP_PAIR  30;
 #define KNIGHT_PAIR  8;

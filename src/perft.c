@@ -13,6 +13,7 @@
 #include "search.h"
 #include "tcpserver.h"
 #include "transposition.h"
+#include "evaluate.h"
 
 #define PRINT_PERFT_MOVE	0
 #define BUZZ_SIZE 512
@@ -149,7 +150,7 @@ int puzzleMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut, int* n
 	negaMaxConf stat;
 
 	printf("%s", posStart);
-	boardPrintFen(&board, NULL);
+	//boardPrintFen(&board, NULL);
 	searchStart(&board, 120000, 120000, 1000,1000,1, &stat,NULL);
 
 

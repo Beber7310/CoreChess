@@ -6,10 +6,31 @@
  */
 #include <string.h>
 
+
 #include "board.h"
 #include "movegen.h"
 #include "bitutils.h"
 #include "zobrist.h"
+#include "move.h"
+#include "evaluate.h"
+
+/*
+#define PAWN_VALUE   100
+#define KNIGHT_VALUE 320
+#define BISHOP_VALUE 330
+#define ROOK_VALUE   500
+#define QUEEN_VALUE  900
+#define INF (99999)
+
+PAWN,
+ROOK,
+KNIGHT,
+BISHOP,
+QUEEN,
+KING
+*/
+
+int moveEvalValue[6] = { PAWN_VALUE ,ROOK_VALUE, KNIGHT_VALUE,BISHOP_VALUE,QUEEN_VALUE,INF };
 
 void boardClear(sboard* pBoard) {
 	for (int ii = 0; ii < 2; ii++) {
@@ -429,6 +450,23 @@ void boardGenerateAllMoves(sboard* board, smoveList* moveList) {
 
 }
 
+void evaluateMoveScore(sboard* board, smoveList* moveList)
+{
+	int valueV, valueA;
+	for (int ii = 0; ii < moveList->_nbrMove; ii++) {
+		if (MOVE_FLAG(moveList->_sMoveList[ii]._move) == CAPTURE) {
+
+			valueV = moveEvalValue[MOVE_PIECE_CAPTURED(moveList->_sMoveList[ii]._move)];
+			valueA = moveEvalValue[MOVE_PIECE(moveList->_sMoveList[ii]._move)];
+
+			moveList->_sMoveList[ii]._value = valueV;
+			if (valueV > valueA)
+				moveList->_sMoveList[ii]._value += valueV - valueA;
+
+		}
+	}
+}
+
 void boardGenerateAllLegalMoves(sboard* board, smoveList* moveList) {
 	smoveList tmpList;
 	sboard tmpBoard;
@@ -450,6 +488,7 @@ void boardGenerateAllLegalMoves(sboard* board, smoveList* moveList) {
 			}
 		}
 	}
+	evaluateMoveScore(board, moveList);
 }
 
 void boardAddMovesPromotion(sboard* board, smoveList* moveList, int from, PieceType pieceType, U64 moves, U64 attackable) {
@@ -689,7 +728,7 @@ void boardPrint(sboard* pBoard) {
 
 void boardPrintFen(sboard* pBoard, char* pFEN)
 {
-	char strtmp[5]="";
+	char strtmp[5] = "";
 	int whiteSpace = 0;
 	for (int jj = 56; jj >= 0; jj -= 8) {
 		for (int ii = 0; ii < 8; ii++) {
@@ -757,10 +796,10 @@ void boardPrintFen(sboard* pBoard, char* pFEN)
 	}
 	else
 	{
-		if (pBoard->_castlingRights & CASTLING_WHITE_KING == CASTLING_WHITE_KING)  strcat(pFEN, "K");
-		if (pBoard->_castlingRights & CASTLING_WHITE_QUEEN == CASTLING_WHITE_QUEEN) strcat(pFEN, "Q");
-		if (pBoard->_castlingRights & CASTLING_BLACK_KING == CASTLING_BLACK_KING)  strcat(pFEN, "k");
-		if (pBoard->_castlingRights & CASTLING_BLACK_QUEEN == CASTLING_BLACK_QUEEN) strcat(pFEN, "q");
+		if ((pBoard->_castlingRights & CASTLING_WHITE_KING) == CASTLING_WHITE_KING)  strcat(pFEN, "K");
+		if ((pBoard->_castlingRights & CASTLING_WHITE_QUEEN) == CASTLING_WHITE_QUEEN) strcat(pFEN, "Q");
+		if ((pBoard->_castlingRights & CASTLING_BLACK_KING) == CASTLING_BLACK_KING)  strcat(pFEN, "k");
+		if ((pBoard->_castlingRights & CASTLING_BLACK_QUEEN) == CASTLING_BLACK_QUEEN) strcat(pFEN, "q");
 	}
 	strcat(pFEN, " ");
 
