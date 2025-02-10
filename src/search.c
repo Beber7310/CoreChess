@@ -18,17 +18,37 @@
 #include "book.h"
 #include "tcpserver.h"
 #include "quiescence.h"
+#include "polyglot.h"
+
+#ifdef _MSC_VER
+#include <sys\timeb.h> 
+#else
+#include <sys/timeb.h> 
+#endif
+
+
 
 int gStopSearch;			// used to stop digging when time is over
 int gNodeCptCheckTime;		//Used as a counter to choose when to print some info
 extern int uciOptionQuiesence;
 
-int searchGetTime(negaMaxConf* stat) {
-	return (int)(time(NULL) - stat->startSearchTIme);
+
+
+
+int searchGetTime(negaMaxConf * stat) {
+	struct timeb tp;
+	ftime(&tp);
+	int delta = 1000 * (tp.time - stat->startSearchTIme.time);
+	delta += tp.millitm - stat->startSearchTIme.millitm;
+
+	return delta;
 }
 
-void searchCheckTime(negaMaxConf* stat) {
+void searchCheckTime(negaMaxConf * stat) {
+	char str[128];
 	int time = searchGetTime(stat);
+	//snprintf(str, 128, "current time: %i\n", time);
+	//printTcp(str);
 	if (time >= stat->maxSearchTime)
 	{
 		printf("searchCheckTime Timeout!!! %i\n", time);
@@ -36,7 +56,7 @@ void searchCheckTime(negaMaxConf* stat) {
 	}
 }
 
-void UciInfo(int depth, int node, int score, negaMaxConf* stat) {
+void UciInfo(int depth, int node, int score, negaMaxConf * stat) {
 	char str[128];
 
 
@@ -44,7 +64,7 @@ void UciInfo(int depth, int node, int score, negaMaxConf* stat) {
 	printTcp(str);
 }
 
-int negamaxTT(sboard* pBoard, int depth, int alpha, int beta, negaMaxConf* statistics, search_state state, smoveList* pastMoves, smoveList* pvMoves) {
+int negamaxTT(sboard * pBoard, int depth, int alpha, int beta, negaMaxConf * statistics, search_state state, smoveList * pastMoves, smoveList * pvMoves) {
 	smoveList mliste;
 	sboard child;
 	ttEntry* tt;
@@ -190,7 +210,7 @@ int negamaxTT(sboard* pBoard, int depth, int alpha, int beta, negaMaxConf* stati
 			moveOrderAddKiller(&mliste._sMoveList[ii], depth);//TBC
 			break;  //break (* cut-off *)
 		}
-		
+
 	}
 
 	// Save the result in the hash db
@@ -219,7 +239,7 @@ int negamaxTT(sboard* pBoard, int depth, int alpha, int beta, negaMaxConf* stati
 }
 
 
-int findPV(sboard* pBoard, int depth, smoveList* pvMove)
+int findPV(sboard * pBoard, int depth, smoveList * pvMove)
 {
 	sboard Board;
 	negaMaxConf stat;
@@ -228,8 +248,8 @@ int findPV(sboard* pBoard, int depth, smoveList* pvMove)
 
 	moveListInit(pvMove);
 
-	stat.maxSearchTime = 5;
-	time(&stat.startSearchTIme);
+	stat.maxSearchTime = 5000;
+	ftime(&stat.startSearchTIme);
 
 	for (int ii = 1; ii < depth; ii++)
 	{
@@ -259,19 +279,25 @@ int findPV(sboard* pBoard, int depth, smoveList* pvMove)
 /// <param name="moveToGo"></param>
 /// <param name="stat"></param>
 /// <returns></returns>
-smove searchStart(sboard* pBoard, int wtime, int btime, int winc, int binc, int moveToGo, negaMaxConf* stat, smoveList* pastMoves) {
+smove searchStart(sboard * pBoard, int wtime, int btime, int winc, int binc, int moveToGo, negaMaxConf * stat, smoveList * pastMoves) {
 	smoveList pvMove;
+	smoveList bookMovesList;
 	smove bestMove;
 	int incr = 0;
 	int player_time = 0;
-	char fen[128]="";
+	char fen[128] = "";
+	char str[128] = "";
 
 	moveListInit(&pvMove);
-
+	boardGenerateAllLegalMoves(pBoard, &bookMovesList);
 
 	boardPrintFen(pBoard, &fen);
 	printf(fen);
-	polyglot_listMove(polyglot_hash(&fen));
+
+	if (polyglot_listMove(polyglot_hash(&fen), &bestMove))
+		return bestMove;
+
+
 
 	bestMove = getBookMove(pBoard, BOOK_NARROW);
 	if (bestMove._move != 0) {
@@ -295,12 +321,19 @@ smove searchStart(sboard* pBoard, int wtime, int btime, int winc, int binc, int 
 		player_time = 100000;
 
 	if (moveToGo < 1)
-		moveToGo = 10;
+	{
+		moveToGo = 70 - pastMoves->_nbrMove;
+		if (moveToGo < 20)
+			moveToGo = 20;
+	}
+
 
 	player_time = player_time / moveToGo;
 
-	stat->maxSearchTime = (player_time + incr) / 1000;
+	stat->maxSearchTime = (player_time + incr);
 
+	snprintf(str, 128, "Search time: %i ms\n", stat->maxSearchTime);
+	printTcp(str);
 
 	gStopSearch = 0;
 	stat->nbrNode = 0;
@@ -308,7 +341,7 @@ smove searchStart(sboard* pBoard, int wtime, int btime, int winc, int binc, int 
 	stat->nbrZob = 0;
 	stat->nbrQuies = 0;
 
-	time(&stat->startSearchTIme);
+	ftime(&stat->startSearchTIme);
 
 	gNodeCptCheckTime = 0;
 

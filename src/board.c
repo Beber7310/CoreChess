@@ -174,8 +174,6 @@ void boardInitFromFen(sboard* pBoard, char* pFEN) {
 
 }
 
-
-
 void boardCpy(sboard* dst, sboard* src) {
 	memcpy(dst, src, sizeof(sboard));
 }
@@ -691,7 +689,7 @@ void boardPrint(sboard* pBoard) {
 
 void boardPrintFen(sboard* pBoard, char* pFEN)
 {
-	char strtmp[5];
+	char strtmp[5]="";
 	int whiteSpace = 0;
 	for (int jj = 56; jj >= 0; jj -= 8) {
 		for (int ii = 0; ii < 8; ii++) {
@@ -768,7 +766,7 @@ void boardPrintFen(sboard* pBoard, char* pFEN)
 
 	if (pBoard->_enPassant)
 	{
-		sprintf(strtmp, "%i", pBoard->_enPassant);
+		sprintf(strtmp, "%i", _bitscanForward(pBoard->_enPassant));
 		strcat(pFEN, strtmp);
 	}
 	else

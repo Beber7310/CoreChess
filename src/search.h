@@ -10,13 +10,14 @@
 
 #include <time.h>
 #include "move.h"
+#include <sys/timeb.h>
 
 #define INF (99999)
 #define MAX_SEARCH_DEPTH 30
 
 
 typedef struct negaMaxConf_t {
-	time_t startSearchTIme;
+	struct timeb  startSearchTIme;
 	int maxSearchTime;
 	int maxDepth;
 	int nbrNode;
