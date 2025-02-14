@@ -210,6 +210,7 @@ int polyglot_listMove(uint64 key, smove* pMove) {
 	f = fopen(file_name, "rb");
 	if (!f) {
 		perror(file_name);
+		printf("Unable to find opening book %s\n", file_name);
 		return NULL;
 	}
 	offset = find_key(f, key, &entry);
@@ -218,7 +219,8 @@ int polyglot_listMove(uint64 key, smove* pMove) {
 		printf("%016I64x: No such key\n", key);
 #else
 		printf("%016llx: No such key\n", key);
-#endif        
+#endif  
+		fclose(f);
 		return 0;
 	}
 	entries[0] = entry;
@@ -234,6 +236,7 @@ int polyglot_listMove(uint64 key, smove* pMove) {
 		}
 		if (count == MAX_MOVES) {
 			printf("Too many moves in this position (max=%d)\n", MAX_MOVES);
+			fclose(f);
 			return 0;
 		}
 		entries[count++] = entry;
@@ -252,6 +255,7 @@ int polyglot_listMove(uint64 key, smove* pMove) {
 	move_to_smove(pMove, entries[0].move);
 
 
+	fclose(f);
 	return 1;
 }
 

@@ -42,7 +42,7 @@ int perft(sboard* pBoard, int* pNodeCnt, int depth, int iteration) {
 		if (!colorIsInCheck(&nextBoard, !nextBoard._ActivePlayer)) {
 #if PRINT_PERFT_MOVE > 0
 			if (iteration == 0) {
-				movePrintShort(&mList._sMoveList[ii],res);
+				movePrintShort(&mList._sMoveList[ii], res);
 				printTcp(res);
 			}
 #endif
@@ -71,7 +71,8 @@ int perftRun(char* posStart, int depth, int expected) {
 	if (cnt != expected) {
 		printf("perf %i KO get %i expecting %i\n", depth, cnt, expected);
 		return 1;
-	} else {
+	}
+	else {
 		printf("perf %i OK get %i expecting %i\n", depth, cnt, expected);
 		return 0;
 	}
@@ -107,7 +108,7 @@ int perftCheckFile(char* fileName, int depth) {
 	char* strD[6];
 	int D[6];
 	int err = 0;
-	FILE *f = fopen(fileName, "r");
+	FILE* f = fopen(fileName, "r");
 	if (f == NULL)
 	{
 		printf("Error while opening perft file %s\n", fileName);
@@ -132,13 +133,14 @@ int perftCheckFile(char* fileName, int depth) {
 
 	if (err) {
 		printf("perft finish with error!\n");
-	} else
+	}
+	else
 		printf("perft check OK!\n");
 
 	return 0;
 }
 
-int puzzleMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut, int* nbrZob,int* nbrQuies) {
+int puzzleMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut, int* nbrZob, int* nbrQuies) {
 	sboard board;
 	boardInitFromFen(&board, posStart);
 	boardPrint(&board);
@@ -151,7 +153,7 @@ int puzzleMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut, int* n
 
 	printf("%s", posStart);
 	//boardPrintFen(&board, NULL);
-	searchStart(&board, 120000, 120000, 1000,1000,1, &stat,NULL);
+	searchStart(&board, 120000, 120000, 1000, 1000, 2*depth+2, &stat, NULL);
 
 
 	if ((stat.boardEval != INF) && (stat.boardEval != -INF)) {
@@ -160,11 +162,12 @@ int puzzleMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut, int* n
 		printTcp(res);
 		printf("\n");
 		return 1;
-	} else {
+	}
+	else {
 		printf("OK! ");
-		movePrintShort(&board._bestMove,res);
+		movePrintShort(&board._bestMove, res);
 		printTcp(res);
- 
+
 
 		printf("\n");
 		printf("Terminal node %i\n", stat.nbrNode);
@@ -180,8 +183,43 @@ int puzzleMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut, int* n
 
 		return 0;
 	}
+}
+
+int benchMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut, int* nbrZob, int* nbrQuies) {
+	sboard board;
+	boardInitFromFen(&board, posStart);
+	boardPrint(&board);
+	char res[64];
+#if PRINT_PERFT_MOVE > 0
+	boardPrint(&board);
+#endif
+
+	negaMaxConf stat;
+
+	printf("%s", posStart);
+	//boardPrintFen(&board, NULL);
+	searchStart(&board, 200000, 200000, 1000, 1000, depth, &stat, NULL);
+
+	printf("OK! ");
+	movePrintShort(&board._bestMove, res);
+	printTcp(res);
+
+	printf("\n");
+	printf("Terminal node %i\n", stat.nbrNode);
+	printf("Cut           %i\n", stat.nbrCut);
+	printf("Zob           %i\n\n", stat.nbrZob);
+	printf("Quies         %i\n\n", stat.nbrQuies);
+	ttPrintStat();
+
+	*nbrNode += stat.nbrNode;
+	*nbrCut += stat.nbrCut;
+	*nbrZob += stat.nbrZob;
+	*nbrQuies += stat.nbrQuies;
+
+	return 0;
 
 }
+
 
 int puzzlzCheckFile(char* fileName, int depth) {
 
@@ -195,22 +233,23 @@ int puzzlzCheckFile(char* fileName, int depth) {
 	int startTime, endTime;
 
 	int err = 0;
-	FILE *f = fopen(fileName, "r");
+	FILE* f = fopen(fileName, "r");
 	if (f == NULL) {
 		printf("Error while opening puzzle file %s\n", fileName);
-		exit (-1);
+		exit(-1);
 	}
-	startTime =(int) time(NULL);
-	while (fgets(buff, BUZZ_SIZE, f) && (err==0)) {
+	startTime = (int)time(NULL);
+	while (fgets(buff, BUZZ_SIZE, f) && (err == 0)) {
 		pos = strtok(buff, ";");
-		err += puzzleMasterRun(pos, depth, &nbrNode, &nbrCut, &nbrZob,&nbrQuies);
+		err += puzzleMasterRun(pos, depth, &nbrNode, &nbrCut, &nbrZob, &nbrQuies);
 	}
-	endTime = (int)  time(NULL);
+	endTime = (int)time(NULL);
 	fclose(f);
 
 	if (err) {
 		printf("Puzzle check finish with error!\n");
-	} else {
+	}
+	else {
 		printf("   --- Puzzle check OK! --- \n");
 		printf("Nodes %i\n", nbrNode);
 		if ((endTime - startTime))
@@ -220,11 +259,53 @@ int puzzlzCheckFile(char* fileName, int depth) {
 		printf("Cuts  %i\n", nbrCut);
 		printf("Zobs  %i\n", nbrZob);
 		printf("Quies %i\n", nbrQuies);
-		
+
 	}
 	return 0;
 }
 
- 
- 
+int benchCheckFile(char* fileName, int depth) {
+
+	char buff[BUZZ_SIZE];
+	char* pos;
+
+	int nbrNode = 0;
+	int nbrCut = 0;
+	int nbrZob = 0;
+	int nbrQuies = 0;
+	int startTime, endTime;
+
+	int err = 0;
+	FILE* f = fopen(fileName, "r");
+	if (f == NULL) {
+		printf("Error while opening puzzle file %s\n", fileName);
+		exit(-1);
+	}
+	startTime = (int)time(NULL);
+	while (fgets(buff, BUZZ_SIZE, f) && (err == 0)) {
+		pos = strtok(buff, ";");
+		err += benchMasterRun(pos, depth, &nbrNode, &nbrCut, &nbrZob, &nbrQuies);
+	}
+	endTime = (int)time(NULL);
+	fclose(f);
+
+	if (err) {
+		printf("Puzzle check finish with error!\n");
+	}
+	else {
+		printf("   --- Puzzle check OK! --- \n");
+		printf("Nodes %i\n", nbrNode);
+		if ((endTime - startTime))
+			printf("nps   %i\n", nbrNode / (endTime - startTime));
+		if ((endTime - startTime))
+			printf("time   %i\n", endTime - startTime);
+		printf("Cuts  %i\n", nbrCut);
+		printf("Zobs  %i\n", nbrZob);
+		printf("Quies %i\n", nbrQuies);
+
+	}
+	return 0;
+}
+
+
 

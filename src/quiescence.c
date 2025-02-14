@@ -13,7 +13,6 @@
 #include "board.h"
 #include "search.h"
 #include "evaluate.h"
-#include "search.h"
 #include "moveOrder.h"
 #include "transposition.h"
 #include "book.h"
@@ -21,37 +20,31 @@
 extern int gStopSearch;			// used to stop digging when time is over
 extern int gNodeCptCheckTime;		//Used as a counter to choose when to print some info
 extern int uciOptionQuiesence;
- 
+
+// int Quiessence(sboard* pBoard, int depth, int alpha, int beta, negaMaxConf* statistics, search_state state);
+
 int Quiessence(sboard* pBoard, int depth, int alpha, int beta, negaMaxConf* statistics, search_state state) {
 	smoveList mliste;
 	sboard child;
-	 
+	ttEntry* tt;
+
+	//int alphaOrig = alpha;
+
+	int stand_pat = evaluate(pBoard);
+	int best_value = stand_pat;
+	statistics->nbrQuies++;
+
+	if (stand_pat >= beta)
+		return stand_pat;
+	if (alpha < stand_pat)
+		alpha = stand_pat;
+
 	if (gStopSearch)
 		return 0;
- 
-	int val;
-	if (pBoard->_ActivePlayer == WHITE)
-		val = evaluate(pBoard);
-	else
-		val = -evaluate(pBoard);
 
-	if (depth < 5)
-		return val;
-
-	int stand_pat = val;
-
-	/* check if stand-pat score causes a beta cutoff */
-	if (val >= beta)
-		return beta;
-
-	/* check if stand-pat score may become a new alpha */
-	if (alpha < val)
-		alpha = val;
-
-	 
 	boardGenerateAllLegalMoves(pBoard, &mliste);
-	// Check for checkmate and stalemate
-	if (mliste._nbrMove == 0) {
+
+	if (mliste._nbrMove == 0) {				// Check for checkmate and stalemate
 		statistics->nbrNode++;
 		if (colorIsInCheck(pBoard, pBoard->_ActivePlayer)) {
 			return -INF;
@@ -59,67 +52,27 @@ int Quiessence(sboard* pBoard, int depth, int alpha, int beta, negaMaxConf* stat
 		return 0; // mate
 	}
 
-	/*if (depth == 0) { // or node is a terminal node then
-		statistics->nbrNode++;
-		gNodeCptCheckTime++;
-		if (gNodeCptCheckTime > 100000) {
-			searchCheckTime(statistics);
-			gNodeCptCheckTime = 0;
-		}
+	moveOrder(&mliste, depth, state == SEARCH_QUIESSENCE, NULL, statistics);
 
-		if (!uciOptionQuiesence)
-		{
-			int res = evaluate(pBoard);
-			if (pBoard->_ActivePlayer == WHITE)
-				return res;
-			else
-				return -res;
-		}
-		else
-		{
-			if (state == SEARCH_ALPHA)
-			{
-				depth = 5;
-				statistics->nbrQuies++;
-				state = SEARCH_QUIESSENCE;
-			}
-			else if (state == SEARCH_QUIESSENCE)
-			{
-				int res = evaluate(pBoard);
-				if (pBoard->_ActivePlayer == WHITE)
-					return res;
-				else
-					return -res;
-			}
-		}
+	if (depth < statistics->maxDepth + 2) {
+		int score = -INF;
+		for (int ii = 0; ii < mliste._nbrMove; ii++) {
+			int drawCnt = 0;
 
+			boardCpy(&child, pBoard);
+			doMove(&child, &mliste._sMoveList[ii]);
 
-	}
-	*/
+			score = -Quiessence(&child, depth + 1, -beta, -alpha, statistics, state);
 
-	moveOrder(&mliste, 0, 1,NULL, statistics); 
+			if (score >= beta)
+				return score;
+			if (score > best_value)
+				best_value = score;
+			if (score > alpha)
+				alpha = score;
 
-	int value = -INF;
-	for (int ii = 0; ii < mliste._nbrMove; ii++) {
-
-		if (MOVE_PIECE_CAPTURED(mliste._sMoveList[ii]._move) == KING)
-			return INF;
-
-
-		boardCpy(&child, pBoard);
-		doMove(&child, &mliste._sMoveList[ii]);
-
-		value = -Quiessence(&child, depth - 1, -beta, -alpha, statistics, state);
-
-		if (value > alpha) {		
-			if (value >= beta) {								
-				moveOrderAddKiller(&mliste._sMoveList[ii], 0);
-				return beta;
-			}
-			alpha = value;
 		}
 	}
-	return alpha;
-
+	return best_value;
 }
- //setoption name Quiescence value true
+

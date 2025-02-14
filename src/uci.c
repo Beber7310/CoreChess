@@ -24,7 +24,7 @@ int uciOptionQuiesence = 0;
 
 void uciLog(char* s) {
 	FILE* pFile;
-	pFile = fopen("logUci.txt", "a");
+	pFile = fopen(logFileName, "a");
 	fprintf(pFile, "%s\n", s);
 	fclose(pFile);
 }
@@ -62,12 +62,10 @@ void uciParseGo(char* str) {
 			token = strtok(NULL, " ");
 			binc = atoi(token);
 		} 
-
 		if (strncmp("movestogo", token, sizeof("movestogo") - 1) == 0) {
 			token = strtok(NULL, " ");
 			movestogo = atoi(token);
 		}
-
 
 		token = strtok(NULL, " ");
 	}
@@ -206,7 +204,7 @@ void uciParsePosition(char* str) {
 void uciParseCmd(char* str) {
 	char* token;
 	FILE* pFile;
-	pFile = fopen("logUci.txt", "a");
+	pFile = fopen(logFileName, "a");
 	fprintf(pFile, "GUI CMD> %s", str);
 	fclose(pFile);
 
@@ -268,6 +266,13 @@ void uciParseCmd(char* str) {
 	else if (strncmp("puz_tt", token, sizeof("puz_tt") - 1) == 0) {
 		puzzlzCheckFile("mat_tt.epd", 25);
 	}
+	else if (strncmp("bench50", token, sizeof("bench50") - 1) == 0) {
+		benchCheckFile("50_openings.epd", 8);
+	}
+	else if (strncmp("bench", token, sizeof("bench") - 1) == 0) {
+		benchCheckFile("4000_openings.epd", 8);
+	}
+
 	else if (strncmp("exit", token, sizeof("exit") - 1) == 0) {
 		exit(0);
 	}
@@ -294,7 +299,7 @@ void main_UCI() {
 	char str[1024];
 	FILE* pFile;
 
-	pFile = fopen("logUci.txt", "a");
+	pFile = fopen(logFileName, "a");
 
 	fclose(pFile);
 

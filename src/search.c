@@ -130,22 +130,13 @@ int negamaxTT(sboard * pBoard, int depth, int alpha, int beta, negaMaxConf * sta
 			if (state == SEARCH_ALPHA)
 			{
 				depth = 5;
-				statistics->nbrQuies++;
 				state = SEARCH_QUIESSENCE;
-				return Quiessence(pBoard, depth, alpha, beta, statistics, state);
-			}
-			else if (state == SEARCH_QUIESSENCE)
-			{
-				int res = evaluate(pBoard);
-				if (pBoard->_ActivePlayer == WHITE)
-					return res;
-				else
-					return -res;
-			}
+				return Quiessence(pBoard, depth +1,  alpha, beta, statistics, state);
+			}			 
 		}
 	}
 
-	// printf("3\n");//DEBUG
+	// printf("3\n");//DEBUG 
 
 	boardGenerateAllLegalMoves(pBoard, &mliste);
 
@@ -193,7 +184,15 @@ int negamaxTT(sboard * pBoard, int depth, int alpha, int beta, negaMaxConf * sta
 			value = 0;
 		}
 		else {
-			value = max(value, -negamaxTT(&child, depth + 1, -beta, -alpha, statistics, state, pastMoves, pvMoves));
+			//apha-beta
+			//value = max(value, -negamaxTT(&child, depth + 1, -beta, -alpha, statistics, state, pastMoves, pvMoves));
+			
+			//PVS
+			value = max(value, -negamaxTT(&child, depth + 1, -(alpha+1), -alpha, statistics, state, pastMoves, pvMoves));
+			if (value > alpha && value < beta) {
+				value = max(value, -negamaxTT(&child, depth + 1, -beta, -alpha, statistics, state, pastMoves, pvMoves));
+			}
+			
 		}
 		if (value > alpha) {
 			moveCpy(&pBoard->_bestMove, &mliste._sMoveList[ii]);
@@ -347,8 +346,9 @@ smove searchStart(sboard * pBoard, int wtime, int btime, int winc, int binc, int
 
 	moveOrderClearKiller();
 
-
-	for (int depth = 3; depth < MAX_SEARCH_DEPTH; depth++) {
+	if (moveToGo > MAX_SEARCH_DEPTH)
+		moveToGo = MAX_SEARCH_DEPTH;
+	for (int depth = 3; depth <= moveToGo; depth++) {
 
 		stat->maxDepth = depth;
 

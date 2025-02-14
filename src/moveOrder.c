@@ -70,21 +70,31 @@ void moveOrder(smoveList* pMoveList, int depth, int filterQuies, smoveList* pvMo
 	tmpListC._nbrMove = 0;
 	tmpList0._nbrMove = 0;
 
-	if (pvMoves)
-	{
-		for (int ii = 0; ii < pMoveList->_nbrMove; ii++) {
-			if (pMoveList->_sMoveList[ii]._move == pvMoves->_sMoveList[depth - 1]._move) {
-				moveCpy(&tmpList._sMoveList[tmpList._nbrMove], &pvMoves->_sMoveList[depth - 1]);
-				tmpList._nbrMove++;
 
-				// Remove the move from the original move to avoid to get it 2 times
-				moveCpy(&pMoveList->_sMoveList[ii], &pMoveList->_sMoveList[pMoveList->_nbrMove - 1]);
-				pMoveList->_nbrMove--;
-				break;
+	//
+	// PV search
+	//
+	if (filterQuies == 0) {
+		if (pvMoves)
+		{
+			for (int ii = 0; ii < pMoveList->_nbrMove; ii++) {
+				if (pMoveList->_sMoveList[ii]._move == pvMoves->_sMoveList[depth - 1]._move) {
+					moveCpy(&tmpList._sMoveList[tmpList._nbrMove], &pvMoves->_sMoveList[depth - 1]);
+					tmpList._nbrMove++;
+
+					// Remove the move from the original move to avoid to get it 2 times
+					moveCpy(&pMoveList->_sMoveList[ii], &pMoveList->_sMoveList[pMoveList->_nbrMove - 1]);
+					pMoveList->_nbrMove--;
+					break;
+				}
 			}
 		}
 	}
 
+
+	//
+	// Killer move
+	//
 	if (filterQuies == 0)
 	{
 		for (int ii = 0; ii < pMoveList->_nbrMove; ii++) {
@@ -106,19 +116,12 @@ void moveOrder(smoveList* pMoveList, int depth, int filterQuies, smoveList* pvMo
 			}
 		}
 	}
-	/*
-	for (int ii = 0; ii < pMoveList->_nbrMove; ii++) {
-		if (MOVE_FLAG(pMoveList->_sMoveList[ii]._move) & CAPTURE) {
-			moveCpy(&tmpList._sMoveList[tmpList._nbrMove], &pMoveList->_sMoveList[ii]);
-			tmpList._nbrMove++;
 
-			// Remove the move from the original move to avoid to get it 2 times
-			moveCpy(&pMoveList->_sMoveList[ii], &pMoveList->_sMoveList[pMoveList->_nbrMove - 1]);
-			pMoveList->_nbrMove--;
-			ii--;
-		}
-	}
-	*/
+
+	//
+	// MVVLVA
+	//
+
 	if (filterQuies == 0)
 	{
 		for (int ii = 0; ii < pMoveList->_nbrMove; ii++) {
@@ -145,8 +148,21 @@ void moveOrder(smoveList* pMoveList, int depth, int filterQuies, smoveList* pvMo
 			pMoveList->_nbrMove--;
 			ii--;
 		}
-
-
+	}
+	else
+	{
+		for (int ii = 0; ii < pMoveList->_nbrMove; ii++) {
+			if (MOVE_FLAG(pMoveList->_sMoveList[ii]._move) & CAPTURE) {
+				if (MOVE_PIECE(pMoveList->_sMoveList[ii]._move) > MOVE_PIECE_CAPTURED(pMoveList->_sMoveList[ii]._move))
+				{
+					moveCpy(&tmpListA._sMoveList[tmpListA._nbrMove++], &pMoveList->_sMoveList[ii]);
+					// Remove the move from the original move to avoid to get it 2 times
+					moveCpy(&pMoveList->_sMoveList[ii], &pMoveList->_sMoveList[pMoveList->_nbrMove - 1]);
+					pMoveList->_nbrMove--;
+					ii--;
+				}
+			}
+		}
 	}
 
 	pMoveList->_nbrMove = 0;

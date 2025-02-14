@@ -17,11 +17,18 @@
 #include "transposition.h"
 #include "book.h"
 
+
+char logFileName[128];
+
+
+
 int main_TCP(void);
- 
+
 
 
 int main(int argc, char* argv[]) {
+
+	char buffer[128];
 
 	moveGenInit();
 	zobInit();
@@ -29,15 +36,19 @@ int main(int argc, char* argv[]) {
 	ttInit(512);
 	initBook();
 
+	time_t timestamp = time(NULL);
+	struct tm* pTime = localtime(&timestamp);
+
+	strftime(buffer, sizeof(buffer), "%d_%m_%Y_%H_%M_%S", pTime);
+	snprintf(logFileName, sizeof(logFileName), "logUci_%s.txt", buffer);
 
 	FILE* pFile;
-	pFile = fopen("logUci.txt", "w");
+	pFile = fopen(logFileName, "w");
 	fprintf(pFile, " --- Core Chess --- \n");
 	for (int ii = 0; ii < argc; ii++)
 		fprintf(pFile, "%s\n", argv[ii]);
 	fprintf(pFile, ">UCI Start \n");
 	fclose(pFile);
-
 
 	main_UCI();
 
