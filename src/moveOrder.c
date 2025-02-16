@@ -17,10 +17,10 @@
 #include "bitutils.h"
 #include <string.h>
 
-#define ORDER_NBR_KILLER_MOVE		20
+#define ORDER_DEPTH_KILLER_MOVE		20
 #define ORDER_NBR_KILLER_MOVE_DIM	2
 
-static smove killerMoves[ORDER_NBR_KILLER_MOVE][ORDER_NBR_KILLER_MOVE_DIM];
+static smove killerMoves[ORDER_DEPTH_KILLER_MOVE][ORDER_NBR_KILLER_MOVE_DIM];
 
 void moveOrderClearKiller(void) {
 	//ZeroMemory(killerMoves, sizeof(killerMoves));
@@ -90,7 +90,7 @@ void moveOrder(smoveList* pMoveList, int depth, int filterQuies, smoveList* pvMo
 			}
 		}
 	}
-
+	
 
 	//
 	// Killer move
@@ -99,7 +99,7 @@ void moveOrder(smoveList* pMoveList, int depth, int filterQuies, smoveList* pvMo
 	{
 		for (int ii = 0; ii < pMoveList->_nbrMove; ii++) {
 			for (int dim = 0; dim < ORDER_NBR_KILLER_MOVE_DIM; dim++) {
-				for (int jj = depth - 1; (jj < ORDER_NBR_KILLER_MOVE) && (jj < depth + 1); jj++) {
+				for (int jj = depth - 1; (jj < ORDER_DEPTH_KILLER_MOVE) && (jj < depth + 1); jj++) {
 					//for (int jj = 0; jj < ORDER_NBR_KILLER_MOVE; jj++) {
 					if (pMoveList->_sMoveList[ii]._move == killerMoves[jj][dim]._move) {
 						moveCpy(&tmpList._sMoveList[tmpList._nbrMove], &killerMoves[jj][dim]);
@@ -108,14 +108,15 @@ void moveOrder(smoveList* pMoveList, int depth, int filterQuies, smoveList* pvMo
 						// Remove the move from the original move to avoid to get it 2 times
 						moveCpy(&pMoveList->_sMoveList[ii], &pMoveList->_sMoveList[pMoveList->_nbrMove - 1]);
 						pMoveList->_nbrMove--;
-						ii--;
-						dim = ORDER_NBR_KILLER_MOVE_DIM + 1;
-						jj = ORDER_NBR_KILLER_MOVE + 1;
+						
+						goto label_move_order;
 					}
 				}
 			}
 		}
 	}
+
+	label_move_order:
 
 
 	//
@@ -186,35 +187,27 @@ void moveOrder(smoveList* pMoveList, int depth, int filterQuies, smoveList* pvMo
 }
 
 void moveOrderAddKiller(smove* pMove, int depth) {
-	if (depth < ORDER_NBR_KILLER_MOVE) {
+	if (depth < ORDER_DEPTH_KILLER_MOVE) {
+
+		for (int ii = 0; ii < ORDER_NBR_KILLER_MOVE_DIM; ii++)
+		{
+			if (killerMoves[depth][ii]._value < pMove->_value)
+			{
+				killerMoves[depth][ii]._move = pMove->_move;
+				killerMoves[depth][ii]._value = pMove->_value;
+				return;
+			}
+		}
+
 		for (int ii = 0; ii < ORDER_NBR_KILLER_MOVE_DIM; ii++)
 		{
 			if (killerMoves[depth][ii]._move == 0)
 			{
 				killerMoves[depth][ii]._move = pMove->_move;
-				killerMoves[depth][ii]._value = abs(pMove->_value);
+				killerMoves[depth][ii]._value = pMove->_value;
 				return;
 			}
-			else if (killerMoves[depth][ii]._move == pMove->_move)
-			{
-				killerMoves[depth][ii]._move = pMove->_move;
-				killerMoves[depth][ii]._value = max(abs(pMove->_value), killerMoves[depth][ii]._value);
-				return;
-			}
-			else if (killerMoves[depth][ii]._value < abs(pMove->_value))
-			{
-				killerMoves[depth][ii]._move = pMove->_move;
-				killerMoves[depth][ii]._value = abs(pMove->_value);
-				return;
-			}
-			/*	else {
-					killerMoves[depth][ii]._value -= 1;
-					if (killerMoves[depth][ii]._value < 100)
-					{
-						killerMoves[depth][ii]._move = 0;
-						killerMoves[depth][ii]._value = 0;
-					}
-				}*/
 		}
+
 	}
 }

@@ -11,32 +11,32 @@
 #include "bitutils.h"
 #include "tcpserver.h"
 
-void moveBuild(smove* pMove, unsigned int from, unsigned int to, PieceType piece) {
+extern inline void moveBuild(smove* pMove, unsigned int from, unsigned int to, PieceType piece) {
 	unsigned int flags = 0;
 	pMove->_move = ((flags & 0x7f) << 21) | ((to & 0x3f) << 15) | ((from & 0x3f) << 9) | (piece & 0x7);
 	pMove->_value = 0;
 }
 
-void moveBuildDoublePawn(smove* pMove, unsigned int from, unsigned int to, PieceType piece) {
+extern inline void moveBuildDoublePawn(smove* pMove, unsigned int from, unsigned int to, PieceType piece) {
 	unsigned int flags = DOUBLE_PAWN_PUSH;
 	pMove->_move = ((flags & 0x7f) << 21) | ((to & 0x3f) << 15) | ((from & 0x3f) << 9) | (piece & 0x7);
 	pMove->_value = 0;
 }
 
 
-void moveBuildCapture(smove* pMove, unsigned int from, unsigned int to, PieceType piece, PieceType pieceKilled) {
+extern inline void moveBuildCapture(smove* pMove, unsigned int from, unsigned int to, PieceType piece, PieceType pieceKilled) {
 	moveBuild(pMove, from, to, piece);
 	unsigned int flags = CAPTURE;
 	pMove->_move |= ((flags & 0x7f) << 21) | ((pieceKilled & 0x7) << 6);
 }
 
-void moveBuildEnPassant(smove* pMove, unsigned int from, unsigned int to, PieceType piece) {
+extern inline void moveBuildEnPassant(smove* pMove, unsigned int from, unsigned int to, PieceType piece) {
 	moveBuild(pMove, from, to, piece);
 	unsigned int flags = EN_PASSANT;
 	pMove->_move |= ((flags & 0x7f) << 21);
 }
 
-void moveBuildPromotion(smove* pMove, unsigned int from, unsigned int to, PieceType piece, PieceType pieceKilled, PieceType pieceProm) {
+extern inline void moveBuildPromotion(smove* pMove, unsigned int from, unsigned int to, PieceType piece, PieceType pieceKilled, PieceType pieceProm) {
 	moveBuild(pMove, from, to, piece);
 	unsigned int flags = PROMOTION;
 	if (pieceKilled)
@@ -44,8 +44,7 @@ void moveBuildPromotion(smove* pMove, unsigned int from, unsigned int to, PieceT
 	pMove->_move |= ((flags & 0x7f) << 21) | ((pieceKilled & 0x7) << 6) | ((pieceProm & 0x7) << 3);
 }
 
-
-void moveBuildCastle(smove* pMove, unsigned int from, unsigned int to, int flags) {
+extern inline void moveBuildCastle(smove* pMove, unsigned int from, unsigned int to, int flags) {
 	moveBuild(pMove, from, to, KING);
 	pMove->_move |= ((flags & 0x7f) << 21);
 }

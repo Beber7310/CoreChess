@@ -245,6 +245,9 @@ int findPV(sboard * pBoard, int depth, smoveList * pvMove)
 	boardCpy(&Board, pBoard);
 	char strMove[10];
 
+	if (depth > MAX_PV_DEPTH)
+		depth = 5;
+	
 	moveListInit(pvMove);
 
 	stat.maxSearchTime = 5000;
@@ -294,8 +297,10 @@ smove searchStart(sboard * pBoard, int wtime, int btime, int winc, int binc, int
 	printf(fen);
 
 	if (polyglot_listMove(polyglot_hash(&fen), &bestMove))
+	{
+		moveCpy(&pBoard->_bestMove, &bestMove);
 		return bestMove;
-
+	}
 
 
 	bestMove = getBookMove(pBoard, BOOK_NARROW);

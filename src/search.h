@@ -14,7 +14,7 @@
 
 
 #define MAX_SEARCH_DEPTH 30
-
+#define MAX_PV_DEPTH 6
 
 typedef struct negaMaxConf_t {
 	struct timeb  startSearchTIme;

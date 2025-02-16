@@ -34,6 +34,7 @@ int main(int argc, char* argv[]) {
 	zobInit();
 
 	initBook();
+	ttInit(512);
 
 	time_t timestamp = time(NULL);
 	struct tm* pTime = localtime(&timestamp);
