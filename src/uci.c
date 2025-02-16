@@ -16,6 +16,7 @@
 #include "transposition.h"
 
 
+
 sboard uciBoard;
 smoveList PastMove;
 
@@ -201,6 +202,37 @@ void uciParsePosition(char* str) {
 	}
 }
 
+
+int replayMatch(char* fileName)
+{
+	char buff[4096];
+	char* token;
+
+	fileName = strtok(fileName, "\n");
+
+	FILE* f = fopen(fileName, "r");
+	if (f == NULL) {
+		printf("Error while match file %s\n", fileName);
+		exit(-1);
+	}
+
+	while (fgets(buff, sizeof(buff), f)) {
+		char* cmd;
+		token = strtok(buff, ">");
+		if (strncmp("GUI CMD", token, sizeof("GUI CMD") - 1) == 0) {
+			cmd = strtok(NULL, ">");
+			printf("<<< CMD REP >>> %s", cmd);
+			uciParseCmd(cmd);
+		}
+		else if (strncmp("GUI RSP", token, sizeof("GUI RSP") - 1) == 0)
+		{
+			printf("<<< RSP REP >>> %s", strtok(NULL, ">"));
+		}
+	}
+
+
+}
+
 void uciParseCmd(char* str) {
 	char* token;
 	FILE* pFile;
@@ -214,7 +246,7 @@ void uciParseCmd(char* str) {
 		exit(0);
 	}
 	else if (strncmp("ucinewgame", token, sizeof("ucinewgame") - 1) == 0) {
-		// rien :)
+		ttInit(512);
 	}
 	else if (strncmp("uci", token, sizeof("uci") - 1) == 0) {
 		printTcp("option name Ponder type check default true\n");
@@ -250,6 +282,10 @@ void uciParseCmd(char* str) {
 	else if (strncmp("go", token, sizeof("go") - 1) == 0) {
 		token = strtok(NULL, "");
 		uciParseGo(token);
+	}
+	else if (strncmp("replay", token, sizeof("replay") - 1) == 0) {
+		token = strtok(NULL, "");
+		replayMatch(token);
 	}
 	else if (strncmp("perft", token, sizeof("perft") - 1) == 0) {
 		perftCheckFile("perftcheck.epd", 5);
