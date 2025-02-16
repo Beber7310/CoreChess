@@ -74,7 +74,7 @@ int negamaxTT(sboard * pBoard, int depth, int alpha, int beta, negaMaxConf * sta
 	if (gStopSearch)
 		return 0;
 
-	if (state != SEARCH_FIRST)
+	if (state != SEARCH_FIRST && depth>3)
 	{
 		tt = ttGet(pBoard->_zobKey);
 		if (tt) {

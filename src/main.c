@@ -33,7 +33,6 @@ int main(int argc, char* argv[]) {
 	moveGenInit();
 	zobInit();
 
-	ttInit(512);
 	initBook();
 
 	time_t timestamp = time(NULL);
