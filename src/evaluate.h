@@ -21,6 +21,10 @@
 
 #define MOBILITY_BONUS	2
 #define ATTACK_BONUS	5
+#define DEFENCE_BONUS	80
+
+#define CASTLE_KING		200
+#define CASTLE_QUEEN	150
 
 int evaluate(sboard * pboard);
 

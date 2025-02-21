@@ -50,7 +50,7 @@ extern inline void moveBuildCastle(smove* pMove, unsigned int from, unsigned int
 }
 
 void moveListInit(smoveList* pList) {
-	memset(pList, NULL, sizeof(smoveList));
+	memset(pList, 0, sizeof(smoveList));
 }
 
 void movePrint(smove* move) {

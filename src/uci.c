@@ -246,7 +246,7 @@ void uciParseCmd(char* str) {
 		exit(0);
 	}
 	else if (strncmp("ucinewgame", token, sizeof("ucinewgame") - 1) == 0) {
-		ttInit(512);
+		ttInit(1024);
 	}
 	else if (strncmp("uci", token, sizeof("uci") - 1) == 0) {
 		printTcp("option name Ponder type check default true\n");

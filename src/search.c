@@ -145,7 +145,7 @@ int negamaxTT(sboard * pBoard, int depth, int alpha, int beta, negaMaxConf * sta
 	if (mliste._nbrMove == 0) {				// Check for checkmate and stalemate
 		statistics->nbrNode++;
 		if (colorIsInCheck(pBoard, pBoard->_ActivePlayer)) {
-			return -INF;
+			return -INF + depth;
 		}
 		return 0; // mate
 	}
@@ -184,10 +184,6 @@ int negamaxTT(sboard * pBoard, int depth, int alpha, int beta, negaMaxConf * sta
 			value = 0;
 		}
 		else {
-			//apha-beta
-			//value = max(value, -negamaxTT(&child, depth + 1, -beta, -alpha, statistics, state, pastMoves, pvMoves));
-			
-			//PVS
 			value = max(value, -negamaxTT(&child, depth + 1, -(alpha+1), -alpha, statistics, state, pastMoves, pvMoves));
 			if (value > alpha && value < beta) {
 				value = max(value, -negamaxTT(&child, depth + 1, -beta, -alpha, statistics, state, pastMoves, pvMoves));
@@ -383,7 +379,7 @@ smove searchStart(sboard * pBoard, int wtime, int btime, int winc, int binc, int
 		moveCpy(&bestMove, &pBoard->_bestMove);
 		if (searchGetTime(stat) > stat->maxSearchTime / 2)
 			return bestMove;
-		if (stat->boardEval == INF || stat->boardEval == -INF)
+		if (stat->boardEval > (INF-1000) || stat->boardEval < -(INF-1000))
 			return bestMove;
 	}
 	return pBoard->_bestMove;

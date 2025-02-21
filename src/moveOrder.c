@@ -24,7 +24,7 @@ static smove killerMoves[ORDER_DEPTH_KILLER_MOVE][ORDER_NBR_KILLER_MOVE_DIM];
 
 void moveOrderClearKiller(void) {
 	//ZeroMemory(killerMoves, sizeof(killerMoves));
-	memset(killerMoves, NULL, sizeof(killerMoves));
+	memset(killerMoves, 0, sizeof(killerMoves));
 
 }
 

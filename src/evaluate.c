@@ -69,28 +69,29 @@ int queen_pcsq_mg[64] = {
 
 	U64 own = pBoard->_allPieces[color];
 	U64 attacks = ZERO;
-
+	
 	PieceType ptype = 0;
-
+	 
+	ptype = 0;
 	while (ptype < 6) {
 		U64 ptm = pBoard->_pieces[color][ptype];
 		while (ptm) {
 			int from = _popLsb(&ptm);
 			switch (ptype) {
 			case ROOK:
-				attacks |= getRookAttacks(from, pBoard->_occupied) & ~pBoard->_allPieces[color];
+				attacks |= getRookAttacks(from, pBoard->_occupied);
 				break;
 			case KNIGHT:
-				attacks |= getKnightAttacks(from) & ~pBoard->_allPieces[color];
+				attacks |= getKnightAttacks(from);
 				break;
 			case BISHOP:
-				attacks |= getBishopAttacks(from, pBoard->_occupied) & ~pBoard->_allPieces[color];
+				attacks |= getBishopAttacks(from, pBoard->_occupied);
 				break;
 			case QUEEN:
-				attacks |= getQueenAttacks(from, pBoard->_occupied) & ~pBoard->_allPieces[color];
+				attacks |= getQueenAttacks(from, pBoard->_occupied);
 				break;
 			case KING:
-				attacks |= getKingAttacks(from) & ~pBoard->_allPieces[color];
+				attacks |= getKingAttacks(from);
 				break;
 			case PAWN:
 				break;
@@ -98,8 +99,8 @@ int queen_pcsq_mg[64] = {
 		}
 		ptype++;
 	}
-
-	return (attacks & ~own);
+  
+	return attacks;
 
 }
 
@@ -153,6 +154,25 @@ int queen_pcsq_mg[64] = {
 		 int to = _popLsb(&pawn);
 		 score -= pawn_pcsq_mg[to];
 	 }
+	 return score;
+ }
+
+ int evaluateCastle(sboard* pboard)
+ {
+
+ 
+	 int score = 0;
+
+	 if (!(pboard->_castlingRights & CASTLING_WHITE_KING))
+		 score += CASTLE_KING;
+	 if (!(pboard->_castlingRights & CASTLING_WHITE_QUEEN))
+		 score += CASTLE_QUEEN;
+	 if (!(pboard->_castlingRights & CASTLING_BLACK_KING))
+		 score -= CASTLE_KING;
+	 if (!(pboard->_castlingRights & CASTLING_BLACK_QUEEN))
+		 score -= CASTLE_QUEEN;
+
+ 
 	 return score;
  }
 
@@ -229,11 +249,14 @@ int evaluate(sboard * pboard) {
 
 	score += MOBILITY_BONUS * (_popCount(attacksW) - _popCount(attacksB));
 	score += ATTACK_BONUS * (_popCount(attacksW & pboard->_allPieces[BLACK]) - _popCount(attacksB & pboard->_allPieces[WHITE]));
-
+	score += DEFENCE_BONUS * (_popCount(attacksW & pboard->_allPieces[WHITE]) - _popCount(attacksB & pboard->_allPieces[WHITE]));
+	
 	score += evaluateKnight(pboard);
 	score += evaluateBishop(pboard);
 	score += evaluateRook(pboard);
 	score += evaluatePawn(pboard);
+	score += evaluateCastle(pboard);
 		
+
 	return score;
 }

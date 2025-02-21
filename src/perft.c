@@ -156,7 +156,7 @@ int puzzleMasterRun(char* posStart, int depth, int* nbrNode, int* nbrCut, int* n
 	searchStart(&board, 120000, 120000, 1000, 1000, 2*depth+2, &stat, NULL);
 
 
-	if ((stat.boardEval != INF) && (stat.boardEval != -INF)) {
+	if ((stat.boardEval > (INF - 1000)) && (stat.boardEval < -(INF-1000))) {
 		printf("Error puzzleMasterRun! \n");
 		movePrintShort(&board._bestMove, res);
 		printTcp(res);
